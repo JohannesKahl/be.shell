@@ -1,0 +1,68 @@
+<submenu>
+<menu label="System">
+<menu label="Preferences" icon="gnome-settings-accessibility-technologies">
+<action label="Settings" icon="control-center2" exec="systemsettings"/>
+<!--<action label="Configure network" icon="network-wireless" exec="kcmshell4 kcm_networkmanagement"/>
+<action label="Animations" icon="control-center2" exec="kcmshell4 kwincompositing"/>-->
+<action label="Oracle VirtualBox" icon="virtualbox" exec="virtualbox"/>
+</menu>
+<menu label="Administration" icon="gdm-setup">
+<action label="System Monitor" icon="ksysguard" exec="ksysguard"/>
+<action label="Info Center" icon="hardinfo" exec="kinfocenter"/>
+<action label="QDbus" icon="ksysguard" exec="qdbusviewer-qt4"/>
+<action label="Partition Editor" icon="partitionmanager" exec="kdesu partitionmanager"/>
+<separator/>
+<action label="Systemd Enabled" icon="bash" exec="konsole --hold -e sudo systemctl list-units"/>
+</menu>
+<!-- <menu label="Virtual Machines" icon="drive-harddisk">
+<action label="Elementary" icon="media-optical-cd" exec="VirtualBox -startvm Elementary"/>
+<action label="Backtrack" icon="media-optical-cd" exec="VirtualBox -startvm Backtrack"/>
+</menu> -->
+<!--<menu label="Info" icon="info">
+<action label="BE-Desk Group" icon="emblem-art" exec="http://be-desk.deviantart.com/"/>
+<action label="About Be::Shell" icon="gnochm" exec="firefox http://sourceforge.net/p/be-shell/wiki/browse_pages/"/>
+<action label="About KDE" icon="kde" exec="khelpcenter"/>
+<action label="Shell Code" icon="code-class" exec="http://sourceforge.net/p/be-shell/code/ci/720fdaa4baf234c076df3e0aed9e419762641e01/tree/"/>
+<action label="Bespin SVN Code" icon="code-class" exec="http://sourceforge.net/p/cloudcity/code/HEAD/tree/"/>
+</menu>-->
+<separator/>
+<!--<menu label="$USER" >-->
+<!--<menu label="Bespin">
+<action label="Bespin" icon="redhat-office" exec="bespin"/>
+<action label="Stored" icon="kate" exec="kwrite $HOME/.config/Bespin/Store.conf"/>
+<action label="Styles" icon="kate" exec="kwrite $HOME/.config/Bespin/Style.conf"/>
+</menu>-->
+<menu label="Arch">
+<action label="Edit pacman.conf" icon="kate" exec="kdesu kate /etc/pacman.conf"/>
+<action label="Arch Forum" icon="start-here-arch1" exec="firefox https://bbs.archlinux.org/"/>
+<action label="AUR" icon="start-here-arch1" exec="firefox http://aur.archlinux.org/"/>
+<action label="Arch Wiki" icon="start-here-arch1" exec="firefox https://wiki.archlinux.org/"/>
+<separator/>
+<action label="Reflector" icon="reload" exec="konsole --hold -e sudo reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist"/>
+<action label="Update" icon="reload" exec="konsole --hold -e sudo pacman -Syyu"/>
+<action label="Update AUR" icon="apport" exec="konsole --hold -e yaourt -Syua --devel"/>
+</menu> 
+<menu label="Configs">
+<action label="be.watched.conf" icon="kate" exec="be.watched edit"/>
+<action label="mpd.conf" icon="kate" exec="kate ~/.mpd/mpd.conf"/>
+<action label="psd.conf" icon="kate" exec="kdesu kate /etc/psd.conf"/>
+<action label="infinality.sh" icon="kate" exec="kdesu kate /etc/profile.d/infinality-settings.sh"/>
+</menu>
+<menu label="Bash">
+<action label="Edit Bashrc" icon="kate" exec="kwrite ~/.bashrc"/>
+<action label="Reload Bashrc" icon="reload" exec="konsole -e source ~/.bashrc"/>
+</menu>
+<menu label="Zsh">
+<action label="Edit Zshrc" icon="kate" exec="kwrite ~/.zshrc"/>
+<action label="Reload Zshrc" icon="reload" exec="konsole -e source ~/.zshrc"/>
+</menu>
+<action label="Kwin Shortcuts" exec="konsole --hold -e qdbus org.kde.kglobalaccel /component/kwin shortcutNames"/>
+<action label="KCM"  exec="konsole --hold -e kcmshell4 --list"/>
+<action label="Icon viewer" exec="kdialog --geticon azioni"/>
+<!--</menu>
+<action label="Logout" icon="exit" exec="konsole -e qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout 0 0 0"/>
+<action label="Screenlock" icon="lock" exec="qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock"/>
+<action label="Reboot" icon="system-restart" exec="systemctl reboot"/>
+<action label="Shutdown" icon="system-shutdown" exec="systemctl poweroff"/>-->
+</menu>
+</submenu>

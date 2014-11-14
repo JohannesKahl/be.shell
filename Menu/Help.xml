@@ -1,0 +1,10 @@
+<submenu>
+<menu label="Help">
+<action label="Arch Wiki" icon="start-here-arch1" exec="firefox https://wiki.archlinux.org/"/>
+<action label="BE-Desk Group" icon="emblem-art" exec="http://be-desk.deviantart.com/"/>
+<action label="About Be::Shell" icon="gnochm" exec="firefox http://sourceforge.net/p/be-shell/wiki/browse_pages/"/>
+<action label="About KDE" icon="kde" exec="khelpcenter"/>
+<action label="Shell Code" icon="code-class" exec="http://sourceforge.net/p/be-shell/code/ci/720fdaa4baf234c076df3e0aed9e419762641e01/tree/"/>
+<!--<action label="Bespin SVN Code" icon="code-class" exec="http://sourceforge.net/p/cloudcity/code/HEAD/tree/"/>-->
+</menu>
+</submenu>
