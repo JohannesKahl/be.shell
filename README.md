@@ -27,6 +27,8 @@ Copy the folders `Menu`, `Script` and the MainMenu.xml file to:
 Make the scripts executable:
 
    chmod -R 777 ~/.kde4/share/apps/be.shell/Scripts/*
+
+*n.b. The places script requires xmlstarlet*
   
 
 Vertex
