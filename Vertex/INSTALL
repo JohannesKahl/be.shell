@@ -1,0 +1,8 @@
+INSTALL:
+
+1 Copy the Theme folder in ~/.kde4/share/apps/be.shell/Themes/
+
+2 Copy the be.shell file in ~/.kde4/share/config/
+
+3 killall be.shell; sleep 2; be.shell
+

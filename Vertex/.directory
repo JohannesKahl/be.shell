@@ -1,0 +1,12 @@
+[Dolphin]
+GroupedSorting=true
+PreviewsShown=true
+SortRole=type
+Timestamp=2013, 6, 27, 14, 2, 17
+Version=3
+
+[DFM]
+sortCol=0
+sortOrd=0
+view=0
+colWidth=200
