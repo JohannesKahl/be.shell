@@ -1,14 +1,33 @@
-Themes
+Installation
 ======
 
-Themes & utils for [BE::Shell](http://sourceforge.net/p/be-shell/wiki/Home/).
-To install a theme, copy its directory to: 
+Install the latest [BE::Shell](http://sourceforge.net/p/be-shell/wiki/Home/).
+
+**Theme and Config**
+
+Copy the theme directory to: 
 
    ~/.kde4/share/apps/be.shell/Themes
 
-Copy the be.shell file to:
+Copy the included be.shell file to:
 
    ~/.kde4/share/config
+   
+Reload BE::Shell:
+
+   killall be.shell; sleep 2; be.shell
+   
+   
+**Globalmenu** 
+
+Copy the folders `Menu`, `Script` and the MainMenu.xml file to:
+
+  ~/.kde4/share/apps/be.shell
+  
+Make the scripts executable:
+
+   chmod -R 777 ~/.kde4/share/apps/be.shell/Scripts/*
+  
 
 Vertex
 ======
