@@ -1,7 +1,10 @@
 Installation
 ======
 
-Install the latest [BE::Shell](http://sourceforge.net/p/be-shell/wiki/Home/).
+Install [BE::Shell](http://sourceforge.net/p/be-shell/code/ci/master/tree/) or upgrade to the latest commit.
+Themes are made with [QSS](http://qt-project.org/doc/qt-4.8/stylesheet-reference.html) - Qt Style Sheets, while the menu files for the globalmenu applet follow a simple [xml syntax](http://sourceforge.net/p/be-shell/wiki/Menu%20reference/).
+
+Notice that due to the absolute positioning in BE::Shell themes usually require some adjustments within the css or the config file.
 
 **Theme and Config**
 
@@ -15,7 +18,7 @@ Copy the included be.shell file to:
    
 Reload BE::Shell:
 
-   killall be.shell; sleep 2; be.shell
+   kquitapp be.shell; sleep 2; be.shell
    
    
 **Globalmenu** 
@@ -35,4 +38,5 @@ Vertex
 ======
 
 ![Vertex preview](https://lh5.googleusercontent.com/-h83zA_HCRVQ/VGYMxGGvQOI/AAAAAAAAC7I/eNZRGMB8qW4/w1058-h595-no/schermata662.png "Vertex")
+
 
