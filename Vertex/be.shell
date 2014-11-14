@@ -84,7 +84,7 @@ Pattern='<html><small>' ddd dd'</small> &nbsp;'hh:mm AP'</html>'
 Type=Clock
 
 [dfm]
-Exec=/home/hombre/Source/dfilemanager-code/dfm/build/dfm
+Exec=dfm
 Icon=dfm
 Label=File Manager
 Mode=0
