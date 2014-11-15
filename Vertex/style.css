@@ -17,31 +17,31 @@
 /* Fix for buttons and toolboxes */
 
 QAbstractButton { padding: 0  16 0 16; border-radius: 8px; }
-QToolBox { color: palette(window); background-color: palette(windowtext); }
+/*QToolBox { color: #414244; background-color: #EFEFF1; }*/
 
 /* Clock & Calendar */
 
 .BE--Clock { padding: 0 4 1 2; }
 .BE--Clock:hover  {
-      border: 1px solid palette(button);
+      border: 1px solid #5C5D61;
       border-top-left-radius:3px;
       border-top-right-radius:3px;
 }
-#Calendar { background-color:palette(window);}
+#Calendar { background-color: #414244;}
 
 #Calendar QTableView {
-      alternate-background-color: palette(window);
-      selection-background-color: palette(selected);
-      selection-color: palette(selectedtext);
-      background:palette(base);
-      gridline-color:palette(window);
+      alternate-background-color: #414244;
+      selection-background-color: #313133;
+      selection-color: #F2F2F4;
+      background: #FFFFFF;
+      gridline-color: #414244;
       font-size:10pt;
       margin: 0 0 -3 0;
 }
 
 #Calendar #qt_calendar_navigationbar, #Calendar #qt_calendar_navigationbar > * {
-      background-color:palette(window);
-      color:palette(windowtext);
+      background-color:#414244;
+      color:#EFEFF1;
       font :10pt bold;
 }
 
@@ -93,8 +93,8 @@ QToolBox { color: palette(window); background-color: palette(windowtext); }
 .BE--Device { max-width: 14px; max-height: 14px; }
 .BE--GMenu QMenuBar, .BE--Clock, .BE--Session { font: 10pt Cantarell; }
 .BE--Run QSizeGrip, *:menu-indicator { image:none; }
-.BE--GMenu QMenuBar, .BE--Clock, .BE--Session, #close, #min, #max, #Calendar QTableView, #infocenter  {
-      color:  palette(buttontext);  /* #CECECE  & #EFEFEF #e6e6e6*/
+.BE--GMenu QMenuBar, .BE--Clock, .BE--Session, #infocenter  {
+      color:  #F2F2F4; 
 }
 
 /*  Start Button, TaskBar  and Trash */
@@ -112,7 +112,6 @@ QToolBox { color: palette(window); background-color: palette(windowtext); }
 }
 
 #OneTask { 
-/*      border-image: url("${base}/background-images/fg406last.png") 0 -1 -4 1; */
       background-image: url("${base}/background-images/arow2.png");
       background-repeat: no-repeat;
       background-position: left center;
@@ -135,7 +134,6 @@ QToolBox { color: palette(window); background-color: palette(windowtext); }
 }
 
 #ManyTasks { 
-/*      border-image: url("${base}/background-images/fg406last.png") 0 -1 -4 1; */
       background-image: url("${base}/background-images/arow-many.png");
       background-repeat: no-repeat;
       background-position: left center;
