@@ -33,10 +33,19 @@ QAbstractButton { padding: 0  16 0 16; border-radius: 8px; }
 .BE--Session { margin: 2 4 2 0; padding:0 0 0 0;  font-weight: bold; }
 .BE--Volume { padding: 2 8 0 0; margin: 0px; max-width:22px; max-height: 16px;}
 .BE--InfoCenter { padding: -2 1 -2 1; }
-.BE--MediaTray { margin: 1 1 1 -18; padding: 1 2 1 1; }
-.BE--Device { max-width: 14px; max-height: 14px; }
+.BE--MediaTray { margin: 0 8 0 4; padding: 0 0 0 0; }
+.BE--Device { max-width: 22px; max-height: 16px; spacing: -7; padding: 2 2 0 2; }
 .BE--GMenu QMenuBar, .BE--Clock, .BE--Session { font: 10pt Cantarell; }
 .BE--Run QSizeGrip, *:menu-indicator { image:none; }
 .BE--GMenu QMenuBar, .BE--Clock, .BE--Session, #infocenter  {
       color:  #F2F2F4; 
+}
+
+
+.BE--Battery {
+      margin: 1 0 1 0;
+      padding: 3 0 3 0;
+      width: 64px;
+      color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ffffff, stop:1 #666666);
+      selection-background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #A9FF0A, stop:0.5 #FFF300, stop:0.9 #FF8C08, stop:1 #FF0037);
 }
