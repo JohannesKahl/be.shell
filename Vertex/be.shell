@@ -10,13 +10,13 @@ ShadowOpacity=65
 ShowIcons=false
 Tint=0,0,0
 TrashCan=false
-Wallpaper=/home/hombre/.kde4/share/apps/be.shell/bak/Walls/Vertex.bwp
-WallpaperAlign=128
+Wallpaper=/home/hombre/Immagini/wallhaven-101226.jpg
+WallpaperAlign=132
 WallpaperAspect=-1
 WallpaperDefaultAlign=132
 WallpaperDefaultMode=7
 WallpaperFadeSteps=8
-WallpaperMode=8
+WallpaperMode=7
 WheelOnLMB=true
 
 [BE::Run]
@@ -28,6 +28,10 @@ VisibilityTimeout=200
 Panels=WunderBar,TopPanel
 Theme=Vertex
 
+[GlobalMenu]
+Type=globalmenu
+WindowMenus=true
+
 [Infocenter]
 Geometry=684,384,312,263
 
@@ -38,7 +42,7 @@ Mode=1
 Type=Sessionbutton
 
 [TopPanel]
-Applets=GlobalMenu,stretch,pager,systray,Volume,infocenter,clock,Sessionbutton
+Applets=GlobalMenu,stretch,pager,battery,mediatray,systray,Volume,infocenter,clock,Sessionbutton
 BlurRadius=65
 Frozen=True
 Length=100
@@ -72,6 +76,10 @@ Size=66
 Struts=true
 Visible=true
 
+[battery]
+Exec=kcmshell4 powerdevilglobalconfig
+Type=Battery
+
 [chromium]
 Exec=chromium
 Icon=chromium
@@ -90,6 +98,13 @@ Label=File Manager
 Mode=0
 Type=Button
 
+[exposè]
+Exec=qdbus org.kde.kglobalaccel /component/kwin invokeShortcut "ExposeAll"
+Icon=cs-windows
+Label=Windows
+Mode=0
+Type=Button
+
 [gimp]
 Exec=gimp
 Icon=gimp
@@ -105,7 +120,7 @@ Mode=0
 Type=Button
 
 [infocenter]
-Geometry=1604,24,316,301
+Geometry=1604,22,316,316
 
 [kate]
 Exec=kate
@@ -134,6 +149,10 @@ Icon=ksysguard
 Label=System Monitor
 Mode=0
 Type=Button
+
+[mediatray]
+Icon=media-optical-data
+Type=MediaTray
 
 [popcorntime]
 Exec=popcorntime
@@ -164,7 +183,7 @@ ToolTip=Start Here
 Type=Button
 
 [systray]
-FallbackIcons=coverbox,covergloobus.py,Icon,kmix,nepomukcontroller,Netzwerk-Manager-Applet,recorditnow,skype,Thunderbird
+FallbackIcons=coverbox,covergloobus.py,Icon,kmix,nepomukcontroller,NetworkManager Applet,Netzwerk-Manager-Applet,recorditnow,skype,Thunderbird
 IconSize=16
 NastyIcons=coverbox,covergloobus.py,kded4,kmix,kwalletmanager,nepomukcontroller,printer-applet,qCheckGMail,soundbox,wicd-client.py
 Spacing=12
@@ -172,7 +191,7 @@ Spacing=12
 [tasks]
 AlwaysGroup=True
 ButtonMode=0
-Buttons=dfm,chromium,konsole,kate,settings,konversation,popcorntime,ksys,gwenview,smplayer,gimp,workspace
+Buttons=dfm,chromium,konsole,kate,settings,konversation,popcorntime,ksys,gwenview,smplayer,gimp,exposè,workspace
 OnlyCurrentDesk=False
 OnlyMinimized=False
 Spacing=0
@@ -181,8 +200,6 @@ Type=Taskbar
 [workspace]
 Exec=qdbus org.kde.kglobalaccel /component/kwin invokeShortcut ShowDesktopGrid
 Icon=workspace-overview
+Label=Explore Workspaces
 Mode=0
-ToolTip=Explore Workspaces
 Type=Button
-WheelDown=qdbus org.kde.kglobalaccel /component/kwin invokeShortcut "Switch to Next Desktop"
-WheelUp=qdbus org.kde.kglobalaccel /component/kwin invokeShortcut "Switch to Previous Desktop"
