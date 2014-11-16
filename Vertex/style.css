@@ -1,3 +1,9 @@
+/* Vertex by Hombremaledicto. This is the 
+ * main CSS theme file, with panels config, general fixes
+ * and font management. Applet-specific parts have been 
+ * moved to the /Themes/Vertex/style.css.d/ directory */
+
+
 /* Panels */
 
 #TopPanel { 
@@ -19,68 +25,6 @@
 QAbstractButton { padding: 0  16 0 16; border-radius: 8px; }
 /*QToolBox { color: #414244; background-color: #EFEFF1; }*/
 
-/* Clock & Calendar */
-
-.BE--Clock { padding: 0 4 1 2; }
-.BE--Clock:hover  {
-      border: 1px solid #5C5D61;
-      border-top-left-radius:3px;
-      border-top-right-radius:3px;
-}
-#Calendar { background-color: #414244;}
-
-#Calendar QTableView {
-      alternate-background-color: #414244;
-      selection-background-color: #313133;
-      selection-color: #F2F2F4;
-      background: #FFFFFF;
-      gridline-color: #414244;
-      font-size:10pt;
-      margin: 0 0 -3 0;
-}
-
-#Calendar #qt_calendar_navigationbar, #Calendar #qt_calendar_navigationbar > * {
-      background-color:#414244;
-      color:#EFEFF1;
-      font :10pt bold;
-}
-
-/* Pager */
-
-.BE--Pager { margin: 2 14 2 0; padding-top: 1px;}
-
-.BE--Pager QToolButton {
-      color: #dddddd;
-      background-image: url("${base}/background-images/dot2-light.png");
-      background-repeat: no-repeat;
-      background-position:center;
-      font-size: 1.0pt;
-      font: bold;
-      width: 3px;
-      height: 3px;
-      margin: 0 1 0 1;
-      padding: 0 6 0 6;
-}
-
-.BE--Pager QToolButton:checked  {
-      background-image: url("${base}/background-images/dot-light.png");
-      background-repeat: no-repeat;
-      background-position: center;
-      color: transparent;  
-      font-size: 8pt;
-      font: Oxygen Sans;
-      font-weight: bold;
-      color: black;
-}
-
-.BE--Pager QToolButton:hover {
-      background-image: url("${base}/background-images/dot3-light.png");
-      color: transparent;
-}
-
-.BE--Pager QToolButton[checked=true]:hover {
-      background-image: url("${base}/background-images/dot-light.png");
-}
 
 /* Various Applets &  fixes IMPORTANT! */
 
@@ -95,53 +39,4 @@ QAbstractButton { padding: 0  16 0 16; border-radius: 8px; }
 .BE--Run QSizeGrip, *:menu-indicator { image:none; }
 .BE--GMenu QMenuBar, .BE--Clock, .BE--Session, #infocenter  {
       color:  #F2F2F4; 
-}
-
-/*  Start Button, TaskBar  and Trash */
-
-.BE--Task, #starter { margin: -2 -1 -2 2; }
-#TrashCan { margin: -1 -1 -3 1; padding: 8 10 12 8; }
-
-.BE--Task, #NoTask, #OneTask:checked, #starter  { 
-      border: 1px; 
-      padding: 7 8 8 6;   /* 6 8 7 6 */
-}  
-
-.BE--Task, #NoTask, #TrashCan, #starter { 
-      border-image: url("${base}/background-images/frame-normal.png") 0 -1 -4 1; 
-}
-
-#OneTask { 
-      background-image: url("${base}/background-images/arow2.png");
-      background-repeat: no-repeat;
-      background-position: left center;
-}
-
-#OneTask:checked {  
-      border-image: url("${base}/background-images/frame-onetask.png") 0 -1 -4 1; 
-}
-
-#OneTask[windowMinimized="true"] { 
-      background-image: url("${base}/background-images/arow3.png");
-      background-repeat: no-repeat;
-      background-position: left center;
-}
-
-#ManyTasks[windowMinimized="true"] { 
-      background-image: url("${base}/background-images/arow-many-minimized2.png");
-      background-repeat: no-repeat;
-      background-position: left center;
-}
-
-#ManyTasks { 
-      background-image: url("${base}/background-images/arow-many.png");
-      background-repeat: no-repeat;
-      background-position: left center;
-}
-
-#ManyTasks:checked { 
-      border-image: url("${base}/background-images/frame-manytasks.png") 0 -1 -4 1; 
-      background-image: url("${base}/background-images/arow-many.png");
-      background-repeat: no-repeat;
-      background-position: left center;
 }
