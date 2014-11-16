@@ -1,0 +1,48 @@
+/*  Start Button, TaskBar  and Trash */
+
+.BE--Task, #starter { margin: -2 -1 -2 2; }
+#TrashCan { margin: -1 -1 -3 1; padding: 8 10 12 8; }
+
+.BE--Task, #NoTask, #OneTask:checked, #starter  { 
+      border: 1px; 
+      padding: 7 8 8 6;   /* 6 8 7 6 */
+}  
+
+.BE--Task, #NoTask, #TrashCan, #starter { 
+      border-image: url("${base}/background-images/frame-normal.png") 0 -1 -4 1; 
+}
+
+#OneTask { 
+      background-image: url("${base}/background-images/arow2.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+}
+
+#OneTask:checked {  
+      border-image: url("${base}/background-images/frame-onetask.png") 0 -1 -4 1; 
+}
+
+#OneTask[windowMinimized="true"] { 
+      background-image: url("${base}/background-images/arow3.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+}
+
+#ManyTasks[windowMinimized="true"] { 
+      background-image: url("${base}/background-images/arow-many-minimized2.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+}
+
+#ManyTasks { 
+      background-image: url("${base}/background-images/arow-many.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+}
+
+#ManyTasks:checked { 
+      border-image: url("${base}/background-images/frame-manytasks.png") 0 -1 -4 1; 
+      background-image: url("${base}/background-images/arow-many.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+}

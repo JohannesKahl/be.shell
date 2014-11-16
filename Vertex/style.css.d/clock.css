@@ -1,0 +1,25 @@
+/* Clock & Calendar */
+
+.BE--Clock { padding: 0 4 1 2; }
+.BE--Clock:hover  {
+      border: 1px solid #5C5D61;
+      border-top-left-radius:3px;
+      border-top-right-radius:3px;
+}
+#Calendar { background-color: #414244;}
+
+#Calendar QTableView {
+      alternate-background-color: #414244;
+      selection-background-color: #313133;
+      selection-color: #F2F2F4;
+      background: #FFFFFF;
+      gridline-color: #414244;
+      font-size:10pt;
+      margin: 0 0 -3 0;
+}
+
+#Calendar #qt_calendar_navigationbar, #Calendar #qt_calendar_navigationbar > * {
+      background-color:#414244;
+      color:#EFEFF1;
+      font: 10pt bold;
+}

@@ -1,0 +1,36 @@
+/* Pager */
+
+.BE--Pager { margin: 2 14 2 0; padding-top: 1px;}
+
+.BE--Pager QToolButton {
+      color: #dddddd;
+      background-image: url("${base}/background-images/dot2-light.png");
+      background-repeat: no-repeat;
+      background-position:center;
+      font-size: 1.0pt;
+      font: bold;
+      width: 3px;
+      height: 3px;
+      margin: 0 1 0 1;
+      padding: 0 6 0 6;
+}
+
+.BE--Pager QToolButton:checked  {
+      background-image: url("${base}/background-images/dot-light.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      color: transparent;  
+      font-size: 8pt;
+      font: Oxygen Sans;
+      font-weight: bold;
+      color: black;
+}
+
+.BE--Pager QToolButton:hover {
+      background-image: url("${base}/background-images/dot3-light.png");
+      color: transparent;
+}
+
+.BE--Pager QToolButton[checked=true]:hover {
+      background-image: url("${base}/background-images/dot-light.png");
+}
