@@ -12,11 +12,11 @@ Clone this repository:
 
    git clone https://github.com/Hombremaledicto/be.shell.git
    
-Copy the Theme directory to: 
+Copy the Theme directory: 
 
    cp -r Themes ~/.kde4/share/apps/be.shell/
 
-Copy the included be.shell.Vertex file to:
+Copy the included be.shell.Vertex file:
 
    cp be.shell.Vertex ~/.kde4/share/config/be.shell
    
@@ -35,7 +35,7 @@ Make the scripts executable:
 
    chmod -R 777 ~/.kde4/share/apps/be.shell/Scripts/*
 
-*n.b. The places script requires xmlstarlet*
+*note: The places script requires xmlstarlet*
   
 
 Vertex
