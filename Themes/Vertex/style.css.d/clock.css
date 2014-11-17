@@ -1,6 +1,6 @@
 /* Clock & Calendar */
 
-.BE--Clock { padding: 0 4 1 2; }
+.BE--Clock { padding: 0 4 1 4; }
 .BE--Clock:hover  {
       border: 1px solid #5C5D61;
       border-top-left-radius:3px;

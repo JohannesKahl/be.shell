@@ -19,7 +19,7 @@
 }
 
 #OneTask:checked {  
-      border-image: url("${base}/background-images/frame-checked.png") 0 -1 -4 1; 
+      border-image: url("${base}/background-images/frame-checked2.png") 0 -1 -4 1; 
 }
 
 #OneTask[windowMinimized="true"] { 
@@ -41,7 +41,7 @@
 }
 
 #ManyTasks:checked { 
-      border-image: url("${base}/background-images/frame-checked.png") 0 -1 -4 1; 
+      border-image: url("${base}/background-images/frame-checked2.png") 0 -1 -4 1; 
       background-image: url("${base}/background-images/arow-many.png");
       background-repeat: no-repeat;
       background-position: left center;
