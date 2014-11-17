@@ -10,13 +10,13 @@ ShadowOpacity=65
 ShowIcons=false
 Tint=0,0,0
 TrashCan=false
-Wallpaper=/home/hombre/Immagini/wallhaven-101226.jpg
-WallpaperAlign=132
+Wallpaper=/home/hombre/.kde4/share/apps/be.shell/Themes/Vertex/wallpaper.bwp
+WallpaperAlign=128
 WallpaperAspect=-1
 WallpaperDefaultAlign=132
 WallpaperDefaultMode=7
 WallpaperFadeSteps=8
-WallpaperMode=7
+WallpaperMode=8
 WheelOnLMB=true
 
 [BE::Run]
@@ -42,7 +42,7 @@ Mode=1
 Type=Sessionbutton
 
 [TopPanel]
-Applets=GlobalMenu,stretch,pager,battery,mediatray,systray,Volume,infocenter,clock,Sessionbutton
+Applets=GlobalMenu,stretch,pager,mediatray,systray,Volume,infocenter,clock,Sessionbutton
 BlurRadius=65
 Frozen=True
 Length=100
