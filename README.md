@@ -8,13 +8,17 @@ Notice that due to the absolute positioning in BE::Shell themes usually require 
 
 **Theme and Config**
 
-Copy the theme directory to: 
+Clone this repository:
 
-   ~/.kde4/share/apps/be.shell/Themes
+   git clone https://github.com/Hombremaledicto/be.shell.git
+   
+Copy the Theme directory to: 
 
-Copy the included be.shell file to:
+   cp -r Themes ~/.kde4/share/apps/be.shell/
 
-   ~/.kde4/share/config
+Copy the included be.shell.Vertex file to:
+
+   cp be.shell.Vertex ~/.kde4/share/config/be.shell
    
 Reload BE::Shell:
 
