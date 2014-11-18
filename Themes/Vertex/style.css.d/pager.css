@@ -1,6 +1,6 @@
 /* Pager */
 
-.BE--Pager { margin: 2 8 2 0; padding-top: 1px;}
+.BE--Pager { margin: 2 0 2 0; padding-top: 1px;}
 
 .BE--Pager QToolButton {
       color: #dddddd;
