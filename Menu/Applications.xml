@@ -19,14 +19,6 @@
 <action label="Inkscape" icon="inkscape" exec="inkscape"/>
 <!--<action label="K3b" icon="k3b" exec="k3b"/>-->
 </menu>
-<!--<menu label="Learning" icon="applications-education">
-<action label="Anki" icon="anki" exec="anki"/>
-</menu>
-<menu label="Games" icon="applications-games">
-<action label="Knights" icon="pychess" exec="knights"/>
-<action label="Kigo" icon="ksame" exec="kigo"/>
-<action label="Ksudoku" icon="ksudoku" exec="ksudoku"/>
-</menu>-->
 <menu label="Office" icon="applications-office">
 <action label="LibreOffice Start Center" icon="libreoffice-main"  exec="soffice -startcenter"/>
 <action label="LibreOffice Writer" icon="libreoffice-writer"  exec="soffice -writer"/>
@@ -36,25 +28,18 @@
 <action label="LibreOffice Impress" icon="libreoffice-impress" exec="soffice -impress"/>
 <action label="LibreOffice Base" icon="libreoffice-base" exec="soffice -base"/>
 <action label="Okular" icon="okular" exec="okular"/>
-<!--<action label="Calibre" icon="addressbook" exec="calibre"/>
-<action label="Korganizer" icon="korganizer" exec="korganizer"/>-->
 </menu>
 <menu label="Internet" icon="www-browser">
 <action label="Firefox" icon="firefox" exec="firefox"/>
 <action label="Ktelepathy" icon="telepathy" exec="ktp-contactlist"/>
-<!--<action label="Skype" icon="skype" exec="skype"/>-->
 <action label="Konversation" icon="konversation" exec="konversation"/>
 <action label="Kmail" icon="kmail" exec="kmail"/>
-<!--<action label="Amule" icon="amule" exec="amule"/>-->
 <action label="Ktorrent" icon="ktorrent" exec="ktorrent"/>
 </menu> 
 <menu label="Development" icon="xfce-devel">
 <action label="Qt Creator" icon="qtlogo" exec="creator"/>
 <action label="Qt Designer" icon="qtassistant" exec="designer"/>
-<!--<action label="Qt Linquist" icon="qtlinguist" exec="linguist"/>-->
 <action label="Eclipse" icon="eclipse" exec="eclipse"/>
-<!--<action label="IDLE" icon="idle" exec="idle"/>
-<action label="K Develop" icon="gksu-debian" exec="kdevelop"/>-->
 </menu>
 </menu>
 </submenu>
