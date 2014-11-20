@@ -38,7 +38,7 @@ Geometry=684,384,312,263
 [Sessionbutton]
 FullName=false
 Icon=session-icon
-Mode=1
+Mode=2
 Type=Sessionbutton
 
 [TopPanel]
@@ -90,6 +90,11 @@ Type=Button
 [clock]
 Pattern='<html><small>' ddd dd'</small> &nbsp;'hh:mm AP'</html>'
 Type=Clock
+
+[close]
+Buttons=X
+OnlyMaximized=true
+Type=WmCtrl
 
 [dfm]
 Exec=dfm
@@ -150,9 +155,19 @@ Label=System Monitor
 Mode=0
 Type=Button
 
+[max]
+Buttons=A
+OnlyMaximized=true
+Type=WmCtrl
+
 [mediatray]
 Icon=media-optical-data
 Type=MediaTray
+
+[min]
+Buttons=I
+OnlyMaximized=true
+Type=WmCtrl
 
 [popcorntime]
 Exec=popcorntime
