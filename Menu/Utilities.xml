@@ -8,6 +8,5 @@
 <action label="Reload Shell" icon="reload" exec="kquitapp be.shell;sleep 1;be.shell"/>
 <action label="Refresh KWin" icon="reload" exec="konsole -e kwin --replace"/>
 <action label="Return to Plasma" icon="plasma" exec="kquitapp be.shell;sleep 1;plasma-desktop"/>
-<!--<action label="Take a shot" icon="ksnapshot" exec="ksnapshot"/>-->
 </menu>
 </submenu>
