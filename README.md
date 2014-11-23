@@ -43,10 +43,8 @@ Make the scripts executable:
 Vertex
 ======
 
-Unity-Like dark theme using [BE--Tray icons](http://be-desk.deviantart.com/art/Be-Tray-Icons-16px-364645083) by LaGaDesk and [Moka Minimal](http://cbowman57.deviantart.com/art/Moka-Minimal-and-Faba-Minimal-Icon-Sets-482927307) by cbowman57
-
-** Config values**
-
+Unity-Like dark theme using [BE--Tray icons](http://be-desk.deviantart.com/art/Be-Tray-Icons-16px-364645083) by LaGaDesk and [Moka Minimal](http://cbowman57.deviantart.com/art/Moka-Minimal-and-Faba-Minimal-Icon-Sets-482927307) by cbowman57.
+The suite is inspired by the [Vertex GTK](http://horst3180.deviantart.com/art/Vertex-Theme-470663601) theme.
 By default panels are locked and browsing through workspaces with mouse wheel is disabled (yes, unity-like). To unlock panels simply change the two lines "Frozen=true" to false. To revert the mouse wheel behaviour, change "WheelOnLMB=true" to false, under [BE::Desk]
 
 ![Vertex preview](https://lh5.googleusercontent.com/-h83zA_HCRVQ/VGYMxGGvQOI/AAAAAAAAC7I/eNZRGMB8qW4/w1058-h595-no/schermata662.png "Vertex")
