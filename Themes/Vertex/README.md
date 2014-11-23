@@ -25,5 +25,5 @@ There are also different logos included in WunderBar/Starter:
 logo-bespin, logo-arch, logo-ubuntu, logo-suse, logo-debian, logo-gentoo, logo-chakra
 You can change the default one by simply editing the configuration for [starter]:
 
-*Icon=Logo-kde*
+*Icon=logo-kde*
 
