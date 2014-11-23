@@ -18,11 +18,11 @@ Clone this repository:
    
 Copy the Theme directory: 
 
-    cp -r Themes \`kde4-config --localprefix\`/share/apps/be.shell/
+    cp -r Themes `kde4-config --localprefix`/share/apps/be.shell/
 
 Copy the included be.shell.Vertex file:
 
-    cp be.shell.Vertex \`kde4-config --localprefix\`/share/config/be.shell
+    cp be.shell.Vertex `kde4-config --localprefix`/share/config/be.shell
    
 Reload BE::Shell:
 
@@ -33,11 +33,11 @@ Reload BE::Shell:
 
 Copy the folders Menu, Scripts and the MainMenu.xml file:
 
-    cp -R Menu Scripts MainMenu.xml \`kde4-config --localprefix\`/share/apps/be.shell
+    cp -R Menu Scripts MainMenu.xml `kde4-config --localprefix`/share/apps/be.shell
   
 Make the scripts executable:
 
-    chmod -R 777 \`kde4-config --localprefix\`/share/apps/be.shell/Scripts/*
+    chmod -R 777 `kde4-config --localprefix`/share/apps/be.shell/Scripts/*
 
 
 Vertex
