@@ -31,9 +31,9 @@ Reload BE::Shell:
    
 **Globalmenu** 
 
-Copy the folders `Menu`, `Script` and the MainMenu.xml file to:
+Copy the folders `Menu`, `Script` and the MainMenu.xml:
 
-  cp -R Menu Scripts \`kde4-config --localprefix\`/share/apps/be.shell
+  cp -R Menu Scripts MainMenu.xml \`kde4-config --localprefix\`/share/apps/be.shell
   
 Make the scripts executable:
 
