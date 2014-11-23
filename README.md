@@ -29,7 +29,7 @@ Reload BE::Shell:
     kquitapp be.shell; sleep 2; be.shell
    
    
-**Globalmenu** 
+**Menus & scripts** 
 
 Copy the folders Menu, Scripts and the MainMenu.xml file:
 
