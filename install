@@ -37,9 +37,11 @@ usage(){
 
 echo -e "\n\e[34m$banner\n\e[0m"
 echo "Usage:"
-echo "   ${0} -i     -- Install a preset."
+echo "   ${0}        -- No options: interactive mode"
+echo "   ${0} -i     -- Install a preset, e.g. ./install -i Vertex"
 echo "   ${0} -b     -- Backup current config and theme directory."
 echo "   ${0} -h     -- Shows this usage screen."
+echo "   ${0} -r     -- Quit from plasma if active or restart be.shell."
     
 }
 
@@ -140,11 +142,11 @@ local pShell="plasma-desktop"
 local bShell="be.shell"
 
 if [[  -z `pidof "$pShell"` ]]; then
-   if [[ ! -z `pidof "$bShell"` ]]; then
-     confirm "I will now reload be.shell. Continue? [y/N]:" && `kquitapp "$bShell"; sleep 2; "$bShell" &> /dev/null`
-   else
-     confirm "Starting be.shell. Continue? [y/N]:" &&`"$bShell"`
-     fi
+    if [[ ! -z `pidof "$bShell"` ]]; then
+      confirm "I will now reload be.shell. Continue? [y/N]:" && `kquitapp "$bShell"; sleep 2; "$bShell" &> /dev/null`
+     else
+      confirm "Starting be.shell. Continue? [y/N]:" &&`"$bShell"`
+    fi
    else
      confirm "I will now stop Plasma and start be.shell. Continue? [y/N]:" && `kquitapp "$pShell"; sleep 2; "$bShell" &> /dev/null`
 fi
@@ -154,12 +156,18 @@ fi
 main(){
 
 if [ -z "$1" -o "$1" == "-i" ]; then
-    echo -e "\n\e[34m$banner\n\e[0m"
-    sleep 0.5; choice
-    if [[ "$test" -gt "0" ]]; then
-        echo -e "\n\e[94mNothing to do :(\e[0m"; exit 1
+    if [ ! -z "$2" ]; then
+      chosenConf="${scriptDir}/be.shell.${2}" 
+      chosenTheme="${scriptDir}/Themes/${2}"
      else
-        sleep 0.5; install    
+      clear
+      echo -e "\n\e[34m$banner\n\e[0m"
+      sleep 0.5; choice
+    fi
+    if [[ "$test" -gt "0" ]]; then
+      echo -e "\n\e[94mNothing to do :(\e[0m"; exit 1
+     else
+      sleep 0.5; install    
     fi
     sleep 0.5; isRunning
     echo -e "\n\e[34mDone!\e[0m"
@@ -174,7 +182,10 @@ case $1 in
         ;;
     -i)
         sleep 0.5
-         ;;
+        ;;
+    -r)
+        isRunning
+        ;;
      *) 
         usage
         echo -e "\n\e[31mUnknown option '$1'\e[0m"
@@ -184,5 +195,4 @@ esac
 
 }
 
-clear
 main "$@"
