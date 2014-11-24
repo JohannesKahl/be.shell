@@ -1,0 +1,188 @@
+#!/usr/bin/env bash
+
+#Generic installation script for BE::Shell
+#themes and configs by Hombremaledicto.
+#Initial release V.0.1
+
+#This script should not be executed as root
+
+if [ "$(id -u)" == "0" ]; then
+    echo -e '\n\e[0;31mThis script must be executed as normal user!!!\nI will now exit.\e[0m' 
+  exit 1
+fi
+
+#Shameless self promotion :P
+
+banner="A script for BE::Shell to manage themes and configs by\nHombremaledicto - https://github.com/Hombremaledicto/be.shell"
+
+#Setting distro indipendent paths
+
+declare -r scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+declare -r kdeDir="`kde4-config --localprefix`share"
+declare -r themesDir="${kdeDir}/apps/be.shell/Themes"
+declare -r configFile="${kdeDir}/config/be.shell"
+
+#Test functions
+
+declare -f usage
+declare -f choice
+declare -f backup
+declare -f confirm
+declare -f install
+declare -f isRunning
+declare -f main
+
+
+usage(){
+
+echo -e "\n\e[34m$banner\n\e[0m"
+echo "Usage:"
+echo "   ${0} -i     -- Install a preset."
+echo "   ${0} -b     -- Backup current config and theme directory."
+echo "   ${0} -h     -- Shows this usage screen."
+    
+}
+
+choice(){
+
+test=0
+
+while true; do
+  echo -e "\e[32mAvailable themes:\n\e[0m"
+  echo "1)  Vertex"
+#   echo "2)  Lullaby"
+  echo
+
+
+  echo -n "Enter your choice or 0 for exit: "
+
+  read selection     
+  case $selection in
+    1)
+        opt="Vertex"
+        break
+        ;;
+#     2)
+#         opt="Lullaby"
+#         break
+#         ;;
+    0)
+        echo "No theme selected, skipping"
+        test=`expr $test + 1`
+        break
+        ;;
+    *)
+        clear
+        echo -e "\n\e[91mNot a valid choice, try a number from 0 to 2.\n\e[0m"
+        ;;
+    esac    
+done
+
+chosenConf="${scriptDir}/be.shell.$opt" 
+chosenTheme="${scriptDir}/Themes/$opt"
+
+}
+
+backup(){
+
+#Compressing the old setup, not as elegant as i wanted
+#but it works. Feel free to improve it ;)
+
+local dateHour="$( date "+%Y%m%d%H%M%S" )"
+local oldTheme="$( cat "$configFile" | grep -Po "(?<=Theme=)[ A-Za-z0-9]*" )"
+local archive="${kdeDir}/apps/be.shell/$oldTheme.$dateHour.tar"
+
+bak="$( tar -cf "$archive" -C ${themesDir} $oldTheme  -C  ${kdeDir}/config be.shell &> /dev/null )"
+
+echo -e "\nFiles stored in\n$archive\n"
+
+}
+
+confirm (){
+
+read -r -p "${1} " response
+case $response in
+    [yY][eE][sS]|[yY]) 
+       true
+       ;;
+    *)
+       false
+       ;;
+esac
+    
+}
+
+install(){
+
+#Might be this is a fresh installation
+
+if [[ ! -f "$configFile" && ! -d "$themesDir" ]]; then
+    `cp "$chosenConf" "$configFile"`
+    `mkdir "$themesDir"`
+fi
+
+if [[  -f "$configFile" && -d "$themesDir" ]]; then
+    confirm "Do you want to backup the existing theme and config? y/N:" && backup
+    echo -e "\e[33mCopying the new config\e[0m"
+    `cp "$chosenConf" "$configFile"`
+    if [[ ! -d "$themesDir/$opt" ]]; then
+      `cp -r "$chosenTheme" "$themesDir"`
+     else
+      confirm "The folder $opt already exists in $themesDir. Continue anyway? y/N:" &&  `cp -r "$chosenTheme" "$themesDir"`
+    fi
+fi
+
+}
+
+isRunning(){
+
+local pShell="plasma-desktop"
+local bShell="be.shell"
+
+if [[  -z `pidof "$pShell"` ]]; then
+   if [[ ! -z `pidof "$bShell"` ]]; then
+     confirm "I will now reload be.shell. Continue? [y/N]:" && `kquitapp "$bShell"; sleep 2; "$bShell" &> /dev/null`
+   else
+     confirm "Starting be.shell. Continue? [y/N]:" &&`"$bShell"`
+     fi
+   else
+     confirm "I will now stop Plasma and start be.shell. Continue? [y/N]:" && `kquitapp "$pShell"; sleep 2; "$bShell" &> /dev/null`
+fi
+
+}
+
+main(){
+
+if [ -z "$1" -o "$1" == "-i" ]; then
+    echo -e "\n\e[34m$banner\n\e[0m"
+    sleep 0.5; choice
+    if [[ "$test" -gt "0" ]]; then
+        echo -e "\n\e[94mNothing to do :(\e[0m"; exit 1
+     else
+        sleep 0.5; install    
+    fi
+    sleep 0.5; isRunning
+    echo -e "\n\e[34mDone!\e[0m"
+fi
+
+case $1 in
+    -h) 
+        usage
+        ;;
+    -b) 
+        backup
+        ;;
+    -i)
+        sleep 0.5
+         ;;
+     *) 
+        usage
+        echo -e "\n\e[31mUnknown option '$1'\e[0m"
+        exit 1
+        ;;
+esac
+
+}
+
+clear
+main "$@"
