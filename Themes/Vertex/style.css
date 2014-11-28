@@ -8,7 +8,7 @@
 
 #TopPanel { 
 
-      background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(60,61,63,95%), stop:1.0 rgba(58,59,61,89%));      
+      background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(60,61,63,100%), stop:1.0 rgba(58,59,61,100%));      
       border-bottom: 0.5px solid rgba(20,20,20,80%);
       padding: 1 0 0 5;
 } 
@@ -55,8 +55,4 @@ QAbstractButton { padding: 0  16 0 16; border-radius: 8px; }
       margin: 1 -15 1 -15; 
       width: 16px;
       height: 16px;
-}
-
-WmCtrl:focus[false] {
-      margin: -22px;
 }
