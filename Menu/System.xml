@@ -34,11 +34,11 @@
 <action label="infinality.sh" icon="kate" exec="kdesu kate /etc/profile.d/infinality-settings.sh"/>
 </menu>
 <menu label="Bash">
-<action label="Edit Bashrc" icon="kate" exec="kwrite ~/.bashrc"/>
+<action label="Edit Bashrc" icon="kate" exec="kate ~/.bashrc"/>
 <action label="Reload Bashrc" icon="reload" exec="konsole -e source ~/.bashrc"/>
 </menu>
 <menu label="Zsh">
-<action label="Edit Zshrc" icon="kate" exec="kwrite ~/.zshrc"/>
+<action label="Edit Zshrc" icon="kate" exec="kate ~/.zshrc"/>
 <action label="Reload Zshrc" icon="reload" exec="konsole -e source ~/.zshrc"/>
 </menu>
 <action label="Kwin Shortcuts" exec="konsole --hold -e qdbus org.kde.kglobalaccel /component/kwin shortcutNames"/>
