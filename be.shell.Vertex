@@ -32,8 +32,8 @@ Theme=Vertex
 Type=globalmenu
 WindowMenus=true
 
-[Infocenter]
-Geometry=684,384,312,263
+[infocenter]
+Geometry=1604,22,316,316
 
 [Sessionbutton]
 FullName=false
