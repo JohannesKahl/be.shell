@@ -7,7 +7,6 @@
 /* Panels */
 
 #TopPanel { 
-
       background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(60,61,63,100%), stop:1.0 rgba(58,59,61,100%));      
       border-bottom: 0.5px solid rgba(20,20,20,80%);
       padding: 1 0 0 5;
@@ -20,13 +19,13 @@
       padding: 25 0 3 0;
 }
 
-/* Fix for buttons and toolboxes */
+/* Fix for buttons and toolboxes: this is extremely important ! */
 
 QAbstractButton { 
       padding: 0  16 0 16; border-radius: 8px; 
 }
 
-/* Various Applets &  fixes IMPORTANT! */
+/* Various Applets &  fixes */
 
 .BE--GMenu QMenuBar {  
       padding: 0 0 0 -8; 
@@ -67,17 +66,21 @@ QAbstractButton {
       padding: 2 2 0 2; 
 }
 
+/* Setting fonts where needed */ 
+
 .BE--GMenu QMenuBar, .BE--Clock, .BE--Session { 
       font: 10pt Cantarell; 
 }
 
 .BE--Run QSizeGrip, *:menu-indicator { 
-      image:none; 
+      image:none; /* this removes that annoying arrow */
 }
 
 .BE--GMenu QMenuBar, .BE--Clock, .BE--Session, #infocenter  {
       color:  #F2F2F4; 
 }
+
+/* The battery is taken from LaGaDesk. TODO: Provide my own theme for it */
 
 .BE--Battery {
       margin: 1 0 1 0;
