@@ -62,7 +62,8 @@ QAbstractButton {
 
 .BE--Device { 
       max-width: 22px; 
-      max-height: 16px; spacing: -7; 
+      max-height: 16px; 
+      spacing: -7; 
       padding: 2 2 0 2; 
 }
 
