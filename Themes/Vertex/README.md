@@ -27,3 +27,21 @@ You can change the default one by simply editing the configuration for [starter]
 
 *Icon=logo-kde*
 
+If you want to set the sidebar to autohide, edit the [WunderBar] group:
+
+    [WunderBar]
+    Applets=starter,tasks,stretch,TrashCan
+    BlurRadius=60
+    CastShadow=false
+    Frozen=true
+    Id=WunderBar
+    Layer=0
+    Length=100
+    Offset=0
+    Position=2
+    Screen=-1
+    Size=66
+    Struts=true
+    Visible=true
+    
+And change *Layer=0* to *Layer=2*. Then, and usual save & reload the config from the desktop menu.
