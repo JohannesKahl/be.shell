@@ -1,12 +1,17 @@
 /* Clock & Calendar */
 
-.BE--Clock { padding: 0 4 1 4; }
-.BE--Clock:hover  {
+.BE--Clock { 
+      padding: 0 4 1 4; 
+}
+
+.BE--Clock:hover {
       border: 1px solid #5C5D61;
       border-top-left-radius:3px;
       border-top-right-radius:3px;
 }
-#Calendar { background-color: #414244;   
+
+#Calendar { 
+      background-color: #414244;   
 }
 
 #Calendar QTableView {
@@ -25,4 +30,6 @@
       font: 10pt bold;
 }
 
-#Calendar QAbstractItemView {  background: #414244; }
+#Calendar QAbstractItemView {  
+      background: #414244; 
+}
