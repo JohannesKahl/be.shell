@@ -96,9 +96,9 @@ Buttons=X
 OnlyMaximized=true
 Type=WmCtrl
 
-[dfm]
-Exec=dfm
-Icon=dfm
+[dolphin]
+Exec=dolphin
+Icon=dolphin
 Label=File Manager
 Mode=0
 Type=Button
@@ -123,9 +123,6 @@ Icon=gwenview
 Label=Image Viewer
 Mode=0
 Type=Button
-
-[infocenter]
-Geometry=1604,22,316,316
 
 [kate]
 Exec=kate
@@ -206,7 +203,7 @@ Spacing=12
 [tasks]
 AlwaysGroup=True
 ButtonMode=0
-Buttons=dfm,chromium,konsole,kate,settings,konversation,popcorntime,ksys,gwenview,smplayer,gimp,exposè,workspace
+Buttons=dolphin,chromium,konsole,kate,settings,konversation,popcorntime,ksys,gwenview,smplayer,gimp,exposè,workspace
 OnlyCurrentDesk=False
 OnlyMinimized=False
 Spacing=0
