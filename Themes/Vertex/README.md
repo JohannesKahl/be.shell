@@ -44,4 +44,4 @@ If you want to set the sidebar to autohide, edit the [WunderBar] group:
     Struts=true
     Visible=true
     
-And change *Layer=0* to *Layer=2*. Then, and usual save & reload the config from the desktop menu.
+And change *Layer=0* to *Layer=2*. Then, as usual save & reload the config from the desktop menu.
