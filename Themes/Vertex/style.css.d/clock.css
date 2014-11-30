@@ -6,7 +6,8 @@
       border-top-left-radius:3px;
       border-top-right-radius:3px;
 }
-#Calendar { background-color: #414244;}
+#Calendar { background-color: #414244;   
+}
 
 #Calendar QTableView {
       alternate-background-color: #414244;
@@ -23,3 +24,5 @@
       color:#EFEFF1;
       font: 10pt bold;
 }
+
+#Calendar QAbstractItemView {  background: #414244; }
