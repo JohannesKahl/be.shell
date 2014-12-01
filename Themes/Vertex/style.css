@@ -42,6 +42,8 @@ QAbstractButton {
 .BE--GMenu QMenuBar {  
       padding: 0 0 0 -8; 
       spacing: 15; 
+      selection-background-color: #313133;
+      selection-color: #FCFCFD;
 }
 
 .BE--SysTray { 
