@@ -19,10 +19,22 @@
       padding: 25 0 3 0;
 }
 
-/* Fix for buttons: this is extremely important ! */
+/* Fix for buttons: this is important ! */
 
 QAbstractButton { 
-      padding: 0  16 0 16; border-radius: 8px; 
+      padding: 0  16 0 16; 
+      border-radius: 8px; 
+}
+
+/* Setting fonts where needed */ 
+
+.BE--GMenu QMenuBar, .BE--Clock, .BE--Session, #infocenter { 
+      font: 10pt Cantarell; 
+      color:  #F2F2F4; 
+}
+
+.BE--Run QSizeGrip, *:menu-indicator { 
+      image:none; /* this removes that annoying arrow */
 }
 
 /* Various Applets &  fixes */
@@ -51,7 +63,7 @@ QAbstractButton {
 }
 
 .BE--InfoCenter { 
-      padding: -2 1 -2 0; 
+      padding: -2 1 0 0; 
 }
 
 .BE--MediaTray { 
@@ -62,22 +74,8 @@ QAbstractButton {
 .BE--Device { 
       max-width: 22px; 
       max-height: 16px; 
-      spacing: -7; 
+/*       spacing: -7;  */
       padding: 2 2 0 2; 
-}
-
-/* Setting fonts where needed */ 
-
-.BE--GMenu QMenuBar, .BE--Clock, .BE--Session { 
-      font: 10pt Cantarell; 
-}
-
-.BE--Run QSizeGrip, *:menu-indicator { 
-      image:none; /* this removes that annoying arrow */
-}
-
-.BE--GMenu QMenuBar, .BE--Clock, .BE--Session, #infocenter  {
-      color:  #F2F2F4; 
 }
 
 /* The battery is taken from LaGaDesk. TODO: Provide my own theme for it */
