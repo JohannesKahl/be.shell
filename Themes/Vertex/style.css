@@ -65,7 +65,7 @@ QAbstractButton {
 }
 
 .BE--InfoCenter { 
-      padding: -2 1 0 0; 
+      padding: -2 0 0 4; 
 }
 
 .BE--MediaTray { 
