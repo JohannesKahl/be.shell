@@ -89,8 +89,8 @@ ForegroundPositive=46,173,46
 ForegroundVisited=30,66,117
 
 [General]
-ColorScheme=Vertex-dark-latest
-Name=Vertex-dark-latest
+ColorScheme=Vertex
+Name=Vertex
 shadeSortColumn=true
 
 [KDE]
