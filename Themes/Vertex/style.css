@@ -59,13 +59,13 @@ QAbstractButton {
 
 .BE--Volume { 
       padding: 2 0 0 0; 
-      margin: 0px; 
+      margin: 0 8 0 0; 
       max-width:16px; 
       max-height: 16px;
 }
 
 .BE--InfoCenter { 
-      padding: -2 0 0 4; 
+      padding: -2 2 0 -2; 
 }
 
 .BE--MediaTray { 

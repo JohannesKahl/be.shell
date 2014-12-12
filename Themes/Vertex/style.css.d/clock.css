@@ -1,7 +1,7 @@
 /* Clock & Calendar */
 
 .BE--Clock { 
-      padding: 0 4 1 8; 
+      padding: 0 4 1 4; 
 }
 
 .BE--Clock:hover, .BE--Clock:checked {
