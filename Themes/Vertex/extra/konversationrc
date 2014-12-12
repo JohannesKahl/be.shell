@@ -1,0 +1,38 @@
+[Appearance]
+IrcColorCode1=215,215,215
+IrcColorCode4=112,80,80
+IrcColorCode5=112,80,80
+NickColor0=80,96,112
+NickColor1=195,191,159
+NickColor2=220,163,163
+NickColor3=248,248,242
+NickColor4=240,223,175
+NickColor5=96,180,138
+NickColor6=236,147,211
+NickColor7=255,255,255
+NickColor8=148,191,243
+
+[Colors]
+CurrentPalette=Forty Colors
+
+[Highlight List]
+HighlightNickColor=112,80,80
+
+[Message Text Colors]
+ActionMessage=148,191,243
+AlternateBackground=43,43,43
+BacklogMessage=59,58,50
+ChannelMessage=220,220,204
+CommandMessage=223,175,143
+Hyperlink=148,191,243
+QueryMessage=220,220,204
+ServerMessage=112,80,80
+TextViewBackground=43,43,43
+Time=112,144,128
+
+[Tab Notifications]
+TabNotificationsHighlightsColor=240,223,175
+TabNotificationsMsgsColor=112,144,128
+TabNotificationsNickColor=240,223,175
+TabNotificationsPrivateColor=112,80,80
+TabNotificationsSystemColor=96,180,138
