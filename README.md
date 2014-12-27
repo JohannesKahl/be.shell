@@ -63,4 +63,9 @@ The suite is inspired by [Vertex GTK](http://horst3180.deviantart.com/art/Vertex
 
 ![Vertex preview](https://lh5.googleusercontent.com/-h83zA_HCRVQ/VGYMxGGvQOI/AAAAAAAAC7I/eNZRGMB8qW4/w1058-h595-no/schermata662.png "Vertex")
 
+Dynamo
+======
 
+Coming soon...
+
+![Dynamo preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Dynamo.png "Dynamo")
