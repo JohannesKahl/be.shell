@@ -7,9 +7,10 @@
 #Active=true
 #Exec=python2 $HOME/path/to/be.kdeconnect
 #PermittedCommands=dbus
-#PollInterval=100000
-#Type=Label
-#Add the new applet to the Applets list in a panel
+#PollInterval=100000 ← temporary solution while the FiFo is not ready
+#Type=Label  
+#Add the new applet to the Applets list in a vertical panel (check the width size in the table var at the end. 
+# the notification_ticker lenght affects the table size as well - QLabel is not QWebKit!"
 #A FiFo version is on the way ;)
 
 import dbus, os.path
@@ -48,7 +49,7 @@ class Kdeconnect:
 	return self.attributes['icon']
       
      def battery(self):
-       if self.path.hasPlugin('kdeconnect_battery') == True :
+       if self.path.hasPlugin('kdeconnect_battery') :
 	 charge = self.path.get_dbus_method('charge')
 	 if charge() == -1 :
 	   self.attributes['charge'] = '100%'
@@ -103,6 +104,6 @@ for key in kdeconnect.devices() :
    
       outstring = '<tr><td width="90" valign="top" align="left" colspan ="1" rowspan="1" style="font:14pt Roboto; text-align: left;"><font style="font-weight:bold;">' + device.name() + '&#58;</font></td><td align="right"><a style="text-decoration: none; color: white;" href="dbus:' + device.sftp() + '"><img align="center" valign="middle" src="' + device.icon() + '" height="32"/></a></td></tr><tr><td colspan="1"> Battery: </td><td align="right">' + device.battery() + '</td></tr><tr><td rowspan="1" colspan="2" valign="middle" align="center"><b>' + device.header() + '</b></td></td><tr><td colspan="2">' + device.notifications() + '</td></tr>' 
       table =  '<table width="360" align="left" valign="top" border="0" height="100%" cellspacing="5" cellpadding="4" style="border-color: white; table-layout: fixed; vertical-align: top;">' + outstring + '</table>'
-      
+    #TODO: fix the output to get just one table  
       print table,
        
