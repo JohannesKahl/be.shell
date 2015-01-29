@@ -1,0 +1,108 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+
+#Usage: 
+#Create an entry in your be.shell config:
+#[kdeconnect]
+#Active=true
+#Exec=python2 $HOME/path/to/be.kdeconnect
+#PermittedCommands=dbus
+#PollInterval=100000
+#Type=Label
+#Add the new applet to the Applets list in a panel
+#A FiFo version is on the way ;)
+
+import dbus, os.path
+
+localConfigDir = os.getenv('HOME') + '/.local/share/infofeed/'
+
+#################################################################################################################################
+
+class Kdeconnect:
+  
+     def __init__(self, obj, path):
+       self.obj = obj
+       self.path = path
+       self.properties = dbus.Interface(path, "org.freedesktop.DBus.Properties")
+       self.iface = dbus.Interface(path, "org.kde.kdeconnect.device")
+       self.notify_iface = dbus.Interface(path, "org.kde.kdeconnect.device.notifications")
+       self.currentNotifications = self.notify_iface.get_dbus_method('activeNotifications')
+       self.attributes = { 'id': '', 'name': '', 'icon': '' , 'charge': '', 'url': '' }
+       
+     def ID(self):
+	self.attributes['id'] = device.properties.Get("org.kde.kdeconnect.device", "id")
+	return self.attributes['id']
+	
+     def name(self):
+        self.attributes['name'] = device.properties.Get("org.kde.kdeconnect.device", "name")
+	return self.attributes['name']
+      
+     def icon(self):
+        iconType = device.properties.Get("org.kde.kdeconnect.device", "iconName")
+        if iconType == 'computer':
+         self.attributes['icon'] = localConfigDir + 'computer.png'
+        elif iconType == 'tablet':
+         self.attributes['icon'] = localConfigDir + 'tablet.png'
+        else :
+         self.attributes['icon'] = localConfigDir + 'smartphone.png'
+	return self.attributes['icon']
+      
+     def battery(self):
+       if self.path.hasPlugin('kdeconnect_battery') == True :
+	 charge = self.path.get_dbus_method('charge')
+	 if charge() == -1 :
+	   self.attributes['charge'] = '100%'
+	 else :
+	   self.attributes['charge'] = str(charge()) + '%'
+       else:
+	 self.attributes['charge'] = '/'
+       return self.attributes['charge']
+     
+     def header(self):
+       if self.currentNotifications() :
+	 title = 'Notifications:'
+       else:
+	 title = ''
+       return title
+     
+     def notifications(self):
+       out = []
+       if self.path.hasPlugin('kdeconnect_notifications'):      
+           for i in self.currentNotifications():
+	     not_obj = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect/devices/' + self.ID() + '/notifications/' + i)
+             notifications_iface = dbus.Interface(not_obj, 'org.freedesktop.DBus.Properties')
+             notifications_AppName = notifications_iface.Get("org.kde.kdeconnect.device.notifications.notification", 'appName')
+             notifications_Ticker = notifications_iface.Get("org.kde.kdeconnect.device.notifications.notification", 'ticker')
+             cell= str(notifications_AppName) + ': ' + notifications_Ticker
+             if len(cell) > 60:
+	       cell = cell[:60] + '...'
+             out.append(cell.encode('ASCII', 'ignore'))
+       return '<br/>'.join(str(item) for item in out)
+     
+     def sftp(self):
+       if self.path.hasPlugin('kdeconnect_sftp'):
+         self.attributes['url'] = 'session;org.kde.kdeconnect;/modules/kdeconnect/devices/' + self.ID() + '/sftp;org.kde.kdeconnect.device.sftp;startBrowsing'
+       return self.attributes['url']
+     
+       
+#################################################################################################################################
+     
+try:
+   bus = dbus.SessionBus()
+except DBusException:
+   print "Can't connect to session"
+        
+kdeconnect = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect')
+ 
+for key in kdeconnect.devices() :
+  if key :
+   
+   myDevice = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect/devices/' + key )
+   device = Kdeconnect(kdeconnect, myDevice)
+   if device.iface.isReachable() and device.iface.isPaired():
+   
+      outstring = '<tr><td width="90" valign="top" align="left" colspan ="1" rowspan="1" style="font:14pt Roboto; text-align: left;"><font style="font-weight:bold;">' + device.name() + '&#58;</font></td><td align="right"><a style="text-decoration: none; color: white;" href="dbus:' + device.sftp() + '"><img align="center" valign="middle" src="' + device.icon() + '" height="32"/></a></td></tr><tr><td colspan="1"> Battery: </td><td align="right">' + device.battery() + '</td></tr><tr><td rowspan="1" colspan="2" valign="middle" align="center"><b>' + device.header() + '</b></td></td><tr><td colspan="2">' + device.notifications() + '</td></tr>' 
+      table =  '<table width="360" align="left" valign="top" border="0" height="100%" cellspacing="5" cellpadding="4" style="border-color: white; table-layout: fixed; vertical-align: top;">' + outstring + '</table>'
+      
+      print table,
+       
