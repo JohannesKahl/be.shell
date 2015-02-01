@@ -16,6 +16,10 @@
 import dbus, os.path
 
 localConfigDir = os.getenv('HOME') + '/.local/share/infofeed/'
+#CSS_File = localConfigDir + 'kdeconnect.css'
+WIDTH = 360  #width for the output table, change it according to your panel width
+HEIGHT = 470 #same for height, which eventually will increase automatically depending on the content
+
 
 #################################################################################################################################
 
@@ -41,11 +45,11 @@ class Kdeconnect:
      def icon(self):
         iconType = device.properties.Get("org.kde.kdeconnect.device", "iconName")
         if iconType == 'computer':
-         self.attributes['icon'] = localConfigDir + 'computer.png'
+         self.attributes['icon'] = localConfigDir + 'kdeconnect.png'
         elif iconType == 'tablet':
-         self.attributes['icon'] = localConfigDir + 'tablet.png'
+         self.attributes['icon'] = localConfigDir + 'kdeconnect.png'
         else :
-         self.attributes['icon'] = localConfigDir + 'smartphone.png'
+         self.attributes['icon'] = localConfigDir + 'kdeconnect.png'
 	return self.attributes['icon']
       
      def battery(self):
@@ -59,13 +63,18 @@ class Kdeconnect:
 	 self.attributes['charge'] = '/'
        return self.attributes['charge']
      
+     def sftp(self):
+       if self.path.hasPlugin('kdeconnect_sftp'):
+         self.attributes['url'] = 'session;org.kde.kdeconnect;/modules/kdeconnect/devices/' + self.ID() + '/sftp;org.kde.kdeconnect.device.sftp;startBrowsing'
+       return self.attributes['url']
+     
      def header(self):
        if self.currentNotifications() :
 	 title = 'Notifications:'
        else:
 	 title = ''
        return title
-     
+	 
      def notifications(self):
        out = []
        if self.path.hasPlugin('kdeconnect_notifications'):      
@@ -74,36 +83,39 @@ class Kdeconnect:
              notifications_iface = dbus.Interface(not_obj, 'org.freedesktop.DBus.Properties')
              notifications_AppName = notifications_iface.Get("org.kde.kdeconnect.device.notifications.notification", 'appName')
              notifications_Ticker = notifications_iface.Get("org.kde.kdeconnect.device.notifications.notification", 'ticker')
-             cell= str(notifications_AppName) + ': ' + notifications_Ticker
-             if len(cell) > 60:
-	       cell = cell[:60] + '...'
-             out.append(cell.encode('ASCII', 'ignore'))
+             dismiss = 'session;org.kde.kdeconnect;/modules/kdeconnect/devices/' + self.ID() + '/notifications/' + i + ';org.kde.kdeconnect.device.notifications.notification;dismiss'
+             cell= str(notifications_AppName) + ': ' + notifications_Ticker 
+             if len(cell) > 55:
+	       cell = cell[:55] + '...' 
+	     #The following line implements a *fucking ugly* workaround
+	     row = '<table width="290" cellspacing="0"><tr><td align="left">' + cell + '</td><td align="right"><a id="close-btn" href="dbus:' + dismiss + '">X</a></td></tr></table>'
+             out.append(row.encode('ASCII', 'ignore'))
        return '<br/>'.join(str(item) for item in out)
      
-     def sftp(self):
-       if self.path.hasPlugin('kdeconnect_sftp'):
-         self.attributes['url'] = 'session;org.kde.kdeconnect;/modules/kdeconnect/devices/' + self.ID() + '/sftp;org.kde.kdeconnect.device.sftp;startBrowsing'
-       return self.attributes['url']
-     
+     def get_out(self):
+       outstring = ''
+       if self.iface.isReachable() and self.iface.isPaired():
+	 outstring = '<tr><td class="NAME" valign="top" align="left" colspan ="1" rowspan="1">' + self.name() + '&#58;</td><td align="right"><a href="dbus:' + self.sftp() + '"><img id="deviceIcon" align="right" valign="middle" src="' + self.icon() + '" height="32"/></a></td></tr><tr><td colspan="1"> Battery: </td><td align="right">' + self.battery() + '</td></tr><tr><td rowspan="1" colspan="2" valign="middle" align="center"><b>' + self.header() + '</b></td></td><tr><td colspan="2">' + self.notifications() + '</td></tr>' 
+       return outstring
        
 #################################################################################################################################
-     
+
 try:
    bus = dbus.SessionBus()
 except DBusException:
    print "Can't connect to session"
         
 kdeconnect = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect')
+outList = []
+outList.append('<html><head><link href="' + localConfigDir + 'stile.css" rel="stylesheet" type="text/css"></head><table class="table" width="' + str(WIDTH) + '" align="left" valign="top" border="0" height="' + str(HEIGHT) + '" cellspacing="5" cellpadding="4">')
  
 for key in kdeconnect.devices() :
   if key :
    
    myDevice = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect/devices/' + key )
    device = Kdeconnect(kdeconnect, myDevice)
-   if device.iface.isReachable() and device.iface.isPaired():
-   
-      outstring = '<tr><td width="90" valign="top" align="left" colspan ="1" rowspan="1" style="font:14pt Roboto; text-align: left;"><font style="font-weight:bold;">' + device.name() + '&#58;</font></td><td align="right"><a style="text-decoration: none; color: white;" href="dbus:' + device.sftp() + '"><img align="center" valign="middle" src="' + device.icon() + '" height="32"/></a></td></tr><tr><td colspan="1"> Battery: </td><td align="right">' + device.battery() + '</td></tr><tr><td rowspan="1" colspan="2" valign="middle" align="center"><b>' + device.header() + '</b></td></td><tr><td colspan="2">' + device.notifications() + '</td></tr>' 
-      table =  '<table width="360" align="left" valign="top" border="0" height="100%" cellspacing="5" cellpadding="4" style="border-color: white; table-layout: fixed; vertical-align: top;">' + outstring + '</table>'
-    #TODO: fix the output to get just one table  
-      print table,
+   outList.append(device.get_out())      
+      
+outList.append('</table></html>')
+print '<br/>'.join(map(str, outList))
        
