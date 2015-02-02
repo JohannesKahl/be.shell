@@ -9,14 +9,15 @@
 #PermittedCommands=dbus
 #PollInterval=100000 ← temporary solution while the FiFo is not ready
 #Type=Label  
-#Add the new applet to the Applets list in a vertical panel  - check the width size in the table var at the end. 
-# the notification_ticker lenght affects the table size as well
+#Add the new applet to the Applets list in a vertical panel  - check the TABLE_WIDTH, TABLE_HEIGHT and NOTIFICATION_LENGTH
 #FiFo version is on the way ;)
 
 #CSS reference (see CSS_File var):
 # .table {}
 # #device-name {}
 # #device-icon {}
+# #battery-header {}
+# #battery-value {}
 # #notification-header {}
 # #notification {}
 # #notification-close-button {}
@@ -30,16 +31,20 @@ CSS_File = localConfigDir + 'kdeconnect.css'
 COMPUTER_ICON = localConfigDir + 'kdeconnect.png'
 TABLET_ICON = localConfigDir + 'kdeconnect.png'
 SMARTPHONE_ICON = localConfigDir + 'kdeconnect.png'
+ICON_SIZE = '32' 
 
-WIDTH = '360'  #width for the output table, change it according to your panel width
-HEIGHT = '470' #same for height, which eventually will increase automatically depending on the content
-SPACING = '5' #the amount of space between the table cells
-PADDING = '4' #the padding of cells
-BORDER = '0' #table border width 
-ICON_SIZE = '32' #size of the device icon
+TABLE_WIDTH = '360' 
+TABLE_HEIGHT = '470' 
+CELL_SPACING = '5' 
+CELL_PADDING = '4' 
+TABLE_BORDER = '0'
+
+#Lenght of the notification string. NOTICE! This affects the size of the table itself.
+
+NOTIFICATION_LENGTH = 55
 
 #################################################################################################################################
-# ------------------------------------------ no user edits below this line ---------------------------------------------------- #
+# -------------------------------------------- no user edits below this line -------------------------------------------------- #
 #################################################################################################################################
 
 class Kdeconnect:
@@ -104,8 +109,8 @@ class Kdeconnect:
              notifications_Ticker = notifications_iface.Get("org.kde.kdeconnect.device.notifications.notification", 'ticker')
              dismiss = 'session;org.kde.kdeconnect;/modules/kdeconnect/devices/' + self.ID() + '/notifications/' + i + ';org.kde.kdeconnect.device.notifications.notification;dismiss'
              cell= str(notifications_AppName) + ': ' + notifications_Ticker 
-             if len(cell) > 55:
-	       cell = cell[:55] + '...' 
+             if len(cell) > NOTIFICATION_LENGTH:
+	       cell = cell[:NOTIFICATION_LENGTH] + '...' 
 	     #The following line implements a *fucking ugly* workaround
 	     row = '<table width="290" cellspacing="0"><tr><td id="notification" align="left">' + cell + '</td><td align="right"><a id="notification-close-button" href="dbus:' + dismiss + '">X</a></td></tr></table>'
              out.append(row.encode('ASCII', 'ignore'))
@@ -114,7 +119,7 @@ class Kdeconnect:
      def get_out(self):
        outstring = ''
        if self.iface.isReachable() and self.iface.isPaired():
-	 outstring = '<tr><td id="device-name" valign="top" align="left" colspan ="1" rowspan="1">' + self.name() + '&#58;</td><td align="right"><a href="dbus:' + self.sftp() + '"><img id="device-icon" align="right" valign="middle" src="' + self.icon() + '" height="' + ICON_SIZE + '"/></a></td></tr><tr><td colspan="1"> Battery: </td><td align="right">' + self.battery() + '</td></tr><tr><td id="header" rowspan="1" colspan="2" valign="middle" align="center">' + self.header() + '</td></td><tr><td colspan="2">' + self.notifications() + '</td></tr>' 
+	 outstring = '<tr><td id="device-name" valign="top" align="left" colspan ="1" rowspan="1">' + self.name() + '&#58;</td><td align="right"><a href="dbus:' + self.sftp() + '"><img id="device-icon" align="right" valign="middle" src="' + self.icon() + '" height="' + ICON_SIZE + '"/></a></td></tr><tr><td id="battery-header" colspan="1"> Battery: </td><td id="battery-value" align="right">' + self.battery() + '</td></tr><tr><td id="notification-header" rowspan="1" colspan="2" valign="middle" align="center">' + self.header() + '</td></tr><tr><td colspan="2">' + self.notifications() + '</td></tr>' 
        return outstring
        
 #################################################################################################################################
@@ -126,7 +131,7 @@ except DBusException:
         
 kdeconnect = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect')
 outList = []
-outList.append('<html><head><link href="' + CSS_File + '" rel="stylesheet" type="text/css"></head><table class="table" width="' + WIDTH + '" align="left" valign="top" border="' + BORDER + '" height="' + HEIGHT + '" cellspacing="' + SPACING + '" cellpadding="' + PADDING + '">')
+outList.append('<html><head><link href="' + CSS_File + '" rel="stylesheet" type="text/css"></head><table class="table" width="' + TABLE_WIDTH + '" align="left" valign="top" border="' + TABLE_BORDER + '" height="' + TABLE_HEIGHT + '" cellspacing="' + CELL_SPACING + '" cellpadding="' + CELL_PADDING + '">')
  
 for key in kdeconnect.devices() :
   if key :
