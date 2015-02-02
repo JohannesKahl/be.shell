@@ -1,27 +1,31 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-#Usage: 
-#Create an entry in your be.shell config:
-#[kdeconnect]
-#Active=true
-#Exec=python2 $HOME/path/to/be.kdeconnect
-#PermittedCommands=dbus
-#PollInterval=100000 ← temporary solution while the FiFo is not ready
-#Type=Label  
-#Add the new applet to the Applets list in a vertical panel  - check the TABLE_WIDTH, TABLE_HEIGHT and NOTIFICATION_LENGTH
-#FiFo version is on the way ;)
+'''Usage: 
+Create an entry in your be.shell config:
 
-#CSS reference (see CSS_File var):
-# .table {}
-# #device-name {}
-# #device-icon {}
-# #battery-header {}
-# #battery-value {}
-# #notification-header {}
-# #notification {}
-# #notification-close-button {}
-# NOTICE! QLabel does not support :hover pseudo state
+ [kdeconnect]
+ Active=true
+ Exec=python2 $HOME/path/to/be.kdeconnect
+ PermittedCommands=dbus
+ PollInterval=100000 ← temporary solution while the FiFo is not ready
+ Type=Label  
+ 
+Add the new applet to the Applets list in a vertical panel  - check the TABLE_WIDTH, TABLE_HEIGHT and NOTIFICATION_LENGTH 
+FiFo version is on the way ;) 
+
+CSS reference (see CSS_File var):
+ .table {}
+ #device-name {}
+ #device-icon-cell {} 
+ #device-action {}  /* the hyperlink containing the icon */
+ #device-icon {}  /* the icon itself */
+ #battery-header {}
+ #battery-value {}
+ #notification-header {}
+ #notification {}
+ #notification-close-button {}
+ NOTICE! QLabel does not support :hover pseudo state '''
 
 import dbus, os.path
 
@@ -119,7 +123,7 @@ class Kdeconnect:
      def get_out(self):
        outstring = ''
        if self.iface.isReachable() and self.iface.isPaired():
-	 outstring = '<tr><td id="device-name" valign="top" align="left" colspan ="1" rowspan="1">' + self.name() + '&#58;</td><td align="right"><a href="dbus:' + self.sftp() + '"><img id="device-icon" align="right" valign="middle" src="' + self.icon() + '" height="' + ICON_SIZE + '"/></a></td></tr><tr><td id="battery-header" colspan="1"> Battery: </td><td id="battery-value" align="right">' + self.battery() + '</td></tr><tr><td id="notification-header" rowspan="1" colspan="2" valign="middle" align="center">' + self.header() + '</td></tr><tr><td colspan="2">' + self.notifications() + '</td></tr>' 
+	 outstring = '<tr><td id="device-name" valign="top" align="left" colspan ="1" rowspan="1">' + self.name() + '&#58;</td><td align="right" id="device-icon-cell"><a id="device-action" href="dbus:' + self.sftp() + '"><img id="device-icon" align="right" valign="middle" src="' + self.icon() + '" height="' + ICON_SIZE + '"/></a></td></tr><tr><td id="battery-header" colspan="1"> Battery: </td><td id="battery-value" align="right">' + self.battery() + '</td></tr><tr><td id="notification-header" rowspan="1" colspan="2" valign="middle" align="center">' + self.header() + '</td></tr><tr><td colspan="2">' + self.notifications() + '</td></tr>' 
        return outstring
        
 #################################################################################################################################
