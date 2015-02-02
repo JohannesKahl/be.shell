@@ -13,6 +13,16 @@
 # the notification_ticker lenght affects the table size as well
 #FiFo version is on the way ;)
 
+#CSS reference (see CSS_File var):
+# .table {}
+# #device-name {}
+# #device-icon {}
+# #notification-header {}
+# #notification {}
+# #notification-close-btn {}
+# NOTICE! QLabel does not support :hover pseudo state
+
+
 import dbus, os.path
 
 localConfigDir = os.getenv('HOME') + '/.local/share/infofeed/'
@@ -25,7 +35,8 @@ PADDING = '4' #the padding of cells
 BORDER = '0' #table border width 
 ICON_SIZE = '32' #size of the device icon
 
-
+#################################################################################################################################
+# ------------------------------------------ no user edits below this line ---------------------------------------------------- #
 #################################################################################################################################
 
 class Kdeconnect:
@@ -93,14 +104,14 @@ class Kdeconnect:
              if len(cell) > 55:
 	       cell = cell[:55] + '...' 
 	     #The following line implements a *fucking ugly* workaround
-	     row = '<table width="290" cellspacing="0"><tr><td align="left">' + cell + '</td><td align="right"><a id="close-btn" href="dbus:' + dismiss + '">X</a></td></tr></table>'
+	     row = '<table width="290" cellspacing="0"><tr><td id="notification" align="left">' + cell + '</td><td align="right"><a id="notification-close-button" href="dbus:' + dismiss + '">X</a></td></tr></table>'
              out.append(row.encode('ASCII', 'ignore'))
        return '<br/>'.join(str(item) for item in out)
      
      def get_out(self):
        outstring = ''
        if self.iface.isReachable() and self.iface.isPaired():
-	 outstring = '<tr><td id="name" valign="top" align="left" colspan ="1" rowspan="1">' + self.name() + '&#58;</td><td align="right"><a href="dbus:' + self.sftp() + '"><img id="deviceIcon" align="right" valign="middle" src="' + self.icon() + '" height="' + ICON_SIZE + '"/></a></td></tr><tr><td colspan="1"> Battery: </td><td align="right">' + self.battery() + '</td></tr><tr><td id="header" rowspan="1" colspan="2" valign="middle" align="center">' + self.header() + '</td></td><tr><td colspan="2">' + self.notifications() + '</td></tr>' 
+	 outstring = '<tr><td id="device-name" valign="top" align="left" colspan ="1" rowspan="1">' + self.name() + '&#58;</td><td align="right"><a href="dbus:' + self.sftp() + '"><img id="device-icon" align="right" valign="middle" src="' + self.icon() + '" height="' + ICON_SIZE + '"/></a></td></tr><tr><td colspan="1"> Battery: </td><td align="right">' + self.battery() + '</td></tr><tr><td id="header" rowspan="1" colspan="2" valign="middle" align="center">' + self.header() + '</td></td><tr><td colspan="2">' + self.notifications() + '</td></tr>' 
        return outstring
        
 #################################################################################################################################
