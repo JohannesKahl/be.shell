@@ -9,16 +9,21 @@
 #PermittedCommands=dbus
 #PollInterval=100000 ← temporary solution while the FiFo is not ready
 #Type=Label  
-#Add the new applet to the Applets list in a vertical panel (check the width size in the table var at the end. 
-# the notification_ticker lenght affects the table size as well - QLabel is not QWebKit!"
-#A FiFo version is on the way ;)
+#Add the new applet to the Applets list in a vertical panel  - check the width size in the table var at the end. 
+# the notification_ticker lenght affects the table size as well
+#FiFo version is on the way ;)
 
 import dbus, os.path
 
 localConfigDir = os.getenv('HOME') + '/.local/share/infofeed/'
-#CSS_File = localConfigDir + 'kdeconnect.css'
-WIDTH = 360  #width for the output table, change it according to your panel width
-HEIGHT = 470 #same for height, which eventually will increase automatically depending on the content
+CSS_File = localConfigDir + 'kdeconnect.css'
+
+WIDTH = '360'  #width for the output table, change it according to your panel width
+HEIGHT = '470' #same for height, which eventually will increase automatically depending on the content
+SPACING = '5' #the amount of space between the table cells
+PADDING = '4' #the padding of cells
+BORDER = '0' #table border width 
+ICON_SIZE = '32' #size of the device icon
 
 
 #################################################################################################################################
@@ -95,7 +100,7 @@ class Kdeconnect:
      def get_out(self):
        outstring = ''
        if self.iface.isReachable() and self.iface.isPaired():
-	 outstring = '<tr><td class="NAME" valign="top" align="left" colspan ="1" rowspan="1">' + self.name() + '&#58;</td><td align="right"><a href="dbus:' + self.sftp() + '"><img id="deviceIcon" align="right" valign="middle" src="' + self.icon() + '" height="32"/></a></td></tr><tr><td colspan="1"> Battery: </td><td align="right">' + self.battery() + '</td></tr><tr><td rowspan="1" colspan="2" valign="middle" align="center"><b>' + self.header() + '</b></td></td><tr><td colspan="2">' + self.notifications() + '</td></tr>' 
+	 outstring = '<tr><td id="name" valign="top" align="left" colspan ="1" rowspan="1">' + self.name() + '&#58;</td><td align="right"><a href="dbus:' + self.sftp() + '"><img id="deviceIcon" align="right" valign="middle" src="' + self.icon() + '" height="' + ICON_SIZE + '"/></a></td></tr><tr><td colspan="1"> Battery: </td><td align="right">' + self.battery() + '</td></tr><tr><td id="header" rowspan="1" colspan="2" valign="middle" align="center">' + self.header() + '</td></td><tr><td colspan="2">' + self.notifications() + '</td></tr>' 
        return outstring
        
 #################################################################################################################################
@@ -107,7 +112,7 @@ except DBusException:
         
 kdeconnect = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect')
 outList = []
-outList.append('<html><head><link href="' + localConfigDir + 'stile.css" rel="stylesheet" type="text/css"></head><table class="table" width="' + str(WIDTH) + '" align="left" valign="top" border="0" height="' + str(HEIGHT) + '" cellspacing="5" cellpadding="4">')
+outList.append('<html><head><link href="' + CSS_File + '" rel="stylesheet" type="text/css"></head><table class="table" width="' + WIDTH + '" align="left" valign="top" border="' + BORDER + '" height="' + HEIGHT + '" cellspacing="' + SPACING + '" cellpadding="' + PADDING + '">')
  
 for key in kdeconnect.devices() :
   if key :
