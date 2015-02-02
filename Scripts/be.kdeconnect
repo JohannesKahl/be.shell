@@ -19,14 +19,17 @@
 # #device-icon {}
 # #notification-header {}
 # #notification {}
-# #notification-close-btn {}
+# #notification-close-button {}
 # NOTICE! QLabel does not support :hover pseudo state
-
 
 import dbus, os.path
 
 localConfigDir = os.getenv('HOME') + '/.local/share/infofeed/'
 CSS_File = localConfigDir + 'kdeconnect.css'
+
+COMPUTER_ICON = localConfigDir + 'kdeconnect.png'
+TABLET_ICON = localConfigDir + 'kdeconnect.png'
+SMARTPHONE_ICON = localConfigDir + 'kdeconnect.png'
 
 WIDTH = '360'  #width for the output table, change it according to your panel width
 HEIGHT = '470' #same for height, which eventually will increase automatically depending on the content
@@ -61,11 +64,11 @@ class Kdeconnect:
      def icon(self):
         iconType = device.properties.Get("org.kde.kdeconnect.device", "iconName")
         if iconType == 'computer':
-         self.attributes['icon'] = localConfigDir + 'kdeconnect.png'
+         self.attributes['icon'] = COMPUTER_ICON
         elif iconType == 'tablet':
-         self.attributes['icon'] = localConfigDir + 'kdeconnect.png'
+         self.attributes['icon'] = TABLET_ICON
         else :
-         self.attributes['icon'] = localConfigDir + 'kdeconnect.png'
+         self.attributes['icon'] = SMARTPHONE_ICON
 	return self.attributes['icon']
       
      def battery(self):
