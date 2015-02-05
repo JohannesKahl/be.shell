@@ -25,16 +25,16 @@ CSS reference (see CSS_File var):
  #notification-header {}
  #notification {}
  #notification-close-button {}
- NOTICE! QLabel does not support :hover pseudo state '''
+NOTICE! CSS pseudo states will not work!'''
 
 import dbus, os.path
 
-localConfigDir = os.getenv('HOME') + '/.local/share/infofeed/'
+localConfigDir = os.getenv('HOME') + '/.kde4/share/apps/be.shell/Themes/Dynamo/style.css.d/'
 CSS_File = localConfigDir + 'kdeconnect.css'
 
-COMPUTER_ICON = localConfigDir + 'kdeconnect.png'
-TABLET_ICON = localConfigDir + 'kdeconnect.png'
-SMARTPHONE_ICON = localConfigDir + 'kdeconnect.png'
+COMPUTER_ICON = localConfigDir + 'background-images/kdeconnect.png'
+TABLET_ICON = localConfigDir + 'background-images/kdeconnect.png'
+SMARTPHONE_ICON = localConfigDir + 'background-images/kdeconnect.png'
 ICON_SIZE = '32' 
 
 TABLE_WIDTH = '360' 
@@ -43,13 +43,18 @@ CELL_SPACING = '5'
 CELL_PADDING = '4' 
 TABLE_BORDER = '0'
 
-#Lenght of the notification string. NOTICE! This affects the size of the table itself.
+#Lenght of the notification string. NOTICE! This affects the size of the table aswell.
 
 NOTIFICATION_LENGTH = 55
 
 #################################################################################################################################
 # -------------------------------------------- no user edits below this line -------------------------------------------------- #
 #################################################################################################################################
+
+#This is really an arbitrary solution for the notifications subtable width, so that the close button column will stay at its place
+#despite the notification lenght might be shorter than expected. Blame me later
+
+INNER_TABLE_WIDTH = str(int(TABLE_WIDTH)-int(TABLE_WIDTH)*2/10)
 
 class Kdeconnect:
   
@@ -116,7 +121,7 @@ class Kdeconnect:
              if len(cell) > NOTIFICATION_LENGTH:
 	       cell = cell[:NOTIFICATION_LENGTH] + '...' 
 	     #The following line implements a *fucking ugly* workaround
-	     row = '<table width="290" cellspacing="0"><tr><td id="notification" align="left">' + cell + '</td><td align="right"><a id="notification-close-button" href="dbus:' + dismiss + '">X</a></td></tr></table>'
+	     row = '<table width="' + INNER_TABLE_WIDTH + '" cellspacing="0"><tr><td id="notification" align="left">' + cell + '</td><td align="right"><a id="notification-close-button" href="dbus:' + dismiss + '">X</a></td></tr></table>'
              out.append(row.encode('ASCII', 'ignore'))
        return '<br/>'.join(str(item) for item in out)
      
@@ -129,14 +134,14 @@ class Kdeconnect:
 #################################################################################################################################
 
 try:
-   bus = dbus.SessionBus()
+  bus = dbus.SessionBus()
 except DBusException:
-   print "Can't connect to session"
+  print "Can't connect to session"
         
 kdeconnect = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect')
 outList = []
 outList.append('<html><head><link href="' + CSS_File + '" rel="stylesheet" type="text/css"></head><table class="table" width="' + TABLE_WIDTH + '" align="left" valign="top" border="' + TABLE_BORDER + '" height="' + TABLE_HEIGHT + '" cellspacing="' + CELL_SPACING + '" cellpadding="' + CELL_PADDING + '">')
- 
+
 for key in kdeconnect.devices() :
   if key :
    
@@ -146,4 +151,3 @@ for key in kdeconnect.devices() :
       
 outList.append('</table></html>')
 print '<br/>'.join(map(str, outList))
-       
