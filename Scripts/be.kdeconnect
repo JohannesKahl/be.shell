@@ -1,20 +1,27 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
+import dbus, os, time, sys, ConfigParser
+
 '''Usage: 
+Place this script somewhere in your $PATH
 Create an entry in your be.shell config:
 
  [kdeconnect]
  Active=true
- Exec=python2 $HOME/path/to/be.kdeconnect
+ FiFo=/tmp/be.kdeconnect
  PermittedCommands=dbus
- PollInterval=100000 ← temporary solution while the FiFo is not ready
  Type=Label  
- 
+  
 Add the new applet to the Applets list in a vertical panel  - check the TABLE_WIDTH, TABLE_HEIGHT and NOTIFICATION_LENGTH 
-FiFo version is on the way ;) 
+vars, since they affect the width and height of the label
 
-CSS reference (see CSS_File var):
+Reaload be.shell and launch the script.
+If you want it to be executed at login, add a startup entry in kcmshell4 autostart ;)
+
+The script expects a css file 'kdeconnect.css' under the style.css.d subdir in your be.shell theme directory:
+
+CSS reference :
  .table {}
  #device-name {}
  #device-icon-cell {} 
@@ -27,14 +34,17 @@ CSS reference (see CSS_File var):
  #notification-close-button {}
 NOTICE! CSS pseudo states will not work!'''
 
-import dbus, os.path
+UPDATE_PERIOD = "4" 
+fifo = '/tmp/kdeconnect'
 
-localConfigDir = os.getenv('HOME') + '/.kde4/share/apps/be.shell/Themes/Dynamo/style.css.d/'
-CSS_File = localConfigDir + 'kdeconnect.css'
+#All these resources shall be placed in KDEHOME/share/apps/be.shell/Themes/MY_theme/style.css.d/ (where KDEHOME is your
+#local kde4 config dir - depending on your distro can be either ~/.kde or ~/.kde4)
+#Icons are expected to be in KDEHOME/share/apps/be.shell/Themes/MY_theme/style.css.d/background-images/
 
-COMPUTER_ICON = localConfigDir + 'background-images/kdeconnect.png'
-TABLET_ICON = localConfigDir + 'background-images/kdeconnect.png'
-SMARTPHONE_ICON = localConfigDir + 'background-images/kdeconnect.png'
+CSS_FILE = 'kdeconnect.css'
+COMPUTER_ICON = 'background-images/kdeconnect.png'
+TABLET_ICON = 'background-images/kdeconnect.png'
+SMARTPHONE_ICON = 'background-images/kdeconnect.png'
 ICON_SIZE = '32' 
 
 TABLE_WIDTH = '360' 
@@ -55,6 +65,24 @@ NOTIFICATION_LENGTH = 55
 #despite the notification lenght might be shorter than expected. Blame me later
 
 INNER_TABLE_WIDTH = str(int(TABLE_WIDTH)-int(TABLE_WIDTH)*2/10)
+
+#This section is from Dysphorian, here we check for the kde4-config local folder
+
+kdeHome = os.path.expanduser('~/.kde')
+
+if not os.path.isdir(kdeHome):
+    kdeHome = os.path.expanduser('~/.kde4')
+
+#then we read the theme name from the be.shell config file, and set the path for the script resources accordingly
+
+confParser = ConfigParser.ConfigParser()
+be_shell_config = confParser.read('{0}/share/config/be.shell'.format(kdeHome))
+config_sections = confParser.sections()
+wantedSection = config_sections[config_sections.index('BE::Shell')]
+theme = confParser.get(wantedSection, 'Theme')
+resourcesFolder = kdeHome + '/share/apps/be.shell/Themes/' + theme + '/style.css.d/'
+
+#################################################################################################################################
 
 class Kdeconnect:
   
@@ -78,11 +106,11 @@ class Kdeconnect:
      def icon(self):
         iconType = device.properties.Get("org.kde.kdeconnect.device", "iconName")
         if iconType == 'computer':
-         self.attributes['icon'] = COMPUTER_ICON
+         self.attributes['icon'] = resourcesFolder + COMPUTER_ICON
         elif iconType == 'tablet':
-         self.attributes['icon'] = TABLET_ICON
+         self.attributes['icon'] = resourcesFolder + TABLET_ICON
         else :
-         self.attributes['icon'] = SMARTPHONE_ICON
+         self.attributes['icon'] = resourcesFolder + SMARTPHONE_ICON
 	return self.attributes['icon']
       
      def battery(self):
@@ -133,21 +161,34 @@ class Kdeconnect:
        
 #################################################################################################################################
 
-try:
-  bus = dbus.SessionBus()
-except DBusException:
-  print "Can't connect to session"
-        
-kdeconnect = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect')
-outList = []
-outList.append('<html><head><link href="' + CSS_File + '" rel="stylesheet" type="text/css"></head><table class="table" width="' + TABLE_WIDTH + '" align="left" valign="top" border="' + TABLE_BORDER + '" height="' + TABLE_HEIGHT + '" cellspacing="' + CELL_SPACING + '" cellpadding="' + CELL_PADDING + '">')
-
-for key in kdeconnect.devices() :
-  if key :
+def main():
+  
+   while True:
+     global bus
+     try:
+       bus = dbus.SessionBus()
+     except DBusException:
+       print "Can't connect to session"
+ 
+     global device
+     kdeconnect = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect')
+     outList = []
+ 
+     for key in kdeconnect.devices() :
+       if key :
    
-   myDevice = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect/devices/' + key )
-   device = Kdeconnect(kdeconnect, myDevice)
-   outList.append(device.get_out())      
+        myDevice = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect/devices/' + key )
+        device = Kdeconnect(kdeconnect, myDevice)
+        outList.append(device.get_out())      
       
-outList.append('</table></html>')
-print '<br/>'.join(map(str, outList))
+     output = '<html><head><link href="' + resourcesFolder + CSS_FILE + '" rel="stylesheet" type="text/css"></head><table class="table" width="' + TABLE_WIDTH + '" align="left" valign="top" border="' + TABLE_BORDER + '" height="' + TABLE_HEIGHT + '" cellspacing="' + CELL_SPACING + '" cellpadding="' + CELL_PADDING + '">' + '<br/>'.join(map(str, outList)) + '</table></html>'
+     with open(fifo, 'w') as f:
+       f.write(output)
+     time.sleep(int(UPDATE_PERIOD))
+  
+if __name__ == '__main__' :
+  
+  if not os.path.exists(fifo):
+    os.mkfifo(fifo)
+    
+  main()
