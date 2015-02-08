@@ -9,7 +9,7 @@ Create an entry in your be.shell config:
 
  [kdeconnect]
  Active=true
- FiFo=/tmp/be.kdeconnect
+ FiFo=/tmp/kdeconnect
  PermittedCommands=dbus
  Type=Label  
   
