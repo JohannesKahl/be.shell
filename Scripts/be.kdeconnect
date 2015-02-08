@@ -11,6 +11,7 @@ Create an entry in your be.shell config:
  Active=true
  FiFo=/tmp/kdeconnect
  PermittedCommands=dbus
+ Lines=1
  Type=Label  
   
 Add the new applet to the Applets list in a vertical panel  - check the TABLE_WIDTH, TABLE_HEIGHT and NOTIFICATION_LENGTH 
