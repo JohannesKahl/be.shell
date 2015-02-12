@@ -9,9 +9,8 @@ Create an entry in your be.shell config:
 
  [kdeconnect]
  Active=true
- FiFo=/tmp/kdeconnect
+ FiFo=/tmp/be.kdeconnect
  PermittedCommands=dbus
- Lines=1
  Type=Label  
   
 Add the new applet to the Applets list in a vertical panel  - check the TABLE_WIDTH, TABLE_HEIGHT and NOTIFICATION_LENGTH 
@@ -81,7 +80,7 @@ be_shell_config = confParser.read('{0}/share/config/be.shell'.format(kdeHome))
 config_sections = confParser.sections()
 wantedSection = config_sections[config_sections.index('BE::Shell')]
 theme = confParser.get(wantedSection, 'Theme')
-resourcesFolder = kdeHome + '/share/apps/be.shell/Themes/' + theme + '/style.css.d/'
+resourcesFolder = '{0}/share/apps/be.shell/Themes/{1}/style.css.d/'.format(kdeHome, theme)
 
 #################################################################################################################################
 
@@ -97,15 +96,15 @@ class Kdeconnect:
        self.attributes = { 'id': '', 'name': '', 'icon': '' , 'charge': '', 'url': '' }
        
      def ID(self):
-	self.attributes['id'] = device.properties.Get("org.kde.kdeconnect.device", "id")
+	self.attributes['id'] = self.properties.Get("org.kde.kdeconnect.device", "id")
 	return self.attributes['id']
 	
      def name(self):
-        self.attributes['name'] = device.properties.Get("org.kde.kdeconnect.device", "name")
+        self.attributes['name'] = self.properties.Get("org.kde.kdeconnect.device", "name")
 	return self.attributes['name']
       
      def icon(self):
-        iconType = device.properties.Get("org.kde.kdeconnect.device", "iconName")
+        iconType = self.properties.Get("org.kde.kdeconnect.device", "iconName")
         if iconType == 'computer':
          self.attributes['icon'] = resourcesFolder + COMPUTER_ICON
         elif iconType == 'tablet':
@@ -164,32 +163,32 @@ class Kdeconnect:
 
 def main():
   
-   while True:
-     global bus
-     try:
-       bus = dbus.SessionBus()
-     except DBusException:
-       print "Can't connect to session"
+  while True:
+    global bus
+    try:
+        bus = dbus.SessionBus()
+    except DBusException:
+        print "Can't connect to session"
  
-     global device
-     kdeconnect = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect')
-     outList = []
+    global device
+    kdeconnect = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect')
+    outList = []
  
-     for key in kdeconnect.devices() :
-       if key :
+    for key in kdeconnect.devices() :
+      if key :
    
-        myDevice = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect/devices/' + key )
-        device = Kdeconnect(kdeconnect, myDevice)
-        outList.append(device.get_out())      
+         myDevice = bus.get_object('org.kde.kdeconnect', '/modules/kdeconnect/devices/' + key )
+         device = Kdeconnect(kdeconnect, myDevice)
+         outList.append(device.get_out())      
       
-     output = '<html><head><link href="' + resourcesFolder + CSS_FILE + '" rel="stylesheet" type="text/css"></head><table class="table" width="' + TABLE_WIDTH + '" align="left" valign="top" border="' + TABLE_BORDER + '" height="' + TABLE_HEIGHT + '" cellspacing="' + CELL_SPACING + '" cellpadding="' + CELL_PADDING + '">' + '<br/>'.join(map(str, outList)) + '</table></html>'
-     with open(fifo, 'w') as f:
+    output = '<html><head><link href="' + resourcesFolder + CSS_FILE + '" rel="stylesheet" type="text/css"></head><table class="table" width="' + TABLE_WIDTH + '" align="left" valign="top" border="' + TABLE_BORDER + '" height="' + TABLE_HEIGHT + '" cellspacing="' + CELL_SPACING + '" cellpadding="' + CELL_PADDING + '">' + '<br/>'.join(map(str, outList)) + '</table></html>'
+    with open(fifo, 'w') as f:
        f.write(output)
-     time.sleep(int(UPDATE_PERIOD))
+    time.sleep(int(UPDATE_PERIOD))
   
 if __name__ == '__main__' :
   
-  if not os.path.exists(fifo):
-    os.mkfifo(fifo)
+   if not os.path.exists(fifo):
+     os.mkfifo(fifo)
     
-  main()
+   main()
