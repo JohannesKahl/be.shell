@@ -3,20 +3,20 @@ BlurRadius=0
 Corners=80
 HaloColor=invalid
 IconAreaPaddings=32,32,32,32
-IconPos=a316ca0:1827:235,c41560:1827:294,cf1c2a0:1826:180,
+IconPos=a316ca0:1825:56,c41560:1826:225,cf1c2a0:1825:137,db9cf00:1829:312,
 IconSize=48
 Rootpaper=true
 ShadowOpacity=65
 ShowIcons=false
 Tint=0,0,0
 TrashCan=false
-Wallpaper=/home/hombre/.kde4/share/apps/be.shell/Themes/Vertex/wallpaper.bwp
-WallpaperAlign=128
+Wallpaper=/home/hombre/Musica/wallhaven-155239.jpg
+WallpaperAlign=132
 WallpaperAspect=-1
 WallpaperDefaultAlign=132
 WallpaperDefaultMode=7
 WallpaperFadeSteps=8
-WallpaperMode=8
+WallpaperMode=7
 WheelOnLMB=true
 
 [BE::Run]
@@ -32,9 +32,6 @@ Theme=Vertex
 Type=globalmenu
 WindowMenus=true
 
-[infocenter]
-Geometry=1604,22,316,316
-
 [Sessionbutton]
 FullName=false
 Icon=session-icon
@@ -42,7 +39,7 @@ Mode=2
 Type=Sessionbutton
 
 [TopPanel]
-Applets=GlobalMenu,stretch,pager,mediatray,systray,Volume,infocenter,clock,Sessionbutton
+Applets=close,min,max,GlobalMenu,stretch,pager,battery,mediatray,systray,Volume,infocenter,clock,Sessionbutton
 BlurRadius=65
 Frozen=True
 Length=100
@@ -63,7 +60,7 @@ Type=Volume
 
 [WunderBar]
 Applets=starter,tasks,stretch,TrashCan
-BlurRadius=60
+BlurRadius=100
 CastShadow=false
 Frozen=true
 Id=WunderBar
@@ -79,26 +76,23 @@ Visible=true
 [battery]
 Exec=kcmshell4 powerdevilglobalconfig
 Type=Battery
-
-[chromium]
-Exec=chromium
-Icon=chromium
-Label=Web Browser
-Mode=0
-Type=Button
+WheelDown=qdbus org.kde.kglobalaccel /component/kded invokeShortcut "Increase Screen Brightness"
+WheelUp=qdbus org.kde.kglobalaccel /component/kded invokeShortcut "Decrease Screen Brightness"
 
 [clock]
-Pattern='<html><small>' ddd dd'</small> &nbsp;'hh:mm AP'</html>'
+Pattern='<html><font color=#DCA3A3><small>' ddd dd'</small>  <text style="text-transform:uppercase"> 'MMM'</text></font>&nbsp;&middot;&nbsp;'hh:mm'<small> 'AP'</small></html>'
 Type=Clock
 
 [close]
 Buttons=X
+HideDisabled=true
 OnlyMaximized=true
 Type=WmCtrl
+X=window-close
 
-[dolphin]
-Exec=dolphin
-Icon=dolphin
+[dfm]
+Exec=dfm
+Icon=dfm
 Label=File Manager
 Mode=0
 Type=Button
@@ -107,6 +101,13 @@ Type=Button
 Exec=qdbus org.kde.kglobalaccel /component/kwin invokeShortcut "ExposeAll"
 Icon=cs-windows
 Label=Windows
+Mode=0
+Type=Button
+
+[firefox]
+Exec=firefox
+Icon=firefox
+Label=Web Browser
 Mode=0
 Type=Button
 
@@ -123,6 +124,9 @@ Icon=gwenview
 Label=Image Viewer
 Mode=0
 Type=Button
+
+[infocenter]
+Geometry=1604,22,316,316
 
 [kate]
 Exec=kate
@@ -153,7 +157,9 @@ Mode=0
 Type=Button
 
 [max]
+A=window-maximize
 Buttons=A
+HideDisabled=true
 OnlyMaximized=true
 Type=WmCtrl
 
@@ -163,6 +169,8 @@ Type=MediaTray
 
 [min]
 Buttons=I
+HideDisabled=true
+I=window-minimize
 OnlyMaximized=true
 Type=WmCtrl
 
@@ -203,7 +211,7 @@ Spacing=12
 [tasks]
 AlwaysGroup=True
 ButtonMode=0
-Buttons=dolphin,chromium,konsole,kate,settings,konversation,popcorntime,ksys,gwenview,smplayer,gimp,exposè,workspace
+Buttons=dfm,firefox,konsole,kate,settings,konversation,popcorntime,ksys,gwenview,smplayer,gimp,exposè,workspace
 OnlyCurrentDesk=False
 OnlyMinimized=False
 Spacing=0
