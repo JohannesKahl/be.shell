@@ -28,10 +28,17 @@ QAbstractButton {
 
 /* Setting fonts where needed */ 
 
-.BE--GMenu QMenuBar, .BE--Clock, .BE--Session, #infocenter { 
-      font: 10pt Cantarell; 
+.BE--GMenu QMenuBar, .BE--Clock, .BE--Session, #infocenter, #TaskTip { 
+      font-size: 11pt;
+      font-family:  Cantarell, Alte Haas Grotesk, Ubuntu, Roboto; 
       color:  #F2F2F4; 
 }
+
+.BE--Panel QMenuBar::item { 
+      padding: 0 4 0 4; 
+      margin: -1 0 -1 0; 
+}
+
 
 .BE--Run QSizeGrip, *:menu-indicator { 
       image:none; /* this removes that annoying arrow */
@@ -41,6 +48,7 @@ QAbstractButton {
 
 .BE--GMenu QMenuBar {  
       padding: 0 0 0 -8; 
+      margin-bottom: 4px;
       spacing: 15; 
       selection-background-color: #313133;
       selection-color: #FCFCFD;
@@ -86,11 +94,29 @@ QAbstractButton {
       margin: 1 0 1 0;
       padding: 3 0 3 0;
       width: 64px;
-      color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ffffff, stop:1 #666666);
-      selection-background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #A9FF0A, stop:0.5 #FFF300, stop:0.9 #FF8C08, stop:1 #FF0037);
+/*       selection-background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #A9FF0A, stop:0.5 #FFF300, stop:0.9 #FF8C08, stop:1 #FF0037); */
 }
 
-/* TODO: find a way to autohide BE::WmCtrl widgets when inactive */
+.BE--Battery[charge='high']{
+     selection-background-color: #FF0037; 
+}
+
+.BE--Battery[charge='mid']{
+     selection-background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #FF0037, stop:0.5 #FF8C08, stop:0.9 #FFF300, stop:1 transparent); 
+}
+
+.BE--Battery[charge='low']{
+     selection-background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #FF0037, stop:0.5 #FF8C08, stop:0.9 #FFF300, stop:1 #A9FF0A); 
+}
+
+.BE--Battery[charging='true'] {
+      color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ffffff, stop:1 #666666);
+}
+
+.BE--Battery[charging='false'] {
+      color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ffffff, stop:1 #666666);
+}
+
 
 #close, #min, #max { 
       color: #F2F2F4;
