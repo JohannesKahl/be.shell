@@ -1,0 +1,99 @@
+/* Drawer Panel, the one invoked by #control button.
+ * This is the most nasty part of the whole theme:
+ * we have different subpanels (and sub-subpanels) + labels
+ * which style is settled directly from script or external files.
+ * NOTICE! Pseudo-states are not working for labels right now.
+ * TODO: Write a patch to use setStyleSheet in Labels directly from the config! */
+
+#WunderBar {
+      background-color: rgba(235,241,244,110);
+      margin: -1 -5 0 -1; 
+      padding: 4 0 0 0;
+      shadow-margin: 3;
+      shadow-padding: 0 0 1 1;
+      shadow-border: 1px rgba(130,130,223,170) 3;
+      shadow-radius: 5px;
+      border-bottom: 0.5px solid rgba(49,54,59,40%);
+      border-left: 0.5px solid rgba(49,54,59,40%);
+}
+
+/*Subpanels - first level. While the one on the left is always visible, the other is just
+ * a container for second level subpanels with labels */
+
+#ContainerMainRight {
+      background-color: rgba(235,241,244,150);
+      min-width: 400px;
+      max-width: 400px;
+      margin-left: -20px;
+}
+
+#ControlMain {
+      padding: 46 0 0 0;
+      background-color: rgba(235,241,244,150);
+      border-right: 0.5px inset rgba(49,54,59,60);
+      min-width: 70px; /* 96px before */
+      max-width: 70px;
+}
+
+/* Second level subpanels, the ones containing the labels */ 
+
+/* Width & Height can be controlled by CSS, padding is necessary in order to set margins
+ * for scrollable labels - e.g. RSS */
+
+#Container1, #Container2, #Container3, #Container4, #Container5, #Container6 {
+      min-width: 400px;
+      max-width: 400px;
+      min-height: 500px;
+}
+
+#Container1 {
+     padding: 0 10 10 0;
+}
+
+#Container2 {
+     padding: 20 140 10 0;
+}
+
+#Container5 {
+     padding: 40 140 10 30;
+}
+
+/*Labels*/
+
+#RSS {
+     font-family: Roboto Condensed;
+      color: rgba(49,54,59,250);
+     font-size: 9pt;
+}
+
+#kdeconnect {
+    position: absolute;    
+    min-height: 600px;
+}
+
+#Music, #kdeconnect, #Calendar, #Weather, #RSS {
+     color: rgba(49,54,59,250);
+     outline: none;
+     max-width: 400px;
+}
+
+#Weather {
+     margin: 0 0 0 0;
+}
+
+#Music {
+     font: Roboto 14pt;
+     margin-top: 30px;
+}
+
+#Music, #kdeconnect, #RSS, #Weather, #Calendar { 
+        background-color: rgba(235,241,244,0); /* Prevent flicking with DSP Qt style */ 
+}
+
+/*Buttons in ControlMain subpanel to browse through nested panels in Containers */
+
+#mediaToggle, #weatherToggle, #kdeconnectToggle, #calendarToggle, #feedsToggle {
+     font: 10pt Roboto condensed;
+     color: #2d2d2d;
+     text-align: right;
+}

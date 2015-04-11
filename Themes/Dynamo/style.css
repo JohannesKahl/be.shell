@@ -1,0 +1,190 @@
+
+#TopPanel { 
+      background-color: rgba(235,241,244,245);
+      border-bottom : 0.5px solid rgba(49,54,59,25%);
+      /* padding in a panel acts as margin for each contained widget */
+      padding: 1 10 0 10; 
+} 
+
+/*Buttons */
+
+QAbstractButton { 
+      padding: 0 16 0 16; 
+      border-radius: 0px; 
+      border: 0px; 
+}
+
+/* Various Applets &  fixes IMPORTANT! */
+
+.BE--GMenu QMenuBar, .BE--Session, #infocenter, .BE--Task, .BE--Clock, #pager { 
+      font-size: 11.4pt;
+      /* Chosen font & fallback alternatives */ 
+      font-family: Roboto, Droid Sans, Alte Haas Grotesk;
+      color: rgba(49,54,59,250);
+}
+
+.BE--Run QSizeGrip, *:menu-indicator { 
+      image:none; /* this removes that annoying arrow */
+}
+
+/* Setting a background image for hovered top panel widgets */
+
+.BE--GMenu QMenuBar:item:selected, .BE--GMenu QMenuBar:item:hover, .BE--SysTray:hover, .BE--Volume:hover, .BE--Clock:hover, #starter:hover, .BE--Battery:hover, .BE--Session:hover, #infocenter:hover { 
+      background-image: url("${base}/style.css.d/background-images/selection.png");
+      background-repeat: repeat-x;
+      background-position: bottom center;
+      background-clip: margin;
+}
+
+/* Various Applets &  fixes */
+
+.BE--GMenu QMenuBar { 
+      padding: 1 0 1 -8; 
+      spacing: 15; /* Space between each menu */
+      background-color: rgba(231,245,239,0%); /* Fix for certain styles */
+      margin-bottom: 5px; /* Pushing the popup below the panel */
+}
+
+/* Preventive measure to ensure globalmenu will not disappear */ 
+
+.BE--Panel QMenuBar::item { 
+      padding: 0 4 0 4; 
+      margin: -1 0 -1 0; 
+}
+
+/* Top panel buttons */ 
+
+.BE--SysTray { 
+      margin:  0 0 0 0; 
+      padding: 0 6 0 0; 
+}
+
+.BE--Session { 
+      margin: 0 0 0 0; 
+      padding: 1 0 1 0;
+}
+
+.BE--Volume { 
+      padding: 2 0 2 0; 
+      margin: 0 4 0 4; 
+      max-width:22px; 
+      max-height: 22px;
+}
+
+#control { 
+      padding: 2 0 2 0; 
+      margin: 0 4 0 4; 
+      max-width:22px; 
+      max-height: 22px;
+}
+
+#starter {
+      margin: 0px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+}
+
+.BE--InfoCenter { 
+      padding: 2 0 1 0; 
+}
+
+.BE--MediaTray { 
+      margin: 0 12 0 4; 
+      padding: 1 0 3 0; 
+}
+
+.BE--Device { 
+      max-width: 22px; 
+      max-height: 22px; 
+      padding: 2 2 0 2; 
+}
+
+/* Clock & Calendar */
+/* TODO find a way to change the color for saturday/sunday */ 
+
+.BE--Clock { 
+      padding: 1 12 0 4; 
+      margin: 1 -2 1 4;
+}
+
+#Calendar { 
+      background-color: rgba(65,66,68,255);
+}
+
+#Calendar QTableView {
+      alternate-background-color: rgba(239,239,241,255);
+      selection-background-color: rgba(54,179,188);
+      selection-color: rgba(239,239,241,255);
+      background: rgba(239,239,241,255);
+      gridline-color: rgba(65,66,68,255);
+      font-size:10pt;
+      margin: 0 0 -3 0;
+      font-family: Roboto, Droid Sans, Alte Haas Grotesk;
+}
+
+#Calendar #qt_calendar_navigationbar, #Calendar #qt_calendar_navigationbar > * {
+      background-color:rgba(54,179,188);
+      color:rgba(239,239,241,255);
+      font-size: 11.4pt;
+      font-family: Roboto, Droid Sans, Alte Haas Grotesk;
+      font-weight: bold;
+      padding: 10 0 10 0;
+}
+
+/* TODO adjust battery colors */ 
+
+.BE--Battery {
+      margin: 1 0 1 0;
+      padding: 3 4 3 4;
+/*       width: 64px; */
+      color: rgba(49,54,59,250);
+/*       selection-background-color: rgba(70,220,96,250); */
+}
+
+.BE--Battery[charge="high"] {
+    selection-background-color:qlineargradient(x1:0.5, y1:0, x2:0.5, y2:1, stop:0 #00D000, stop:1 #005000);
+}
+
+.BE--Battery[charge="mid"] {
+    selection-background-color:qlineargradient(x1:0.5, y1:0, x2:0.5, y2:1, stop:0 #FF8000, stop:1 #C05800);
+}
+
+.BE--Battery[charge="low"] {
+    selection-background-color:qlineargradient(x1:0.5, y1:0, x2:0.5, y2:1, stop:0 #C00000, stop:1 #800000);
+}
+
+.BE--Battery[charging="false"] {
+    color: qlineargradient(x1:0.5, y1:0, x2:0.5, y2:1, stop:0 #800000, stop:1 #400000);
+}
+
+/* Desktop icons when visible ;) */
+
+.BE--DeskIcon {
+     background: rgba(235,241,244,245);
+     border: 0.5px solid rgba(49,54,59,100);
+     border-radius: 6px;
+     padding: 4 4 4 4;
+}
+
+.BE--DeskIcon QLabel {
+      color: rgba(49,54,59,250);
+      font-size: 8pt;
+      font-family: Roboto, Droid Sans, Alte Haas Grotesk;
+      font-weight: bold;
+}
+
+/* Runner */ 
+
+.BE--Run { /* Width & Height could be overkill on small res. Adjust them to your needs */
+     min-height: 540px;
+     min-width: 400px;
+     background-color: rgba(235,241,244,195);
+}
+
+.BE--Run QTreeView {
+/*      background-color: rgba(49,54,59,250); */
+/*      alternate-background-color:rgba(49,54,59,250); */
+      color: rgba(49,54,59,250);
+      font-size: 9pt;
+      font-family: Roboto, Droid Sans, Alte Haas Grotesk;
+}

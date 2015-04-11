@@ -1,0 +1,47 @@
+
+.table {
+  /*Border values takes effect only if TABLE_BORDER is >= 1 in the script */
+   border-color: black; 
+   border-collapse: collapse;
+   table-layout: fixed; 
+   vertical-align: top;
+}
+
+#device-name {
+   background: transparent;
+   font:14pt Roboto; 
+   font-weight: bold;
+   text-align: left;
+}
+
+#device-icon-cell {
+   padding-bottom: 0px;
+   padding-top: 0px;
+   padding-left: 0px;
+}
+
+#battery-header {
+   color: rgba(49,54,59,250);
+   font: 9pt Roboto Condensed;
+}
+
+#battery-value {
+   color: rgba(49,54,59,250);
+   font: 9pt Roboto Condensed;
+}
+
+#notification-header {
+    font-weight: bold;
+}
+
+#notification {
+   color: rgba(49,54,59,250);
+   font: 9pt Roboto Condensed;
+}
+
+#notification-close-button {
+   font: 9pt Roboto Condensed;
+   color: #F6746A; 
+   text-decoration:none;
+}
+

@@ -1,0 +1,58 @@
+.BE--InfoDialog  {
+      background-color: rgba(235,241,244,245);
+}
+
+.BE--InfoDialog QToolBox {
+      background-color: rgba(235,241,244,245);
+}
+
+.BE--InfoDialog QToolBox::tab  {
+      background-color: rgba(235,241,244,245);
+      color: rgba(49,54,59,250);
+      border: 0px transparent;
+      border-radius: 0px;
+      text-align: center;
+      background-image: url("${base}/background-images/indicatorW2.png");  
+      background-repeat: no-repeat;
+      background-position: center left;
+      background-clip: margin;
+      padding-left: 10%;
+}
+
+.BE--InfoDialog QToolBox::tab:first, .BE--InfoDialog QToolBox::tab:first:hover {
+      padding-left: 150%;
+      font-size: 12pt;
+      font-weight: bold;
+      text-decoration: underline;
+      background: rgba(235,241,244,245);
+      color: rgba(49,54,59,250);
+}
+
+.BE--InfoDialog QToolBox::tab:selected {
+      background: rgba(54,179,188);
+      background-clip: border;
+      font-size: 12pt;
+      color: rgba(235,241,244,245);
+}
+
+.BE--InfoDialog QToolBox::tab:hover {
+      background-color: rgba(247,69,60,255);
+      color: rgba(37,37,37,250);
+}
+
+.BE--InfoDialog QFrame {
+      background: rgba(235,241,244,245);
+      color: rgba(49,54,59,250);
+      border: 0px;
+}
+
+.BE--InfoDialog QToolButton {
+      color: rgba(49,54,59,250);
+      padding: 0 0 0 0;
+      border-radius: 9.5px;
+}
+
+
+.BE--InfoDialog QToolButton:hover {
+      color: rgba(247,69,60,255);
+}

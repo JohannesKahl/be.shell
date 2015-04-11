@@ -1,0 +1,86 @@
+/*  Dock-a-like TaskBar */
+
+/* Most of the values here require to be updated
+ * and fixed. TODO adapt the css to the one in Pandora, remove duplicates*/
+
+#DockBar {
+      background: transparent;
+      padding-bottom: -8px;
+}
+
+.BE--Task, .BE--Trash { 
+      margin: -2 -2 -1 -2; 
+}
+
+.BE--Task, #NoTask, #OneTask, #OneTask:checked, #ManyTasks, #ManyTasks:checked  { 
+      padding: 0 0 7 0; 
+}
+
+#dock { 
+      padding: 4 8 0 8; 
+      border-bottom: -1px;
+      border-width: 1.4px; /* solid rgba(65,66,68,0%);*/
+      border-bottom:0px;
+      border-image: url("${base}/background-images/dock-bg6.png") 40 12 20 30; /* Border image requires further work on shadows */ 
+}
+
+.BE--Task, .BE--Trash { 
+      margin: -1 0 0 0; 
+      padding: 1 0 0 0;
+      /* Values to ensure new tasks spacing is correct */ 
+      max-height: 48px;
+      max-width: 48px;
+} 
+
+#Time {     
+      color: rgba(49,54,59,250);
+      font-size: 12.0pt;
+      font-family: Roboto, Droid Sans, Alte Haas Grotesk;
+      font: bold;
+      padding: 2 2 2 2;
+      margin: 2 2 6 6; 
+      min-height: 48px;
+      max-height: 48px;
+}
+
+#expose {
+     padding: 4 5 7 5;
+}
+
+#workspace {
+      background-image: url("${base}/background-images/separator3.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+      background-clip: margin;
+      margin-left: 4px;
+      padding: 4 4 7 20;
+}
+
+.BE--Trash {
+     margin-bottom: 2px;
+}
+
+#OneTask, #ManyTasks { 
+      background-image: url("${base}/background-images/diamond8.png");  
+      background-repeat: no-repeat;
+      background-position: bottom center;
+}
+
+#OneTask:checked, #ManyTasks:checked {  
+      background-image: url("${base}/background-images/diamond8.png");  
+      background-repeat: no-repeat;
+      background-position: bottom center;
+}
+
+#NoTask:pressed, #OneTask:pressed, #ManyTasks:pressed { 
+      padding: -20 0 6 0;
+} 
+
+#TaskTip {
+     background: rgba(231,237,239,250);
+     color: rgba(49,54,59,250);
+     padding: 5 5 5 5;
+     font-size: 12pt; 
+     font-family: Roboto, Droid Sans, Alte Haas Grotesk;
+     font-weight: bold;
+}
