@@ -22,7 +22,7 @@ You can either install using the provided script or copying the files manually.
 
     cd be.shell
     chmod 777 install
-    ./install -i Vertex
+    ./install -p Vertex
     
 *Note* By default the script will ask if you want to backup your current config and theme, this functionality can also be invoked with:
 
@@ -30,11 +30,15 @@ You can either install using the provided script or copying the files manually.
     
  **Manually**
  
+If this is the first time you install BE::Shell, you need to create its configuration and themes folders:
+
+    mkdir -p `kde4-config --localprefix`/share/apps/be.shell/Themes
+ 
 Copy the Theme directory: 
 
     cp -r Themes `kde4-config --localprefix`/share/apps/be.shell/
 
-Copy the included be.shell.Vertex file:
+Copy the included config file (for example be.shell.Vertex) as be.shell:
 
     cp be.shell.Vertex `kde4-config --localprefix`/share/config/be.shell
    
@@ -66,6 +70,6 @@ The suite is inspired by [Vertex GTK](http://horst3180.deviantart.com/art/Vertex
 Dynamo
 ======
 
-Coming soon...
+A light theme miming the official Breeze artworks for KDE Plasma5 
 
 ![Dynamo preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Dynamo.png "Dynamo")
