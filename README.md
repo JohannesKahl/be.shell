@@ -22,6 +22,10 @@ You can either install using the provided script or copying the files manually.
 
     cd be.shell
     chmod 777 install
+    ./install
+    
+Or, alternatively, you can skip the list of available presets and specify directly the one you want, passing its name after the -p argument - e.g. for be.shell.Vertex :
+
     ./install -p Vertex
     
 *Note* By default the script will ask if you want to backup your current config and theme, this functionality can also be invoked with:
