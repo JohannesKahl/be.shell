@@ -1,0 +1,20 @@
+#!/bin/sh
+
+LINK_CSS="\"text-decoration:none; outline: none; color: #48B3F8; font-size: 9pt; text-align: right;\""  ##36B3BC
+
+# ------- no user edits below this line ---------------
+
+TMP_FILE="/tmp/`whoami`-`echo "$1" | md5sum`.rss"
+wget -qO "$TMP_FILE" "$1"
+IS_ATOM_FEED=`grep -cm1 "http://www.w3.org/2005/Atom" "$TMP_FILE"`
+if [ "$IS_ATOM_FEED" = "0" ]; then
+    IS_LEGACY_RDF=`grep -cm1 "http://www.w3.org/1999/02/22-rdf-syntax-ns" "$TMP_FILE"`
+fi
+if [ "$IS_ATOM_FEED" = "1" ]; then
+    sed -e 's/xmlns=[^>]*//' "$TMP_FILE" | xmlstarlet sel -T -t -m "/feed/entry" -o '<h4>' -v "title" -o '</h4><p><a style='"$LINK_CSS"' href="' -v "id" -o '">' -v "summary" -o  '</a></p>' -n
+elif [ "$IS_LEGACY_RDF" = "1" ]; then
+    sed -e 's/xmlns[^>]*=[^>]*//; s/rdf:RDF/rdf/g' "$TMP_FILE" | xmlstarlet sel -T -t -m "/rdf/item" -o '<h4>' -v "title" -o '</h4><p><a style='"$LINK_CSS"' href="' -v "link" -o '">' -v "description" -o  '</a></p>' -n
+else
+    xmlstarlet sel -T -t -m "/rss/channel/item" -o '<h4><div align="left"><a style='"$LINK_CSS"' href="' -v "link" -o '">' -v "title" -o '</a></h4></div><div align="center"><p>' -v "description" -o  '</p></div>' -n "$TMP_FILE" | sed -e 's/<img[^>]*>//g; s/<table[^>]*>//g; s/<th[^>]*>//g; s/<tr[^>]*>//g; s/<td[^>]*>//g; s/<font[^>]*>//g; s%</table[^>]*>%%g; s%</th[^>]*>%%g; s%</tr[^>]*>%%g; s%</td[^>]*>%%g; s%</font[^>]*>%%g;'
+fi
+rm "$TMP_FILE"
