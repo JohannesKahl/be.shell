@@ -38,7 +38,7 @@ usage(){
 echo -e "\n\e[34m$banner\n\e[0m"
 echo "Usage:"
 echo "   ${0}        -- No options: interactive mode"
-echo "   ${0} -i     -- Install a preset, e.g. ./install -i Vertex"
+echo "   ${0} -p     -- Install a preset, e.g. ./install -p Vertex"
 echo "   ${0} -b     -- Backup current config and theme directory."
 echo "   ${0} -h     -- Shows this usage screen."
 echo "   ${0} -r     -- Quit from plasma if active or restart be.shell."
@@ -52,7 +52,7 @@ test=0
 while true; do
   echo -e "\e[32mAvailable themes:\n\e[0m"
   echo "1)  Vertex"
-#   echo "2)  Lullaby"
+  echo "2)  Dynamo"
   echo
 
 
@@ -64,10 +64,10 @@ while true; do
         opt="Vertex"
         break
         ;;
-#     2)
-#         opt="Lullaby"
-#         break
-#         ;;
+    2)
+        opt="Dynamo"
+        break
+        ;;
     0)
         echo "No theme selected, skipping"
         test=`expr $test + 1`
@@ -91,7 +91,7 @@ backup(){
 #but it works. Feel free to improve it ;)
 
 local dateHour="$( date "+%Y%m%d%H%M%S" )"
-local oldTheme="$( cat "$configFile" | grep -Po "(?<=Theme=)[ A-Za-z0-9]*" )"
+local oldTheme="$( kreadconfig --file be.shell --group BE::Shell --key Theme )"
 local archive="${kdeDir}/apps/be.shell/$oldTheme.$dateHour.tar"
 
 bak="$( tar -cf "$archive" -C ${themesDir} $oldTheme  -C  ${kdeDir}/config be.shell &> /dev/null )"
@@ -120,7 +120,7 @@ install(){
 
 if [[ ! -f "$configFile" && ! -d "$themesDir" ]]; then
     `cp "$chosenConf" "$configFile"`
-    `mkdir "$themesDir"`
+    `mkdir -p "$themesDir"`
 fi
 
 if [[  -f "$configFile" && -d "$themesDir" ]]; then
@@ -155,7 +155,7 @@ fi
 
 main(){
 
-if [ -z "$1" -o "$1" == "-i" ]; then
+if [ -z "$1" -o "$1" == "-p" ]; then
     if [ ! -z "$2" ]; then
       chosenConf="${scriptDir}/be.shell.${2}" 
       chosenTheme="${scriptDir}/Themes/${2}"
@@ -180,7 +180,7 @@ case $1 in
     -b) 
         backup
         ;;
-    -i)
+    -p)
         sleep 0.5
         ;;
     -r)
