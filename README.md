@@ -75,7 +75,7 @@ Dynamo
 ======
 
 A light theme miming the official Breeze artworks for KDE Plasma5. You can find the offial Breeze icon theme [here](https://github.com/NitruxSA/plasma-next-icons).
-Dynamo makes use of BE::Shell labels, some are included in this repository (check the Scripts folder for rss2html and be.kdeconnect), others are from [magpie240](https://github.com/magpie240) and require to be installed & configured from the relative repositories:
+Dynamo makes use of BE::Shell labels, either by polling a script, either as FiFos. Some of these scripts are included in this repository (check the Scripts folder for rss2html and be.kdeconnect), others are from [magpie240](https://github.com/magpie240) and require to be installed & configured from the relative repositories:
 
 - [shellfeed](https://github.com/magpie240/shellfeed)
 - [shelloid_mpris](https://github.com/magpie240/shelloid_mpris)
