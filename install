@@ -153,6 +153,7 @@ fi
 
 }
 
+
 main(){
 
 if [ -z "$1" -o "$1" == "-p" ]; then
@@ -170,6 +171,8 @@ if [ -z "$1" -o "$1" == "-p" ]; then
       sleep 0.5; install    
     fi
     sleep 0.5; isRunning
+    echo -e "\nSetting Wallpaper"
+    sleep 2; find $chosenTheme -iname "wallpaper*" -exec be.shell --setWallpaper {} \; &> /dev/null
     echo -e "\n\e[34mDone!\e[0m"
 fi
 
