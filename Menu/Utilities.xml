@@ -5,7 +5,7 @@
 <action label="Theme Dir" icon="preferences-color" exec="kde-open `kde4-config --localprefix`/share/apps/be.shell/Themes"/>
 <action label="Scripts Dir" icon="libreoffice-extension" exec="kde-open `kde4-config --localprefix`/share/apps/be.shell/Scripts"/>
 <action label="Update Global Menu" icon="reload" exec="touch `kde4-config --localprefix`/share/apps/be.shell/MainMenu.xml"/>
-<action label="Reload Shell" icon="reload" exec="kquitapp be.shell;sleep 1;be.shell"/>
+<action label="Reload Shell" icon="reload" exec="be.shell --restart"/>
 <action label="Refresh KWin" icon="reload" exec="konsole -e kwin --replace"/>
 <action label="Return to Plasma" icon="plasma" exec="kquitapp be.shell;sleep 1;plasma-desktop"/>
 </menu>
