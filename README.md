@@ -81,3 +81,11 @@ Dynamo makes use of BE::Shell labels, either by polling a script, either as FiFo
 - [shelloid_mpris](https://github.com/magpie240/shelloid_mpris)
 
 ![Dynamo preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Dynamo.png "Dynamo")
+
+Pandora
+======
+
+Mac alike preset directly derived from Dynamo.
+*Coming Soon*
+
+![Pandora preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Pandora.png "Pandora")
