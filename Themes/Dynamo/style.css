@@ -78,26 +78,29 @@ QAbstractButton {
       max-height: 22px;
 }
 
-#starter {
+#starter { /* Button to toggle BE--Run */
       margin: 0px;
       padding-top: 0px;
       padding-bottom: 0px;
 }
 
-.BE--InfoCenter { 
+.BE--InfoCenter { /* The fading [i] in TopPanel */ 
       padding: 2 0 1 0; 
 }
 
-.BE--MediaTray { 
-      margin: 0 12 0 4; 
-      padding: 1 0 3 0; 
+.BE--MediaTray { /* Containment widget */ 
+      margin: 0 4 2 4; 
+      padding: -3 0 -3 0;  
 }
 
-.BE--Device { 
+.BE--Device { /* Each device in .BE--MediaTray */
       max-width: 22px; 
       max-height: 22px; 
-      padding: 2 2 0 2; 
+      padding: 2 5 0 5; 
+      margin-top: 1px;
+      margin-bottom: 1px;
 }
+
 
 /* Clock & Calendar */
 /* TODO find a way to change the color for saturday/sunday */ 
