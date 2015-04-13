@@ -124,12 +124,14 @@ if [[ ! -f "$configFile" && ! -d "$themesDir" ]]; then
 fi
 
 if [[  -f "$configFile" && -d "$themesDir" ]]; then
+    echo " "
     confirm "Do you want to backup the existing theme and config? y/N:" && backup
     echo -e "\e[33mCopying the new config\e[0m"
     `cp "$chosenConf" "$configFile"`
     if [[ ! -d "$themesDir/$opt" ]]; then
       `cp -r "$chosenTheme" "$themesDir"`
      else
+      echo " "
       confirm "The folder $opt already exists in $themesDir. Continue anyway? y/N:" &&  `cp -r "$chosenTheme" "$themesDir"`
     fi
 fi
@@ -143,8 +145,10 @@ local bShell="be.shell"
 
 if [[  -z `pidof "$pShell"` ]]; then
     if [[ ! -z `pidof "$bShell"` ]]; then
-      confirm "I will now reload be.shell. Continue? [y/N]:" && `kquitapp "$bShell"; sleep 2; "$bShell" &> /dev/null`
+      echo " "
+      confirm "I will now reload be.shell. Continue? [y/N]:" && `be.shell --restart &> /dev/null`
      else
+      echo " "
       confirm "Starting be.shell. Continue? [y/N]:" &&`"$bShell"`
     fi
    else
