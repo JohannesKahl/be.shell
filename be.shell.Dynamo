@@ -126,7 +126,7 @@ Start=80
 Type=TimeMeter
 
 [TopPanel]
-Applets=starter,GlobalMenu,stretch,systray,Volume,infocenter,control,clock,Sessionbutton
+Applets=starter,GlobalMenu,stretch,mediatray,systray,Volume,infocenter,control,clock,Sessionbutton
 BlurRadius=60
 CastShadow=true
 Frozen=true
