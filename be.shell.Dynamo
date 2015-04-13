@@ -10,7 +10,7 @@ ShadowOpacity=45
 ShowIcons=false
 Tint=0,0,0
 TrashCan=false
-Wallpaper=/home/hombre/Downloads/Chromium/wallhaven-145693.jpg
+Wallpaper=/home/hombre/.kde4/share/apps/be.shell/Themes/Dynamo/wallpaper.jpg
 WallpaperAlign=132
 WallpaperAspect=-1
 WallpaperDefaultAlign=132
@@ -21,7 +21,7 @@ WheelOnLMB=false
 
 [BE::Run]
 ARGB=false
-Aliases=reload:killall be.shell; sleep 2; be.shell,pacu:qdbus org.kde.yakuake /yakuake/window toggleWindowState && qdbus org.kde.yakuake /Sessions/1 runCommand "sudo pacman -Syyu",replace:kwin --replace && qdbus org.kde.be.shell /Shell reconfigure
+Aliases=reload:be.shell --restart,pacu:qdbus org.kde.yakuake /yakuake/window toggleWindowState && qdbus org.kde.yakuake /Sessions/1 runCommand "sudo pacman -Syyu",replace:kwin --replace && qdbus org.kde.be.shell /Shell reconfigure
 Opacity=98
 VisibilityTimeout=200
 
@@ -38,14 +38,12 @@ Type=Label
 Applets=Calendar
 Id=Container1
 Position=3
-Size=278
 Type=Panel
 
 [Container2]
 Applets=Weather
 Id=Container2
 Position=3
-Size=278
 Type=Panel
 Visible=false
 
@@ -53,7 +51,6 @@ Visible=false
 Applets=Music
 Id=Container3
 Position=3
-Size=278
 Type=Panel
 Visible=false
 
@@ -61,7 +58,6 @@ Visible=false
 Applets=RSS
 Id=Container5
 Position=3
-Size=278
 Type=Panel
 Visible=false
 
@@ -69,7 +65,6 @@ Visible=false
 Applets=kdeconnect
 Id=Container6
 Position=3
-Size=278
 Type=Panel
 Visible=false
 
@@ -77,14 +72,12 @@ Visible=false
 Applets=Container1,Container2,Container3,Container4,Container5,Container6
 Id=ContainerMainRight
 Position=3
-Size=278
 Type=Panel
 
 [ControlMain]
 Applets=mediaToggle,kdeconnectToggle,calendarToggle,feedsToggle,weatherToggle
 Id=ControlMain
 Position=3
-Size=200
 Type=Panel
 
 [DockBar]
