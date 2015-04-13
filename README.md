@@ -15,12 +15,14 @@ Installation
 Clone this repository:
 
     git clone https://github.com/Hombremaledicto/be.shell.git
+    cd be.shell
     
 You can either install using the provided script or copying the files manually.
    
 **By script**
 
-    cd be.shell
+*Notice!* The script does not install menus and scripts, check the section below for them!
+
     chmod 777 install
     ./install
     
@@ -46,9 +48,13 @@ Copy the included config file (for example be.shell.Vertex) as be.shell:
 
     cp be.shell.Vertex `kde4-config --localprefix`/share/config/be.shell
    
-Reload BE::Shell:
+If you're using Plasma, kill it and start BE::Shell:
 
-    kquitapp be.shell; sleep 2; be.shell
+    kquitapp plasma-desktop; sleep 2; be.shell
+    
+If you're already on BE::Shell, restart it in order to apply the new theme & config:
+
+    be.shell --restart
    
    
 **Menus & scripts** 
