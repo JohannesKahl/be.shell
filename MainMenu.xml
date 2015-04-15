@@ -14,7 +14,6 @@
   <!-- Note: the "windowlist" and "BE::Config"  menus are generated automagically by BE::Shell's code. There is no way to edit them -->
   <menu menu="windowlist"/> 
   <menu menu="Menu/Help"/>
-<menu/>
 </menubar> 
 
  <!--End of file -->
