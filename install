@@ -177,7 +177,7 @@ if [ -z "$1" -o "$1" == "-p" ]; then
     fi
     sleep 0.5; isRunning
     echo -e "\nSetting Wallpaper"
-    sleep 2; find $chosenTheme -iname "wallpaper*" -o -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null
+    sleep 2; find $chosenTheme -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null
     echo -e "\n\e[34mDone!\e[0m"
 fi
 
