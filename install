@@ -152,6 +152,7 @@ if [[  -z `pidof "$pShell"` ]]; then
       confirm "Starting be.shell. Continue? [y/N]:" &&`"$bShell"`
     fi
    else
+     echo " "
      confirm "I will now stop Plasma and start be.shell. Continue? [y/N]:" && `kquitapp "$pShell"; sleep 2; "$bShell" &> /dev/null`
 fi
 
@@ -160,8 +161,9 @@ fi
 
 main(){
 
-if [ -z "$1" -o "$1" == "-p" ]; then
+if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
     if [ ! -z "$2" ]; then
+      clear;
       opt=${2}
       chosenConf="${scriptDir}/be.shell.${2}" 
       chosenTheme="${scriptDir}/Themes/${2}"
@@ -182,16 +184,16 @@ if [ -z "$1" -o "$1" == "-p" ]; then
 fi
 
 case $1 in
-    -h) 
+    -h | --help) 
         usage
         ;;
-    -b) 
+    -b | --backup) 
         backup
         ;;
-    -p)
+    -p | --preset)
         sleep 0.5
         ;;
-    -r)
+    -r | --reload)
         isRunning
         ;;
      *) 
