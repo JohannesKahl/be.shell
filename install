@@ -64,7 +64,7 @@ while true; do
     echo "$i)  ${array[$i]}"
   done
  
-  echo -en "\nEnter a number from 0 to $lenght or q for exit: "
+  echo -en "\nEnter a number from 0 to $lenght or q to exit: "
   read selection
 
 # Thanks to https://github.com/izabera for the following section
@@ -185,9 +185,6 @@ if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
 fi
 
 case $1 in
-    -c )
-        choice
-        ;;
     -h | --help) 
         usage
         ;;
