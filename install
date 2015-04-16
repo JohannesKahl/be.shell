@@ -95,7 +95,7 @@ local dateHour="$( date "+%Y%m%d%H%M%S" )"
 local oldTheme="$( kreadconfig --file be.shell --group BE::Shell --key Theme )"
 local archive="${kdeDir}/apps/be.shell/$oldTheme.$dateHour.tar"
 
-bak="$( tar -cf "$archive" -C ${themesDir} $oldTheme  -C  ${kdeDir}/config be.shell &> /dev/null )"
+tar -cf "$archive" -C "${themesDir}" "${oldTheme}"  -C  "${kdeDir}"/config be.shell &> /dev/null 
 
 echo -e "\nFiles stored in\n$archive\n"
 
@@ -120,20 +120,20 @@ install(){
 #Might be this is a fresh installation
 
 if [[ ! -f "$configFile" && ! -d "$themesDir" ]]; then
-    `cp "$chosenConf" "$configFile"`
-    `mkdir -p "$themesDir"`
+     cp "$chosenConf" "$configFile"
+     mkdir -p "$themesDir"
 fi
 
 if [[  -f "$configFile" && -d "$themesDir" ]]; then
     echo " "
     confirm "Do you want to backup the existing theme and config? y/N:" && backup
     echo -e "\e[33mCopying the new config\e[0m"
-    `cp "$chosenConf" "$configFile"`
+     cp "$chosenConf" "$configFile"
     if [[ ! -d "$themesDir/$opt" ]]; then
-      `cp -r "$chosenTheme" "$themesDir"`
+      cp -r "$chosenTheme" "$themesDir" 
      else
       echo " "
-      confirm "The folder $opt already exists in $themesDir. Continue anyway? y/N:" &&  `cp -r "$chosenTheme" "$themesDir"`
+      confirm "The folder $opt already exists in $themesDir. Continue anyway? y/N:" &&  cp -r "$chosenTheme" "$themesDir"
     fi
 fi
 
@@ -144,17 +144,17 @@ isRunning(){
 local pShell="plasma-desktop"
 local bShell="be.shell"
 
-if [[  -z `pidof "$pShell"` ]]; then
-    if [[ ! -z `pidof "$bShell"` ]]; then
+if [[  -z $(pidof "$pShell") ]]; then
+    if [[ ! -z $(pidof "$bShell") ]]; then
       echo " "
-      confirm "I will now reload be.shell. Continue? [y/N]:" && `be.shell --restart &> /dev/null`
+      confirm "I will now reload be.shell. Continue? [y/N]:" && be.shell --restart > /dev/null 2>&1
      else
       echo " "
-      confirm "Starting be.shell. Continue? [y/N]:" &&`"$bShell"`
+      confirm "Starting be.shell. Continue? [y/N]:" && "$bShell"
     fi
    else
      echo " "
-     confirm "I will now stop Plasma and start be.shell. Continue? [y/N]:" && `kquitapp "$pShell"; sleep 2; "$bShell" &> /dev/null`
+     confirm "I will now stop Plasma and start be.shell. Continue? [y/N]:" && kquitapp "$pShell"; sleep 2; "$bShell" &> /dev/null
 fi
 
 }
@@ -180,7 +180,7 @@ if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
     fi
     sleep 0.5; isRunning
     echo -e "\nSetting Wallpaper"
-    sleep 2; find $chosenTheme -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null
+    sleep 2; find "$chosenTheme" -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null
     echo -e "\n\e[34mDone!\e[0m"
 fi
 
