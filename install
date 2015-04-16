@@ -17,7 +17,7 @@ banner="A script for BE::Shell to manage themes and configs by\nHombremaledicto 
 
 #Setting distro indipendent paths
 
-declare -r scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+declare -r scriptDir="$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )"
 declare -r kdeDir="`kde4-config --localprefix`share"
 declare -r themesDir="${kdeDir}/apps/be.shell/Themes"
 declare -r configFile="${kdeDir}/config/be.shell"
@@ -46,43 +46,44 @@ echo "   ${0} -r     -- Quit from plasma if active or restart be.shell."
 }
 
 choice(){
-
+ 
 test=0
-
-while true; do
-  echo -e "\e[32mAvailable themes:\n\e[0m"
-  echo "1)  Vertex"
-  echo "2)  Dynamo"
-  echo
-
-
-  echo -n "Enter your choice or 0 for exit: "
-
-  read selection     
-  case $selection in
-    1)
-        opt="Vertex"
-        break
-        ;;
-    2)
-        opt="Dynamo"
-        break
-        ;;
-    0)
-        echo "No theme selected, skipping"
-        test=`expr $test + 1`
-        break
-        ;;
-    *)
-        clear
-        echo -e "\n\e[91mNot a valid choice, try a number from 0 to 2.\n\e[0m"
-        ;;
-    esac    
+local -a array
+ 
+for i in $scriptDir/be.shell.*; do
+   array[${#array[*]}]="${i##*.}"
 done
 
-chosenConf="${scriptDir}/be.shell.$opt" 
-chosenTheme="${scriptDir}/Themes/$opt"
+lenght=$((${#array[@]} -1))
 
+while true; do
+
+  echo -e "\e[32mAvailable themes:\n\e[0m"
+ 
+  for i in "${!array[@]}"; do
+    echo "$i)  ${array[$i]}"
+  done
+ 
+  echo -en "\nEnter a number from 0 to $lenght or q for exit: "
+  read selection
+
+# Thanks to https://github.com/izabera for the following section
+
+  if [[ $selection = [0-9] &&  $selection -le $lenght ]]; then
+      opt=${array[$selection]}
+      break
+    elif [[ "$selection" == "q" ]]; then
+      echo "No theme selected, skipping"
+      test=$((test + 1))
+      break
+    else
+      clear;
+    fi
+done
+ 
+chosenConf="${scriptDir}/be.shell.$opt"
+chosenTheme="${scriptDir}/Themes/$opt"
+ 
 }
 
 backup(){
@@ -184,13 +185,16 @@ if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
 fi
 
 case $1 in
+    -c )
+        choice
+        ;;
     -h | --help) 
         usage
         ;;
     -b | --backup) 
         backup
         ;;
-    -p | --preset)
+    '' | -p | --preset)
         sleep 0.5
         ;;
     -r | --reload)
