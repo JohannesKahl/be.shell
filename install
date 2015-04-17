@@ -176,6 +176,7 @@ if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
     echo -e "\nSetting Wallpaper"
     sleep 2; find "$chosenTheme" -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null
     echo -e "\n\e[34mDone!\e[0m"
+    echo -e "\n\nInstructions to install scripts and menus can be found at https://github.com/Hombremaledicto/be.shell#menus--scripts"
 fi
 
 case $1 in
