@@ -12,15 +12,12 @@ Beyond my artworks, you might want to pay a visit to paranoidnemo's [repository]
 Installation
 ======
 
-Theme and Config
------
-
 Clone this repository:
 
     git clone https://github.com/Hombremaledicto/be.shell.git
     cd be.shell
     
-You can either install using the provided script or copying the files manually.
+You can either install presets using the provided script or copying the files manually.
    
 **By script**
 
