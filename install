@@ -1,19 +1,12 @@
 #!/usr/bin/env bash
 
-#Generic installation script for BE::Shell
-#themes and configs by Hombremaledicto.
-#Initial release V.0.1
-
-#This script should not be executed as root
+#Generic installation script for BE::Shell themes and configs by Hombremaledicto.
+#This script should not be executed as root:
 
 if [ "$(id -u)" == "0" ]; then
     echo -e '\n\e[0;31mThis script must be executed as normal user!!!\nI will now exit.\e[0m' 
   exit 1
 fi
-
-#Shameless self promotion :P
-
-banner="A script for BE::Shell to manage themes and configs by\nHombremaledicto - https://github.com/Hombremaledicto/be.shell"
 
 #Setting distro indipendent paths
 
@@ -35,13 +28,14 @@ declare -f main
 
 usage(){
 
-echo -e "\n\e[34m$banner\n\e[0m"
+echo -e "\n\e[34mA script to manage BE::Shell themes and configs\n\e[0m"
 echo "Usage:"
-echo "   ${0}        -- No options: interactive mode"
-echo "   ${0} -p     -- Install a preset, e.g. ./install -p Vertex"
-echo "   ${0} -b     -- Backup current config and theme directory."
-echo "   ${0} -h     -- Shows this usage screen."
-echo "   ${0} -r     -- Quit from plasma if active or restart be.shell."
+echo "                   No options: interactive mode"
+echo " -p, --preset      Install a preset, e.g. ./install -p Vertex"
+echo " -b, --backup      Backup current config and theme directory."
+echo " -h, --help        Shows this usage screen."
+echo " -r, --reload      Quit from plasma if active or restart be.shell."
+echo -e "\n\e[0;31mReport issues to https://github.com/Hombremaledicto/be.shell\e[0m"
     
 }
 
@@ -57,8 +51,7 @@ done
 lenght=$((${#array[@]} -1))
 
 while true; do
-
-  echo -e "\e[32mAvailable themes:\n\e[0m"
+  echo -e "\n\e[32mAvailable themes:\n\e[0m"
  
   for i in "${!array[@]}"; do
     echo "$i)  ${array[$i]}"
@@ -67,18 +60,18 @@ while true; do
   echo -en "\nEnter a number from 0 to $lenght or q to exit: "
   read selection
 
-# Thanks to https://github.com/izabera for the following section
+#Thanks to https://github.com/izabera for the following section
 
   if [[ $selection = [0-9] &&  $selection -le $lenght ]]; then
       opt=${array[$selection]}
       break
-    elif [[ "$selection" == "q" ]]; then
+  elif [[ "$selection" == "q" ]]; then
       echo "No theme selected, skipping"
       test=$((test + 1))
       break
-    else
+  else
       clear;
-    fi
+  fi
 done
  
 chosenConf="${scriptDir}/be.shell.$opt"
@@ -88,8 +81,8 @@ chosenTheme="${scriptDir}/Themes/$opt"
 
 backup(){
 
-#Compressing the old setup, not as elegant as i wanted
-#but it works. Feel free to improve it ;)
+#Compressing the old setup, not as elegant as i wanted but works. 
+#Feel free to improve it ;)
 
 local dateHour="$( date "+%Y%m%d%H%M%S" )"
 local oldTheme="$( kreadconfig --file be.shell --group BE::Shell --key Theme )"
@@ -119,22 +112,24 @@ install(){
 
 #Might be this is a fresh installation
 
-if [[ ! -f "$configFile" && ! -d "$themesDir" ]]; then
-     cp "$chosenConf" "$configFile"
+if [[ ! -d "$themesDir" ]]; then
      mkdir -p "$themesDir"
 fi
 
-if [[  -f "$configFile" && -d "$themesDir" ]]; then
-    echo " "
-    confirm "Do you want to backup the existing theme and config? y/N:" && backup
-    echo -e "\e[33mCopying the new config\e[0m"
+if [[ ! -f "$configFile" ]]; then
      cp "$chosenConf" "$configFile"
-    if [[ ! -d "$themesDir/$opt" ]]; then
-      cp -r "$chosenTheme" "$themesDir" 
-     else
-      echo " "
-      confirm "The folder $opt already exists in $themesDir. Continue anyway? y/N:" &&  cp -r "$chosenTheme" "$themesDir"
-    fi
+elif [[  -f "$configFile" ]]; then
+     echo " "
+     confirm "Do you want to backup the existing theme and config? y/N:" && backup
+     echo -e "\e[33mCopying the new config\e[0m"
+     cp "$chosenConf" "$configFile"
+fi
+
+if [[ ! -d "$themesDir/$opt" ]]; then
+     cp -r "$chosenTheme" "$themesDir" 
+else
+     echo " "
+     confirm "The folder $opt already exists in $themesDir. Continue anyway? y/N:" &&  cp -r "$chosenTheme" "$themesDir"
 fi
 
 }
@@ -152,7 +147,7 @@ if [[  -z $(pidof "$pShell") ]]; then
       echo " "
       confirm "Starting be.shell. Continue? [y/N]:" && "$bShell"
     fi
-   else
+else
      echo " "
      confirm "I will now stop Plasma and start be.shell. Continue? [y/N]:" && kquitapp "$pShell"; sleep 2; "$bShell" &> /dev/null
 fi
@@ -170,7 +165,6 @@ if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
       chosenTheme="${scriptDir}/Themes/${2}"
      else
       clear
-      echo -e "\n\e[34m$banner\n\e[0m"
       sleep 0.5; choice
     fi
     if [[ "$test" -gt "0" ]]; then
