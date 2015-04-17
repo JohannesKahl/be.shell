@@ -12,7 +12,8 @@ Beyond my artworks, you might want to pay a visit to paranoidnemo's [repository]
 Installation
 ======
 
-**Theme and Config**
+Theme and Config
+-----
 
 Clone this repository:
 
@@ -59,7 +60,8 @@ If you're already on BE::Shell, restart it in order to apply the new theme & con
     be.shell --restart
    
    
-**Menus & scripts** 
+Menus & scripts
+-----
 
 Copy the folders Menu, Scripts and the MainMenu.xml file:
 
