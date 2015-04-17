@@ -62,8 +62,8 @@ while true; do
 
 #Thanks to https://github.com/izabera for the following section
 
-  if [[ $selection = [0-9] &&  $selection -le $lenght ]]; then
-      opt=${array[$selection]}
+  if [[ $selection =~ ^[0-9]+$  &&  10#$selection -le $lenght  ]]; then
+      opt=${array[10#$selection]}
       break
   elif [[ "$selection" == "q" ]]; then
       echo "No theme selected, skipping"
