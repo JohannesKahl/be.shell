@@ -84,9 +84,13 @@ backup(){
 #Compressing the old setup, not as elegant as i wanted but works. 
 #Feel free to improve it ;)
 
+if [[ ! -d "${kdeDir}/apps/be.shell/snapshots" ]]; then
+   mkdir "${kdeDir}/apps/be.shell/snapshots"
+fi
+
 local dateHour="$( date "+%Y%m%d%H%M%S" )"
 local oldTheme="$( kreadconfig --file be.shell --group BE::Shell --key Theme )"
-local archive="${kdeDir}/apps/be.shell/$oldTheme.$dateHour.tar"
+local archive="${kdeDir}/apps/be.shell/snapshots/$oldTheme.$dateHour.tar"
 
 tar -cf "$archive" -C "${themesDir}" "${oldTheme}"  -C  "${kdeDir}"/config be.shell &> /dev/null 
 
