@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#Test
 #Generic installation script for BE::Shell themes and configs by Hombremaledicto.
 #This script should not be executed as root:
 
