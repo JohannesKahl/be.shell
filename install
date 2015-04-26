@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-#Test2
 #Generic installation script for BE::Shell themes and configs by Hombremaledicto.
 #This script should not be executed as root:
 
@@ -22,6 +21,8 @@ declare -f usage
 declare -f choice
 declare -f backup
 declare -f confirm
+declare -f kdeColors
+declare -f term_colors
 declare -f install
 declare -f isRunning
 declare -f main
@@ -113,6 +114,59 @@ esac
     
 }
 
+kdeColors(){
+python - <<END
+try:
+  from PyKDE4.kdeui import KGlobalSettings
+  from PyKDE4.kdecore import KConfig, KConfigGroup
+except ImportError:
+    raise ImportError('In order to install KDE colorschemes automatically you need PyKde4 installed')
+
+scheme = KConfig('$endSchema')
+kdeglobals = KConfig('kdeglobals')
+for groupName in scheme.groupList():
+            group = scheme.group(groupName)
+            global_group = kdeglobals.group(groupName)
+            for (k, v) in group.entryMap().items():
+                global_group.writeEntry(k, v)
+               
+kdeglobals.sync()
+kGlobalSettings = KGlobalSettings.self()
+kGlobalSettings.emitChange(KGlobalSettings.PaletteChanged)
+END
+}
+
+term_colors(){
+
+if [[ ! -d "$chosenTheme/extra" ]]; then
+   return
+fi
+
+local myColors="$(find "$chosenTheme/extra" -name "*.colorscheme" )"
+local cScheme="$(kreadconfig --file "${myColors}" --group General --key Description)"
+local konsoleDir="$kdeDir/apps/konsole"
+local defProfile="$(kreadconfig --file konsolerc --group Desktop\ Entry --key DefaultProfile)"
+
+if [[ -n "$myColors" ]]; then
+   echo -e "\nSetting konsole colorscheme"
+   cp "${myColors}" "${konsoleDir}"
+   kwriteconfig --file "${konsoleDir}/${defProfile}" --group Appearance --key ColorScheme "${cScheme}"
+   konsoleprofile colors="${cScheme}"
+fi
+
+local kdeSchema="$(find "$chosenTheme/extra" -name "*.colors" )"
+local colorsDir="$kdeDir/apps/color-schemes"
+local schemaName="${kdeSchema##*/}"
+endSchema="${colorsDir}/${schemaName}"
+
+if [[ -n "$kdeSchema" ]]; then
+   echo -e "\nSetting KDE colorscheme"
+   cp "${kdeSchema}" "${colorsDir}"
+   kdeColors
+fi
+
+}
+
 install(){
 
 #Might be this is a fresh installation
@@ -178,6 +232,7 @@ if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
       sleep 0.5; install    
     fi
     sleep 0.5; isRunning
+    sleep 0.5; term_colors 
     echo -e "\nSetting Wallpaper"
     sleep 2; find "$chosenTheme" -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null
     echo -e "\n\e[34mDone!\e[0m"
