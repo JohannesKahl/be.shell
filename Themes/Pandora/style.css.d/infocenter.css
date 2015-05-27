@@ -1,0 +1,68 @@
+
+.BE--InfoCenter { 
+      padding: 0 -2 2 -2; 
+}
+
+.BE--InfoDialog  {
+      background-color: rgba(25,28,32,100%);
+}
+
+.BE--InfoDialog QToolBox {
+      background-color: rgba(25,28,32,100%);
+}
+
+.BE--InfoDialog QToolBox::tab  {
+      background-color: rgba(25,28,32,100%);
+      color: rgba(255,255,255,255);
+      border: 0px transparent;
+      border-radius: 0px;
+      text-align: center;
+      background-clip: margin;
+      padding-left: 10%;
+      font-family: HelveticaNeue, Liberation Sans, Nimbus Sans, Arimo, Roboto;
+}
+
+.BE--InfoDialog QToolBox::tab:first, .BE--InfoDialog QToolBox::tab:first:hover {
+      padding-left: 150%;
+      font-size: 12pt;
+      font-weight: bold;
+      text-decoration: underline;
+      background: rgba(25,28,32,100%);
+      color: rgba(255,255,255,255);
+}
+
+.BE--InfoDialog QToolBox::tab:selected {
+/*       background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(74,221,99,60%), stop: 0.5 rgb(74,221,99,30%) stop: 1.0 rgba(25,28,32,05%)); */
+      background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 palette(highlight), stop: 0.9 rgb(25,28,32,15%) stop: 1.0 rgba(25,28,32,05%));
+      background-clip: border;
+      font-size: 12pt;
+      color: rgba(243,243,243,250); /* before */
+}
+
+.BE--InfoDialog QToolBox::tab:hover {
+      background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(247,69,60,60%), stop: 0.9 rgb(25,28,32,15%), stop: 1.0 rgba(25,28,32,05%));
+      color: rgba(243,243,243,250);
+}
+
+.BE--InfoDialog QFrame {
+      background: rgba(25,28,32,100%);
+      color: rgba(255,255,255,255);
+      border: 0px;
+      font-family: HelveticaNeue, Liberation Sans, Nimbus Sans, Arimo, Roboto;
+}
+
+.BE--InfoDialog QToolButton {
+      color: rgba(244,244,244,0);
+       background-image: url("${base}/background-images/close.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+      padding: 0 0 0 0;
+}
+
+.BE--InfoDialog QToolButton:hover {
+/*      font-size: 16pt;*/
+       background-image: url("${base}/background-images/close-red.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+      color: rgba(247,69,60,0);
+}

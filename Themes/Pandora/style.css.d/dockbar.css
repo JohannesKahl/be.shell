@@ -1,0 +1,107 @@
+/*  Dock-a-like TaskBar */
+
+#DockBar { /* Containment Panel, not visible */ 
+      background: transparent;
+     padding-bottom: -4px;
+}
+
+.BE--Tasks {
+      min-height: 68px;
+      max-height: 68px;
+}
+
+.BE--Task, .BE--Trash, #workspace, #expose { 
+      margin: -2 -2 -1 -2; 
+}
+
+.BE--Task, #NoTask, #OneTask, #OneTask:checked, #ManyTasks, #ManyTasks:checked  { 
+      padding: 2 0 8 0;
+}
+
+#dock { /* Child Panel, visible, size is dynamic */ 
+      margin-top: 0px;
+/*      min-height: 68px;
+      max-height: 68px;*/
+      padding: 0 8 0 8; 
+      border-bottom: -1px;
+      border: 1.5px solid rgba(36,36,36,100%); /*90% */
+      border-bottom:0px;
+      background-repeat: repeat-xy;
+      background-color: rgba(25,28,32,100%);/* 75 % wanted value. TODO provide blur for subpanels! */
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+}
+
+.BE--Task, .BE--Trash { 
+      margin: 0 0 0 0; 
+      padding: 0 0 0 0;
+      max-height: 48px;
+      max-width: 48px;
+} 
+
+#expander1, #expander2 {
+/*       min-width: 0px; */
+/*       margin: 0 auto; */
+}
+
+#Time { /* Time Meter. The only way to style meters is by ID */
+      color: rgba(255,255,255,250);
+      font-size: 12.0pt;
+      font-family: HelveticaNeue, Liberation Sans, Nimbus Sans, Arimo, Roboto; 
+      font-weight: bold;
+      padding: 2 2 2 2;
+      margin: 0 2 1 6; 
+      min-width: 48px;
+      max-width: 48px;
+}
+
+#expose {
+     padding: 4 5 7 5;
+     max-height: 48px;
+     max-width: 48px;
+}
+
+#workspace {
+      background-image: url("${base}/background-images/separator3.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+      background-clip: margin;
+      margin-left: 4px;
+      max-height: 48px;
+      max-width: 48px;
+      padding: 4 4 7 20;
+}
+
+.BE--Trash {
+     margin-bottom: 2px;
+}
+
+.BE--Task:hover, #Time:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgba(25,28,32,05%), stop: 1.0 rgba(253,253,253,10%));
+}
+
+#OneTask, #ManyTasks { 
+      background-image: url("${base}/background-images/indicatorW1.png");  
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      background-clip: margin;
+}
+
+#OneTask:checked, #ManyTasks:checked {  
+      background-image: url("${base}/background-images/indicatorW1.png");  
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      background-clip: margin;
+}
+
+#NoTask:pressed, #OneTask:pressed, #ManyTasks:pressed { 
+      padding: -16 0 6 0;
+} 
+
+#TaskTip { /* Tasks tooltip */ 
+     background: rgba(36,36,36,250);
+     color: rgba(253,253,253,255);
+     padding: 5 5 5 5;
+     font-size: 10pt;
+     font-family: HelveticaNeue, Liberation Sans, Nimbus Sans, Arimo, Roboto; 
+}
