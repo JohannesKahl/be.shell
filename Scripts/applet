@@ -1,0 +1,178 @@
+#!/usr/bin/env bash
+
+###################################################################################
+#We might want to set a theme name from command line, as third argument.
+#Oooooor taking the current one from be.shell config(BAD HOMBRE, BAD!).
+#Then we look for the be.shell folder position and set the theme dir as default
+#location for the script resources (icons and sourced scripts implementing markup)
+###################################################################################
+
+if [[ -n "$3" ]]; then #If the script has a third ARG, it is used as theme name
+   preferredTheme="${3}"
+else # the following is to be considered BAD!
+   preferredTheme=$( kreadconfig --file be.shell --group BE::Shell --key Theme )
+fi
+
+#Trying to get the config dir without involving kde4-config --localprefix
+
+if [[ -d "$HOME/.kde4/share/apps/be.shell" ]]; then
+   confDir="$HOME/.kde4/share/apps/be.shell" #openSuse, Gentoo & Arch 
+else
+   confDir="$HOME/.kde/share/apps/be.shell" #Debian, Ubuntu & Fedora
+fi
+
+#Setting theme directory:
+THEMEDIR="$confDir/Themes/$preferredTheme"
+
+###################################################################################
+#Best case scenario: this is just pure shit™. Potentially slower and/or dangerous.
+#Blame me later. Just experimenting to see if we can get a clean script with
+#BE::Shell themes support.
+#Now we implements functions. Each function is deputed to solve a specific task,
+#we then later call one of them as first parameter for this script.
+#The functions have few lines of code, the remaining is sourced (myOutputFile)
+#and contains the formatted output. 
+#Sourced files don't require permissions to be executable, pay attention on what 
+#you put in there.
+#Notice! Any variable from above or within the function can be reassigned from 
+#the sourced file. Further vars can be declared and used the same way.
+###################################################################################
+
+music(){
+
+myOutputFile="$THEMEDIR/Scripts/mpc" 
+
+#Music directory: assuming the xdg dir is in use:
+#MUSICDIR=$( xdg-user-dir MUSIC )
+#Checking player status:
+STS=$( mpc status| awk 'NR == 2 { print $1 }'| tr -d '[]' )
+#MPC infos:
+ARTIST=$( mpc -f "[%artist%]"|head -n 1 )
+TITLE=$( mpc -f "[%title% ]"|head -n 1 )
+ALBUM=$( mpc -f "[%album%]"|head -n 1 )
+TOTAL=$( mpc -f "[%time%]"|head -n 1 )
+TIME=$( mpc status| awk 'NR == 2 { print  $3 }'| cut -d'/' -f1 )
+#awk command refined by izabera:
+PERC=$( mpc status | awk 'NR == 2 { gsub("[()]",""); print $4/100 }' )
+
+source "${myOutputFile}"
+
+}
+
+mail(){
+
+myOutputFile="$THEMEDIR/Scripts/mail" 
+
+#Your gmail username, as in username@gmail.com
+username=""
+#I mean: this is safe, right? O.o  
+password=""
+#Retrieving infos & counting unread mails:
+url="https://mail.google.com/mail/feed/atom"
+COUNT=$(curl --silent --url "$url" --user $username@gmail.com:$password | sed -r 's/.*<fullcount>|<\/fullcount>.*//g')
+
+source "${myOutputFile}"
+
+}
+
+updates(){
+
+myOutputFile="$THEMEDIR/Scripts/updates" 
+
+#Need to test this and write something for zypper (suse)
+if hash aptitude 2>/dev/null; then  #deb based distros
+    UPR=$( aptitude search "~U" | wc -l )
+    PACDB=$( dpkg -l |grep ^ii | wc -l )
+#     UPCMD=$( sudo apt-get upgrade )
+elif hash yum 2>/dev/null; then #fedora, probably broken
+    UPR=$( yum check-update | wc -l )
+    PACDB=$( rpm -qa | wc -l )
+else #Arch
+    UPR=$( checkupdates | wc -l )
+    AUR=$( cower --quiet -u | wc -l )
+    PACDB=$( pacman -Q | wc -l )
+#     UPCMD=$( sudo pacman -Syu )
+fi
+
+source "${myOutputFile}"
+
+}
+
+wifi(){ #I'd recommend to use a front end for your network manager instead of this :(
+
+# TODO as usual Thomas wrote the best code for this, unfortunately broken nowadays due to the 
+#adoption of netctl. Implementing a similar approach would be definately better for the purpose,
+#although this applet should really be unnecessary, since there are good GUI for many NM, out there.
+
+NET=$( iwlist scan 2>/dev/null | sed -e '/Quality/!d; s/.*Quality=\([0-9]*\).*/\1/' )
+
+if [[ "$NET" -gt "61" ]]; then
+   echo "<img src=\"$THEMEDIR/TopPanel/nm-signal-100\" >"
+elif [[ "$NET" -gt "44" ]]; then
+   echo "<img src=\"$THEMEDIR/TopPanel/nm-signal-75\" >"
+elif [[ "$NET" -gt "26" ]]; then
+   echo "<img src=\"$THEMEDIR/TopPanel/nm-signal-50\" >"
+elif [[ "$NET" -gt "9" ]]; then
+   echo "<img src=\"$THEMEDIR/TopPanel/nm-signal-25\" >"
+else
+   echo "<img src=\"$THEMEDIR/TopPanel/noconnect\" >"
+fi
+
+}
+
+backup(){
+
+myOutputFile="$THEMEDIR/Scripts/backup"
+
+#DIR="/media/backup"
+#ERROR="No backup directory found"
+#BAK="<a href=\"exec:$HOME/.local/share/Scripts/backup_manager\"><img src=\"$THEMEDIR/TopPanel/backup.png\"width=\"18\"></a>"
+#NOBAK="<a href=\"exec:konsole --hold -e echo $ERROR\"><img src=\"$THEMEDIR/TopPanel/backup.png\"width=\"18\"></a>"
+
+source "${myOutputFile}"
+
+}
+
+toggle(){
+
+myOutputFile="$THEMEDIR/Scripts/toggle" 
+
+command="qdbus org.kde.be.shell /Shell"
+
+source "$myOutputFile"
+
+}
+
+###################################################################################
+#Looking for the first ARG after the script name, calling associated function if 
+#there is a match, If not, just display an useful message about alcohol addiction.
+#Still error-prone. TODO check if the file to be sourced exists and if we have a 
+#second argument, otherwise get the hell out of here.
+###################################################################################
+
+case $1 in
+    mpc) #Function music takes a param itself:
+        music "$2"
+        ;;
+    mail) 
+        mail
+        ;;
+    up)
+        updates
+        ;;
+    wifi)
+        wifi
+        ;;
+    backup)
+        backup
+        ;;
+    toggle)
+        toggle 
+       ;;
+    *)
+        echo "Hombre: you're drunk.Again -.-"
+        exit 1
+        ;;
+esac
+
+#EOF
