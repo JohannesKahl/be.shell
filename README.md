@@ -62,7 +62,8 @@ Menus & scripts
 Install the provided scripts and submenu files:
 
     mkdir -p ~/.local/share/be.shell
-    cp -R Menu Scripts ~/.local/share/be.shell && chmod -R 777 ~/.local/share/be.shell/Scripts/*
+    cp -R Menu Scripts ~/.local/share/be.shell 
+    chmod -R 777 ~/.local/share/be.shell/Scripts/*
 
 Copy the MainMenu.xml file to your be.shell config directory:
 
