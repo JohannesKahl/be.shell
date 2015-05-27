@@ -1,6 +1,7 @@
 #!/bin/sh
 
-LINK_CSS="\"text-decoration:none; outline: none; color: #48B3F8; font-size: 9pt; text-align: right;\""  ##36B3BC
+LINK_CSS="\"text-decoration:none; outline: none; color: palette(highlight); font-size: 9pt; text-align: left;\""  ##36B3BC
+ALIGNMENT="left"
 
 # ------- no user edits below this line ---------------
 
@@ -15,6 +16,6 @@ if [ "$IS_ATOM_FEED" = "1" ]; then
 elif [ "$IS_LEGACY_RDF" = "1" ]; then
     sed -e 's/xmlns[^>]*=[^>]*//; s/rdf:RDF/rdf/g' "$TMP_FILE" | xmlstarlet sel -T -t -m "/rdf/item" -o '<h4>' -v "title" -o '</h4><p><a style='"$LINK_CSS"' href="' -v "link" -o '">' -v "description" -o  '</a></p>' -n
 else
-    xmlstarlet sel -T -t -m "/rss/channel/item" -o '<h4><div align="left"><a style='"$LINK_CSS"' href="' -v "link" -o '">' -v "title" -o '</a></h4></div><div align="center"><p>' -v "description" -o  '</p></div>' -n "$TMP_FILE" | sed -e 's/<img[^>]*>//g; s/<table[^>]*>//g; s/<th[^>]*>//g; s/<tr[^>]*>//g; s/<td[^>]*>//g; s/<font[^>]*>//g; s%</table[^>]*>%%g; s%</th[^>]*>%%g; s%</tr[^>]*>%%g; s%</td[^>]*>%%g; s%</font[^>]*>%%g;'
+    xmlstarlet sel -T -t -m "/rss/channel/item" -o '<h4><div align="'$ALIGNMENT'"><a style='"$LINK_CSS"' href="' -v "link" -o '">' -v "title" -o '</a></h4></div><div align="'$ALIGNMENT'"><p>' -v  "description" -o  '</p></div>' -n "$TMP_FILE" | sed -e 's/<img[^>]*>//g; s/<table[^>]*>//g; s/<th[^>]*>//g; s/<tr[^>]*>//g; s/<td[^>]*>//g; s/<font[^>]*>//g; s%</table[^>]*>%%g; s%</th[^>]*>%%g; s%</tr[^>]*>%%g; s%</td[^>]*>%%g; s%</font[^>]*>%%g;'
 fi
 rm "$TMP_FILE"
