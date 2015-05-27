@@ -106,7 +106,7 @@ Type=Label
 
 [RSS]
 Active=true
-Exec=$HOME/.kde4/share/apps/be.shell/Scripts/rss2htm  http://www.phoronix.com/rss.php
+Exec=$HOME/.local/share/be.shell/Scripts/rss2htm  http://www.phoronix.com/rss.php
 Lines=12
 PollInterval=30000
 Type=Label
