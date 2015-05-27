@@ -21,7 +21,7 @@ You can either install presets using the provided script or copying the files ma
    
 **By script**
 
-*Notice!* The script does not install menus and scripts, check the section below for them!
+Simply type:
 
     ./be.installer
     
@@ -46,18 +46,6 @@ Copy the Theme directory:
 Copy the included config file (for example be.shell.Vertex) as be.shell:
 
     cp be.shell.Vertex `kde4-config --localprefix`/share/config/be.shell
-   
-If you're using Plasma, kill it and start BE::Shell:
-
-    kquitapp plasma-desktop; sleep 2; be.shell
-    
-If you're already on BE::Shell, restart it in order to apply the new theme & config:
-
-    be.shell --restart
-   
-   
-Menus & scripts
------
 
 Install the provided scripts and submenu files:
 
@@ -68,6 +56,14 @@ Install the provided scripts and submenu files:
 Copy the MainMenu.xml file to your be.shell config directory:
 
     cp MainMenu.xml `kde4-config --localprefix/share/apps/be.shell
+    
+If you're using Plasma, kill it and start BE::Shell:
+
+    kquitapp plasma-desktop; sleep 2; be.shell
+    
+If you're already on BE::Shell, restart it in order to apply the new theme & config:
+
+    be.shell --restart
 
 
 Vertex
