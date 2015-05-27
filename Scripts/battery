@@ -1,0 +1,48 @@
+#!/usr//bin/env bash
+SHELL_PATH="`kde4-config --path data`"
+SHELL_PATH="${SHELL_PATH%%:*}be.shell"
+SHELL_MENU=$SHELL_PATH/Menu/Battery.xml
+
+if [[ "$KDE_SESSION_VERSION" == "4" ]]; then
+    MODULE="kcmshell4"
+else
+    MODULE="kcmshell5"
+fi
+
+#upower -i $(upower -e | grep BAT) | grep  -E "state|to\ full|to\ empty|percentage"
+
+
+CHARGE=$( acpi -b | awk '{print $4}' )
+AC=$( acpi -a | awk '{print $3}' )
+TEMP=$( acpi -t | awk '{ print $4 }' )
+TIME=""
+SBRIGHT=$( xbacklight -get )
+CHECKCPU=$( basename $(ps aux | sort -rk 3,3 | awk 'NR == 2 { print $11 }') )
+
+CAP1=$( acpi -i | awk 'NR == 2 { print $5$6}' |  tr -d ',' )
+CAP2=$( acpi -i | awk 'NR == 2 { print $13}' )
+
+if [[ "$CHARGE" == "100%" ]]; then
+   CHARGE="Fully Charged"
+else
+   CHARGE="${CHARGE} Left"
+fi
+
+if [[ "$AC" == "on-line" ]]; then
+   POWER="Power Adapter"
+elif [[ "$AC" == "off-line" ]]; then
+   POWER="Battery"
+   TIME="<action label=\"Discarghing: $(acpi | awk '{print $5}') Remaining\"/>"
+else
+   POWER="???"
+fi
+
+MYACTIONS="<menu label=\"Scripts\"><action label=\"Script 1\"/><action label=\"Script 2\"/><action label=\"Script 3\"/><action label=\"Script 4\"/></menu>"
+
+STREAM='<submenu>'
+STREAM="${STREAM}'<action label=\"$CHARGE ( $CAP1 , Capacity: $CAP2)\"/><action label=\"Power Source: $POWER\"/>$TIME<action label=\"Temperature: $TEMP C°\"/><action label=\"Screen Brightness: ${SBRIGHT%%.*}%\"/><separator/><action label=\"Process Consuming The Most:\"/><action label=\"$CHECKCPU\"/><separator/><action label=\"Open PowerDevil Preferences\"  exec=\"$MODULE powerdevilglobalconfig powerdevilprofilesconfig\"/><separator/>"
+STREAM="${STREAM} </submenu>"
+echo $STREAM > $SHELL_MENU
+
+# qdbus org.kde.be.shell /battery org.kde.be.shell.setText "              $CHARGE"
+
