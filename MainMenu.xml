@@ -4,17 +4,18 @@
   <menu menu="BE::Config"/>
 <!--  What follows now is the submenus related part. Here menus are only linked. You can find the files in the "Menu" folder in your be.shell dir. As you can see there's no need to specify the file extension or the full path to it - of course this is spared  ONLY when its location is a subdir (or the same dir) of the MainMenu , EXCLUDING dynamic menus. In that case an absolute path is necessary in the PreExec field( $HOME is accepted btw). -->
   <menu menu="Menu/Applications"/>
-  <menu menu="Menu/Places" label="Places" preExec="$HOME/.kde4/share/apps/be.shell/Scripts/places" preExecTimeout="250"/>
+  <menu menu="Menu/Places" label="Places" preExec="$HOME/.local/share/be.shell/Scripts/places" preExecTimeout="250"/>
   <menu menu="Menu/Utilities"/>
   <menu menu="Menu/System"/>
   <menu menu="Menu/Edit"/>
  <action label="Terminal" dbus="session;org.kde.yakuake;/yakuake/MainWindow_1;org.kde.yakuake;toggleWindowState"/>
+ <!-- KF5 Yakuake:
+ <action label="Terminal" dbus="session;org.kde.yakuake;/yakuake/window;org.kde.yakuake;toggleWindowState"/> -->
   <menu menu="Menu/TimeLine"/>
-  <menu menu="Menu/RecentFiles" label="Recent-Files" preExec="$HOME/.kde4/share/apps/be.shell/Scripts/recent" preExecTimeout="250"/> 
+  <menu menu="Menu/RecentFiles" label="Recent-Files" preExec="$HOME/.local/share/be.shell/Scripts/recent" preExecTimeout="250"/> 
   <!-- Note: the "windowlist" and "BE::Config"  menus are generated automagically by BE::Shell's code. There is no way to edit them -->
   <menu menu="windowlist"/> 
   <menu menu="Menu/Help"/>
 </menubar> 
 
  <!--End of file -->
-
