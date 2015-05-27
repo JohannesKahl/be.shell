@@ -21,18 +21,17 @@ You can either install presets using the provided script or copying the files ma
    
 **By script**
 
-*Notice!* The script does not install menus and scripts, check the section below for them!
+Simply type:
 
-    chmod 777 install
-    ./install
+    ./be.installer
     
 Or, alternatively, you can skip the list of available presets and specify directly the one you want, passing its name after the -p argument - e.g. for be.shell.Vertex :
 
-    ./install -p Vertex
+    ./be.installer -p Vertex
     
 *Note* By default the script will ask if you want to backup your current config and theme, this functionality can also be invoked with:
 
-    ./install -b
+    ./be.installer -b
     
  **Manually**
  
@@ -47,7 +46,17 @@ Copy the Theme directory:
 Copy the included config file (for example be.shell.Vertex) as be.shell:
 
     cp be.shell.Vertex `kde4-config --localprefix`/share/config/be.shell
-   
+
+Install the provided scripts and submenu files:
+
+    mkdir -p ~/.local/share/be.shell
+    cp -R Menu Scripts ~/.local/share/be.shell 
+    chmod -R 777 ~/.local/share/be.shell/Scripts/*
+
+Copy the MainMenu.xml file to your be.shell config directory:
+
+    cp MainMenu.xml `kde4-config --localprefix/share/apps/be.shell
+    
 If you're using Plasma, kill it and start BE::Shell:
 
     kquitapp plasma-desktop; sleep 2; be.shell
@@ -55,18 +64,6 @@ If you're using Plasma, kill it and start BE::Shell:
 If you're already on BE::Shell, restart it in order to apply the new theme & config:
 
     be.shell --restart
-   
-   
-Menus & scripts
------
-
-Copy the folders Menu, Scripts and the MainMenu.xml file:
-
-    cp -R Menu Scripts MainMenu.xml `kde4-config --localprefix`/share/apps/be.shell
-  
-Make the scripts executable:
-
-    chmod -R 777 `kde4-config --localprefix`/share/apps/be.shell/Scripts/*
 
 
 Vertex
@@ -92,7 +89,9 @@ Dynamo makes use of BE::Shell labels, either by polling a script, either as FiFo
 Pandora
 ======
 
-Mac alike preset directly derived from Dynamo.
-*Coming Soon*
+Mac alike preset directly derived from Dynamo. Using a mix of Paper and Breeze icon themes. 
+Some of the applets within the SideBar requires to install & configure [skutter](https://github.com/Bedevil/skutter).
+Recommended fonts: Helvetica Neue, Arimo, Nimbus Sans.
+
 
 ![Pandora preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Pandora.png "Pandora")
