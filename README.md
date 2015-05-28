@@ -91,8 +91,8 @@ Pandora
 
 Mac alike preset directly derived from Dynamo. Using a mix of Paper and Breeze icon themes. 
 Some of the applets within the SideBar requires to install & configure [skutter](https://github.com/Bedevil/skutter).
-Recommended fonts: Helvetica Neue, Arimo, Nimbus Sans.
-*NOTICE!* This is still in beta: the CSS & config are still *extremely* dirty, and there are still a lot of details which need to be refined. A complementary plasmashell theme and a decoration are under development.
+  Recommended fonts: Helvetica Neue, Arimo, Nimbus Sans.
+  *NOTICE!* This is still in beta: the CSS & config are still *extremely* dirty, and there are still a lot of details which need to be refined.   A complementary plasmashell theme and a decoration are under development.
 
 
 ![Pandora preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Pandora.png "Pandora")
