@@ -10,7 +10,7 @@
 /*Subpanels */
 
 #PagesContainer {
-      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(25,28,32,85%), stop: 0.9 rgba(28,30,33,100%));
+      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(25,28,32,90%), stop: 0.9 rgba(28,30,33,100%));
       min-width: 500px;
       max-width: 500px;
       margin-left: -54px;
@@ -28,7 +28,7 @@
 #ControlMain {
 /*       padding: 0 0 0 0; */
       border-bottom: 1px solid rgba(95,95,95,255);
-      background-color:  qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(25,28,32,100%), stop: 1.0 rgba(28,28,32,85%));
+      background-color:  qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(25,28,32,100%), stop: 1.0 rgba(28,28,32,90%));
       min-width: 76px; /* 96px before */
       max-width: 76px;
       min-height: 45px;
@@ -108,7 +108,7 @@
 
 #StuffPanel {
       min-height: 150px;
-      padding: 0 10 0 20;
+      padding: 0 0 0 8; /* 0 10 0 10 */
 }
 
 #MusicPanel {

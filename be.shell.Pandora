@@ -17,7 +17,7 @@ ShadowOpacity=20
 ShowIcons=false
 Tint=0,0,0
 TrashCan=false
-Wallpaper=/home/hombre/Downloads/devushki-doroga-shorty.jpg
+Wallpaper=/home/hombre/Downloads/wallhaven-214172.jpg
 WallpaperAlign=132
 WallpaperAspect=-1
 WallpaperDefaultAlign=132
@@ -251,6 +251,7 @@ Type=Volume
 FiFo=$HOME/.local/share/skutter/weather
 Lines=1
 Type=Label
+Wrap=true
 
 [battery]
 FillIsCharge=True
@@ -317,7 +318,7 @@ Mode=1
 Type=Button
 
 [infocenter]
-Geometry=900,23,466,415
+Geometry=918,23,448,425
 
 [inkscape]
 Mode=0

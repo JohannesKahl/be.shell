@@ -2,7 +2,7 @@
 #TopPanel {
       background-color: rgba(25,28,32,100%);  /* rgba(49,55,54,100%); 85%  */ 
       border-bottom : 0px inset rgba(37,37,37,0%); /* rgba(44,31,25,40%); */
-      padding: 0 0 0 10; 
+      padding: 0 10 0 10; 
       border-bottom: 0 outset transparent;
 } 
 
@@ -43,7 +43,7 @@ QAbstractButton {
 /* Preventive measure to ensure globalmenu will not disappear for other users */ 
 
 .BE--Panel QMenuBar::item { 
-      padding: 3 4 3 4; 
+      padding: 3 4 4 4; 
       margin: -1 0 -1 0; 
 }
 
@@ -79,8 +79,8 @@ QAbstractButton {
 }
 
 #control { 
-      padding: 2 0 2 0; 
-      margin: 0 4 0 4; 
+      padding: 2 5 2 5; 
+      margin: 0 0 0 0; 
 }
 
 #search {

@@ -8,12 +8,20 @@ if [ "$(id -u)" == "0" ]; then
   exit 1
 fi
 
+#Checking which version of KDE DE we're running:
+
+if [[ "$KDE_SESSION_VERSION" == "4" ]]; then
+    pShell="plasma-desktop"
+else
+    pShell="plasmashell"
+fi
+
 #Setting distro indipendent paths
 
 declare -r scriptDir="$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )"
-declare -r kdeDir="`kde4-config --localprefix`share"
-declare -r themesDir="${kdeDir}/apps/be.shell/Themes"
-declare -r configFile="${kdeDir}/config/be.shell"
+declare -r kdeDir="$(kde4-config --localprefix)share"
+declare -r themesDir="$kdeDir/apps/be.shell/Themes"
+declare -r configFile="$kdeDir/config/be.shell"
 
 #Test functions
 
@@ -24,7 +32,7 @@ declare -f confirm
 declare -f kdeColors
 declare -f extra
 declare -f scriptDir
-declare -f install
+declare -f installer
 declare -f isRunning
 declare -f main
 
@@ -77,8 +85,8 @@ while true; do
   fi
 done
  
-chosenConf="${scriptDir}/be.shell.$opt"
-chosenTheme="${scriptDir}/Themes/$opt"
+chosenConf="$scriptDir/be.shell.$opt"
+chosenTheme="$scriptDir/Themes/$opt"
  
 }
 
@@ -87,15 +95,15 @@ backup(){
 #Compressing the old setup, not as elegant as i wanted but works. 
 #Feel free to improve it ;)
 
-if [[ ! -d "${kdeDir}/apps/be.shell/snapshots" ]]; then
-   mkdir "${kdeDir}/apps/be.shell/snapshots"
+if [[ ! -d "$kdeDir/apps/be.shell/snapshots" ]]; then
+   mkdir "$kdeDir/apps/be.shell/snapshots"
 fi
 
 local dateHour="$( date "+%Y%m%d%H%M%S" )"
 local oldTheme="$( kreadconfig --file be.shell --group BE::Shell --key Theme )"
-local archive="${kdeDir}/apps/be.shell/snapshots/$oldTheme.$dateHour.tar"
+local archive="$kdeDir/apps/be.shell/snapshots/$oldTheme.$dateHour.tar"
 
-tar -cf "$archive" install -C "${kdeDir}"/apps/be.shell/ "Themes/${oldTheme}"  -C  "${kdeDir}"/config be.shell --transform s/be.shell/be.shell.$oldTheme/ &> /dev/null 
+tar -cf "$archive" "$0" -C "$kdeDir"/apps/be.shell/ "Themes/$oldTheme" "MainMenu.xml" -C "$HOME/.local/share/be.shell" "Menu" "Scripts" -C  "$kdeDir"/config be.shell --transform s/be.shell/be.shell.$oldTheme/ &> /dev/null 
 
 echo -e "\nFiles stored in\n$archive\n"
 
@@ -153,27 +161,29 @@ local myColors="$(find "$chosenTheme/extra" -name "*.colorscheme" )"
 local cScheme="${myColors##*/}"
 local konsoleVersion="$(konsole --version | awk 'NR == 2 {print $2}')"
 
-if [[ -n "$myColors" && "$konsoleVersion" == "Frameworks:" ]]; then
-   echo -e "\nSetting konsole colorscheme" && cp "${myColors}" "$HOME/.local/share/konsole"
-   defProfile="$(kreadconfig5 --file konsolerc --group Desktop\ Entry --key DefaultProfile)"
-   kwriteconfig5 --file "$HOME/.local/share/konsole/${defProfile}" --group Appearance --key ColorScheme "${cScheme%.*}"
-   konsoleprofile colors="${cScheme%.*}"
-elif [[ -n "$myColors" && "$konsoleVersion" != "Frameworks:" ]]; then
-   echo -e "\nSetting konsole colorscheme" && cp "${myColors}" "$kdeDir/apps/konsole"
-   defProfile="$(kreadconfig --file konsolerc --group Desktop\ Entry --key DefaultProfile)"
-   kwriteconfig --file "$kdeDir/apps/konsole/${defProfile}" --group Appearance --key ColorScheme "${cScheme%.*}"
-   konsoleprofile colors="${cScheme%.*}"
+if [[ -n "$myColors" ]]; then
+  echo -e "\nSetting konsole colorscheme"
+  if [[ "$konsoleVersion" == "Frameworks:" ]]; then
+      cp "$myColors" "$HOME/.local/share/konsole"
+      defProfile="$(kreadconfig5 --file konsolerc --group Desktop\ Entry --key DefaultProfile)"
+      kwriteconfig5 --file "$HOME/.local/share/konsole/$defProfile" --group Appearance --key ColorScheme "${cScheme%.*}"
+  elif [[ "$konsoleVersion" != "Frameworks:" ]]; then
+      cp "$myColors" "$kdeDir/apps/konsole"
+      defProfile="$(kreadconfig --file konsolerc --group Desktop\ Entry --key DefaultProfile)"
+      kwriteconfig --file "$kdeDir/apps/konsole/$defProfile" --group Appearance --key ColorScheme "${cScheme%.*}"
+  fi
+  konsoleprofile colors="${cScheme%.*}"
 fi
 
 local kdeSchema="$(find "$chosenTheme/extra" -name "*.colors" )"
-local schemaDesc="$(kreadconfig --file "${kdeSchema}" --group General --key ColorScheme)"
+local schemaDesc="$(kreadconfig --file "$kdeSchema" --group General --key ColorScheme)"
 local colorsDir="$kdeDir/apps/color-schemes"
 local schemaName="${kdeSchema##*/}"
-endSchema="${colorsDir}/${schemaName}"
+endSchema="$colorsDir/$schemaName"
 
 if [[ -n "$kdeSchema" ]]; then
    echo -e "\nSetting KDE colorscheme"
-   cp "${kdeSchema}" "${colorsDir}"
+   cp "$kdeSchema" "$colorsDir"
    kdeColors || echo -e "\n$schemaDesc is available in kcmshell4 colors"
 fi
 
@@ -181,18 +191,12 @@ fi
 
 scriptDir(){
 
-#TODO! use diff to check if files differ, in order to update to latest versions.
-#Use confirm to avoid overriding users' modifications.
-
-if [[ ! -d "$HOME/.local/share/be.shell" ]]; then
-     mkdir -p "$HOME/.local/share/be.shell"
-     cp -r Scripts "$HOME/.local/share/be.shell/Scripts"
-     chmod -R 777 "$HOME"/.local/share/be.shell/Scripts/*
-fi
+     confirm "Do you want to install the provided scripts? y/N ?" &&  install -CDm755 Scripts/* -t $HOME/.local/share/be.shell/Scripts
+     confirm "Do you want to install the provided menus? y/N?" && install -CDm755 Menu/* -t $HOME/.local/share/be.shell/Menu
 
 }
 
-install(){
+installer(){
 
 #Might be this is a fresh installation
 
@@ -213,33 +217,28 @@ if [[ ! -d "$themesDir/$opt" ]]; then
      cp -r "$chosenTheme" "$themesDir" 
 else
      echo " "
-     confirm "The folder $opt already exists in $themesDir. Continue anyway? y/N:" &&  cp -r "$chosenTheme" "$themesDir"
+     if [[ "$chosenTheme" == "$themesDir/$opt" ]]; then
+       echo "'$chosenTheme' and '$themesDir/$opt' are the same folder"
+     else
+       confirm "The folder $opt already exists in $themesDir. Continue anyway? y/N:" && rm -rf "$themesDir/$opt" &&  cp -r "$chosenTheme" "$themesDir"
+    fi
 fi
 
 }
 
 isRunning(){
 
-local pShell
-local bShell="be.shell"
-
-if [[ $(echo $KDE_SESSION_VERSION) == "4" ]]; then
-    pShell="plasma-desktop"
-else
-    pShell="plasmashell"
-fi
-
 if [[  -z $(pidof "$pShell") ]]; then
-    if [[ ! -z $(pidof "$bShell") ]]; then
+    if [[ ! -z $(pidof "be.shell") ]]; then
       echo " "
       confirm "I will now reload be.shell. Continue? [y/N]:" && be.shell --restart > /dev/null 2>&1
-     else
+    else
       echo " "
-      confirm "Starting be.shell. Continue? [y/N]:" && "$bShell"
+      confirm "Starting be.shell. Continue? [y/N]:" && be.shell
     fi
 else
      echo " "
-     confirm "I will now stop Plasma and start be.shell. Continue? [y/N]:" && kquitapp "$pShell"; sleep 2; "$bShell" &> /dev/null
+     confirm "I will now stop Plasma and start be.shell. Continue? [y/N]:" && kquitapp "$pShell"; sleep 2; be.shell &> /dev/null
 fi
 
 }
@@ -250,9 +249,9 @@ main(){
 if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
     if [ ! -z "$2" ]; then
       clear;
-      opt=${2}
-      chosenConf="${scriptDir}/be.shell.${2}" 
-      chosenTheme="${scriptDir}/Themes/${2}"
+      opt="$2"
+      chosenConf="$scriptDir/be.shell.$2" 
+      chosenTheme="$scriptDir/Themes/$2"
      else
       clear
       sleep 0.5; choice
@@ -260,7 +259,7 @@ if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
     if [[ "$test" -gt "0" ]]; then
       echo -e "\n\e[94mNothing to do :(\e[0m"; exit 1
      else
-      sleep 0.5; install    
+      sleep 0.5; installer    
     fi
     scriptDir
     sleep 0.5; isRunning
@@ -268,7 +267,6 @@ if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
     echo -e "\nSetting Wallpaper"
     sleep 2; find "$chosenTheme" -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null
     echo -e "\n\e[34mDone!\e[0m"
-    echo -e "\n\nInstructions to install scripts and menus can be found at https://github.com/Hombremaledicto/be.shell#menus--scripts"
 fi
 
 case $1 in

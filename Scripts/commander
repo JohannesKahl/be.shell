@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+
+##################################################################This script is a mod of be.installer aimed to be used to switch between presets 
+#*already installed* on your system.
+#It expects to find a list of your configs under the be.shell config directory, each 
+#of which has to be named after its theme (case sensitive).
+#Anything, and i mean *anything* is expected to be already present in the right location,
+#including colorschemes, etc...
+#NOTICE! By using this script the be.shell file currently in use will be lost!
+#It is advisable to make a backup first, or to store it as explained above, in case you made 
+#changes to this file that you don't want to loose.
+#USAGE: drop it under ~/.local/share/be.shell/Scripts and give it permissions to be exacutable. 
+#You can use it from MainMenu.xml (or a submenu sourced by it):
+# <menu menu="Menu/themes" label="Themes" preExec="$HOME/.local/share/be.shell/Scripts/commander" preExecTimeout="250"/>
+#OR from a button:
+#[myCrappyButton]
+#Menu=Menu/presets
+#MenuUpdater=.local/share/be.shell/Scripts/commander
+#Type=Button
+#################################################################
+
+declare -r kdeDir="$(kde4-config --localprefix)share"
+declare -r shellDir="$kdeDir/apps/be.shell"
+declare -r themesDir="$shellDir/Themes"
+declare -r configFile="$kdeDir/config/be.shell"
+declare -r myMenu="$shellDir/Menu/themes.xml"
+
+#Test functions
+
+declare -f choice
+declare -f kdeColors
+declare -f extra
+declare -f main
+
+
+choice(){
+ 
+local -a array
+ 
+for i in $shellDir/be.shell.*; do
+   array[${#array[*]}]="${i##*.}"
+done
+
+stream="<submenu>"
+ 
+for i in "${!array[@]}"; do
+     stream="${stream}<action label=\"${array[$i]}\" exec=\"bash $HOME/.local/share/be.shell/Scripts/commander -p ${array[$i]}\"/>"
+done
+  
+stream="${stream}</submenu>"
+echo $stream > $myMenu
+ 
+}
+
+
+kdeColors(){ 
+
+#unfortunately bash can't handle this 
+
+python - <<END
+try:
+  from PyKDE4.kdeui import KGlobalSettings
+  from PyKDE4.kdecore import KConfig, KConfigGroup
+except ImportError:
+  raise ImportError('In order to install KDE colorschemes automatically you need PyKDE4 installed')
+
+scheme = KConfig('$endSchema')
+kdeglobals = KConfig('kdeglobals')
+for groupName in scheme.groupList():
+            group = scheme.group(groupName)
+            global_group = kdeglobals.group(groupName)
+            for (k, v) in group.entryMap().items():
+                global_group.writeEntry(k, v)
+               
+kdeglobals.sync()
+kGlobalSettings = KGlobalSettings.self()
+kGlobalSettings.emitChange(KGlobalSettings.PaletteChanged)
+END
+
+}
+
+extra(){
+
+if [[ ! -d "$chosenTheme/extra" ]]; then
+   return
+fi
+
+local myColors="$(find "$chosenTheme/extra" -name "*.colorscheme" )"
+local cScheme="${myColors##*/}"
+local konsoleVersion="$(konsole --version | awk 'NR == 2 {print $2}')"
+
+if [[ -n "$myColors" ]]; then
+  if [[ "$konsoleVersion" == "Frameworks:" ]]; then
+      defProfile="$(kreadconfig5 --file konsolerc --group Desktop\ Entry --key DefaultProfile)"
+      kwriteconfig5 --file "$HOME/.local/share/konsole/$defProfile" --group Appearance --key ColorScheme "${cScheme%.*}"
+  elif [[ "$konsoleVersion" != "Frameworks:" ]]; then
+      defProfile="$(kreadconfig --file konsolerc --group Desktop\ Entry --key DefaultProfile)"
+      kwriteconfig --file "$kdeDir/apps/konsole/$defProfile" --group Appearance --key ColorScheme "${cScheme%.*}"
+  fi
+  konsoleprofile colors="${cScheme%.*}"
+fi
+
+local kdeSchema="$(find "$chosenTheme/extra" -name "*.colors" )"
+local schemaDesc="$(kreadconfig --file "$kdeSchema" --group General --key ColorScheme)"
+local colorsDir="$kdeDir/apps/color-schemes"
+local schemaName="${kdeSchema##*/}"
+endSchema="$colorsDir/$schemaName"
+
+if [[ -n "$kdeSchema" ]]; then
+   kdeColors 
+fi
+
+}
+
+main(){
+
+if [ -z "$1" ]; then
+     choice
+elif [[ -n "$1" &&  "$1" == "-p" ]]; then
+    if [ -n "$2" ]; then
+      chosenConf="$shellDir/be.shell.$2" 
+      chosenTheme="$shellDir/Themes/$2"
+    fi
+    cp "$chosenConf" "$configFile"
+    be.shell --restart > /dev/null 2>&1
+    extra 
+fi
+
+}
+
+main "$@"
