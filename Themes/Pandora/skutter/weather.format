@@ -1,7 +1,4 @@
 # Placeholders:
-#
-# /usr/share/skutter  - global theme directory
-# /usr/share/skutter - system-wide defaults (/usr/share/shellfeed)
 # {0}      - city
 # {1}      - updated
 # {2}      - icon
