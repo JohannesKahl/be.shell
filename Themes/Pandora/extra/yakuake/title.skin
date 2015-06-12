@@ -1,0 +1,16 @@
+[Description]
+Skin=Pandora
+Author=Hombremaledicto
+Email=
+Icon=/icon.png
+
+[Border]
+red=36
+green=36
+blue=36
+width=1
+
+[Background]
+back_image=/back.png
+left_corner=/back.png
+right_corner=/back.png
