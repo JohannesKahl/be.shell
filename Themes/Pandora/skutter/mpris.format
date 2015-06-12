@@ -1,0 +1,25 @@
+# This is a comment
+# length_* will be interpreted as string maximum display lengths
+# Everything else is part of the format string. We recognise these placeholders:
+# {0} - title
+# {1} - artist
+# {2} - album
+# {3} - cover
+# 
+
+<table align="center" border="0" width="290" cellpadding="2" cellspacing="0" style="border-color: white;">
+        <tr>
+        <td align="left" width="290" style="padding:8px; padding-left: 0px;" colspan="3"><span style="font-size:12pt;color:palette(highlight);">{0}</span>
+        </td></tr>
+	<tr>
+		<td align="center" colspan="1"><a href="dbus:session;org.bedevil.Skutter;/Control;org.bedevil.Skutter;Player;show"><img src={3} width=98/></a></td>
+		<td align="left" style="padding:3px;" colspan="2">
+		<br>{1}<br>{2}<br><br>
+        <a href="dbus:session;org.bedevil.Skutter;/Control;org.bedevil.Skutter;Player;prev"><img src=/home/hombre/.kde4/share/apps/be.shell/Shelloid/mediaprev.png></a>
+#		<a href="dbus:session;org.bedevil.Skutter;/Control;org.bedevil.Skutter;Player;stop"><img src=/home/hombre/.kde4/share/apps/be.shell/Shelloid/mediastop.png></a>
+#		<a href="dbus:session;org.bedevil.Skutter;/Control;org.bedevil.Skutter;Player;play"><img src=/home/hombre/.kde4/share/apps/be.shell/Shelloid/mediaplay.png></a>
+		<a href="dbus:session;org.bedevil.Skutter;/Control;org.bedevil.Skutter;Player;toggle"><img src={4}></a>
+		<a href="dbus:session;org.bedevil.Skutter;/Control;org.bedevil.Skutter;Player;next"><img src=/home/hombre/.kde4/share/apps/be.shell/Shelloid/medianext.png></td></a>
+		</td>
+	</tr>
+</table>

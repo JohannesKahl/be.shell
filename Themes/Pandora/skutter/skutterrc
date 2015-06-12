@@ -1,0 +1,22 @@
+[skutter]
+# 1 = run module otherwise don't
+start_mpris = 1
+start_calendar = 0
+start_weather = 1
+
+[weather]
+# https://weather.codes
+city_id = ITXX0006
+
+# Refresh period in seconds
+update_period = 620
+
+[calendar]
+# Refresh period in seconds
+update_period = 120
+
+[mpris]
+# Maximum length of fields
+length_title = 34
+length_artist = 42
+length_album = 42
