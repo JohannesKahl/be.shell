@@ -12,9 +12,9 @@ Beyond my artworks, you might want to pay a visit to paranoidnemo's [repository]
 Installation
 ======
 
-Clone this repository:
+This repository makes use of submodules, to clone it use:
 
-    git clone https://github.com/Hombremaledicto/be.shell.git
+    git clone --recursive https://github.com/Hombremaledicto/be.shell.git
     cd be.shell
     
 You can either install presets using the provided script or copying the files manually.
