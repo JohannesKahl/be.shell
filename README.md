@@ -46,20 +46,27 @@ Copy the Theme directory:
 Copy the included config file (for example be.shell.Vertex) as be.shell:
 
     cp be.shell.Vertex `kde4-config --localprefix`/share/config/be.shell
-
-Install the provided scripts and submenu files:
+    
+Install the provided scripts:
 
     mkdir -p ~/.local/share/be.shell
-    cp -R Menu Scripts ~/.local/share/be.shell 
-    chmod -R 777 ~/.local/share/be.shell/Scripts/*
+    cp -r Scripts ~/.local/share/be.shell && chmod -R 777 ~/.local/share/be.shell/Scripts/*
+    
+Install the menus:
 
-Copy the MainMenu.xml file to your be.shell config directory:
+     cp -r Menu ~/.local/share/be.shell
+    
+Copy the MainMenu.xml under your be.shell config dir:
 
     cp MainMenu.xml `kde4-config --localprefix/share/apps/be.shell
-    
-If you're using Plasma, kill it and start BE::Shell:
+   
+Finally, (re)load be.shell. If you're using Plasma on KDE SC4, kill its process and start BE::Shell:
 
     kquitapp plasma-desktop; sleep 2; be.shell
+    
+While if you're on Plasma5, the command is:
+
+    kquitapp plasmashell; sleep2; be.shell
     
 If you're already on BE::Shell, restart it in order to apply the new theme & config:
 
