@@ -1,0 +1,3 @@
+[submodule "skutter"]
+	path = skutter
+	url = git@github.com:Bedevil/skutter.git
