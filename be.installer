@@ -55,7 +55,7 @@ choice(){
 test=0
 local -a array
  
-for i in $scriptDir/configs/*; do
+for i in $scriptDir/Config/*; do
    array[${#array[*]}]="${i##*/}"
 done
 
@@ -85,7 +85,7 @@ while true; do
   fi
 done
  
-chosenConf="$scriptDir/configs/$opt"
+chosenConf="$scriptDir/Config/$opt"
 chosenTheme="$scriptDir/Themes/$opt"
  
 }
@@ -250,7 +250,7 @@ if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
     if [ ! -z "$2" ]; then
       clear;
       opt="$2"
-      chosenConf="$scriptDir/configs/$2" 
+      chosenConf="$scriptDir/Config/$2" 
       chosenTheme="$scriptDir/Themes/$2"
      else
       clear
