@@ -103,7 +103,10 @@ local dateHour="$( date "+%Y%m%d%H%M%S" )"
 local oldTheme="$( kreadconfig --file be.shell --group BE::Shell --key Theme )"
 local archive="$kdeDir/apps/be.shell/snapshots/$oldTheme.$dateHour.tar"
 
-tar -cf "$archive" "$0" -C "$kdeDir"/apps/be.shell/ "Themes/$oldTheme" "MainMenu.xml" -C "$HOME/.local/share/be.shell" "Menu" "Scripts" -C  "$kdeDir"/config be.shell --transform s/be.shell/be.shell.$oldTheme/ &> /dev/null 
+mkdir /tmp/Config
+cp "$kdeDir"/config/be.shell /tmp/Config/$oldTheme
+tar -cf "$archive" "$0" -C "$kdeDir"/apps/be.shell/ "Themes/$oldTheme" "MainMenu.xml" -C "$HOME/.local/share/be.shell" "Menu" "Scripts" -C  /tmp Config &> /dev/null 
+rm -rf /tmp/Config
 
 echo -e "\nFiles stored in\n$archive\n"
 
