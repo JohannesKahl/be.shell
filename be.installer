@@ -96,16 +96,23 @@ backup(){
 #Feel free to improve it ;)
 
 if [[ ! -d "$kdeDir/apps/be.shell/snapshots" ]]; then
-   mkdir "$kdeDir/apps/be.shell/snapshots"
+   mkdir -p "$kdeDir/apps/be.shell/snapshots"
 fi
 
 local dateHour="$( date "+%Y%m%d%H%M%S" )"
 local oldTheme="$( kreadconfig --file be.shell --group BE::Shell --key Theme )"
 local archive="$kdeDir/apps/be.shell/snapshots/$oldTheme.$dateHour.tar"
+local oldWall="$( kreadconfig --file be.shell --group BE::Desk --key Wallpaper )"
 
-mkdir -p /tmp/"$0"/Config
+#The following is ugly at least. Too lazy to think on something better:
+
+mkdir -p /tmp/"$0"/{Config,Themes}
 cp "$kdeDir"/config/be.shell /tmp/"$0"/Config/"$oldTheme"
-tar -cf "$archive" "$0" -C "$kdeDir"/apps/be.shell/ "Themes/$oldTheme" "MainMenu.xml" -C "$HOME/.local/share/be.shell" "Menu" "Scripts" -C  /tmp/"$0" Config &> /dev/null 
+cp -r "$kdeDir"/apps/be.shell/Themes/"$oldTheme" /tmp/"$0"/Themes/
+find /tmp/"$0"/Themes/"$oldTheme" -type f -iname "wall*" -exec rm -f {} \;
+cp "$oldWall" /tmp/"$0"/Themes/"$oldTheme"/wall"${oldWall: -4}" 
+
+tar -cf "$archive" "$0" -C "$kdeDir"/apps/be.shell/ "MainMenu.xml" -C "$HOME/.local/share/be.shell" "Menu" "Scripts" -C  /tmp/"$0" "Config" "Themes" &> /dev/null 
 rm -rf /tmp/"$0"
 
 echo -e "\nFiles stored in\n$archive\n"
