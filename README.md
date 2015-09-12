@@ -1,7 +1,7 @@
 Description
 ======
 
-This repository contains my ccnfigs and relative themes for [BE::Shell](http://sourceforge.net/p/be-shell/code/ci/master/tree/), also hosted on the [BeDevil](https://github.com/Bedevil/be.shell) organization, alongside the ones from other users.  
+This repository contains my configs and relative themes for [BE::Shell](http://sourceforge.net/p/be-shell/code/ci/master/tree/), also hosted on the [BeDevil](https://github.com/Bedevil/be.shell) organization, alongside the ones from other users.  
 
 **Reference**
 
