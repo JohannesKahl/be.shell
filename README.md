@@ -49,9 +49,9 @@ Copy the Theme directory:
 
     cp -r Themes `kde4-config --localprefix`/share/apps/be.shell/
 
-Copy one of the included config file (in this example Vertex) as be.shell:
+Copy one of the included config file (in this example Vertex.conf) as be.shell:
 
-    cp Config/Vertex `kde4-config --localprefix`/share/config/be.shell
+    cp Config/Vertex.conf `kde4-config --localprefix`/share/config/be.shell
     
 Install the provided scripts:
 

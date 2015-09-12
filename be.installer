@@ -56,7 +56,7 @@ test=0
 local -a array
  
 for i in $scriptDir/Config/*; do
-   array[${#array[*]}]="${i##*/}"
+   array[${#array[*]}]="$( basename ${i%.*} )"
 done
 
 lenght=$((${#array[@]} -1))
@@ -85,7 +85,7 @@ while true; do
   fi
 done
  
-chosenConf="$scriptDir/Config/$opt"
+chosenConf="$scriptDir/Config/$opt.conf"
 chosenTheme="$scriptDir/Themes/$opt"
  
 }
@@ -95,19 +95,19 @@ backup(){
 #Compressing the old setup, not as elegant as i wanted but works. 
 #Feel free to improve it ;)
 
-if [[ ! -d "$kdeDir/apps/be.shell/snapshots" ]]; then
-   mkdir -p "$kdeDir/apps/be.shell/snapshots"
+if [[ ! -d "$HOME/.local/share/be.shell/backup" ]]; then
+   mkdir -p "$HOME/.local/share/be.shell/backup"
 fi
 
 local dateHour="$( date "+%Y%m%d%H%M%S" )"
 local oldTheme="$( kreadconfig --file be.shell --group BE::Shell --key Theme )"
-local archive="$kdeDir/apps/be.shell/snapshots/$oldTheme.$dateHour.tar"
+local archive="$HOME/.local/share/be.shell/backup/$oldTheme.$dateHour.tar"
 local oldWall="$( kreadconfig --file be.shell --group BE::Desk --key Wallpaper )"
 
 #The following is ugly at least. Too lazy to think on something better:
 
 mkdir -p /tmp/"$0"/{Config,Themes}
-cp "$kdeDir"/config/be.shell /tmp/"$0"/Config/"$oldTheme"
+cp "$kdeDir"/config/be.shell /tmp/"$0"/Config/"$oldTheme.conf"
 cp -r "$kdeDir"/apps/be.shell/Themes/"$oldTheme" /tmp/"$0"/Themes/
 find /tmp/"$0"/Themes/"$oldTheme" -type f -iname "wall*" -exec rm -f {} \;
 cp "$oldWall" /tmp/"$0"/Themes/"$oldTheme"/wall"${oldWall: -4}" 
@@ -260,7 +260,7 @@ if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
     if [ ! -z "$2" ]; then
       clear;
       opt="$2"
-      chosenConf="$scriptDir/Config/$2" 
+      chosenConf="$scriptDir/Config/$2.conf" 
       chosenTheme="$scriptDir/Themes/$2"
      else
       clear
