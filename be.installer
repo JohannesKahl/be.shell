@@ -51,8 +51,20 @@ echo -e "\n\e[0;31mReport issues to https://github.com/Hombremaledicto/be.shell\
 }
 
 choice(){
- 
-test=0
+
+#Chosen preset as argument, case sensitive:
+
+if [  -n "$1" ] && [ -f  "$scriptDir"/Config/"$1".conf ]; then
+  clear; echo "Chosen preset: $1"
+  chosenConf="$scriptDir/Config/$1.conf" 
+  chosenTheme="$scriptDir/Themes/$1"
+  return
+elif [  -n "$1" ] && [  ! -f  "$scriptDir"/Config/"$1".conf ]; then
+  echo -e "\n\e[94 $0: Preset '$1' does not exist\e[0m"; exit 1
+fi
+
+#Interactive mode, listing all presets available:
+
 local -a array
  
 for i in $scriptDir/Config/*; do
@@ -62,6 +74,7 @@ done
 lenght=$((${#array[@]} -1))
 
 while true; do
+  clear
   echo -e "\n\e[32mAvailable themes:\n\e[0m"
  
   for i in "${!array[@]}"; do
@@ -78,8 +91,7 @@ while true; do
       break
   elif [[ "$selection" == "q" ]]; then
       echo "No theme selected, skipping"
-      test=$((test + 1))
-      break
+      echo -e "\n\e[94mNothing to do :(\e[0m"; exit 1
   else
       clear;
   fi
@@ -256,29 +268,6 @@ fi
 
 main(){
 
-if [ -z "$1" -o "$1" == "-p" -o "$1" == "--preset" ]; then
-    if [ ! -z "$2" ]; then
-      clear;
-      opt="$2"
-      chosenConf="$scriptDir/Config/$2.conf" 
-      chosenTheme="$scriptDir/Themes/$2"
-     else
-      clear
-      sleep 0.5; choice
-    fi
-    if [[ "$test" -gt "0" ]]; then
-      echo -e "\n\e[94mNothing to do :(\e[0m"; exit 1
-     else
-      sleep 0.5; installer    
-    fi
-    scriptDir
-    sleep 0.5; isRunning
-    sleep 0.5; extra 
-    echo -e "\nSetting Wallpaper"
-    sleep 2; find "$chosenTheme" -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null
-    echo -e "\n\e[34mDone!\e[0m"
-fi
-
 case $1 in
     -h | --help) 
         usage
@@ -287,7 +276,14 @@ case $1 in
         backup
         ;;
     '' | -p | --preset)
-        sleep 0.5
+        sleep 0.5; choice "$2"
+        sleep 0.5; installer
+        scriptDir
+        sleep 0.5; isRunning
+        sleep 0.5; extra 
+        echo -e "\nSetting Wallpaper"
+        sleep 2; find "$chosenTheme" -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null
+        echo -e "\n\e[34mDone!\e[0m"
         ;;
     -r | --reload)
         isRunning
