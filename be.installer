@@ -56,6 +56,7 @@ choice(){
 
 if [  -n "$1" ] && [ -f  "$scriptDir"/Config/"$1".conf ]; then
   clear; echo "Chosen preset: $1"
+  opt="$1"
   chosenConf="$scriptDir/Config/$1.conf" 
   chosenTheme="$scriptDir/Themes/$1"
   return
