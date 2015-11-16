@@ -68,16 +68,16 @@ case $1 in
         array[${#array[*]}]="$( basename "${i%.*}" )"
       done
       ;;
-    snapshots)
-      for i in $HOME/.local/share/be.shell/backup/*; do
-        array[${#array[*]}]="${i##*/}"
-      done
-      ;;
-    chosenSnapshot)
-      for i in $HOME/.local/share/be.shell/backup/$2/*; do
-        array[${#array[*]}]="$( basename "${i%.*}" )"
-      done
-      ;;
+#     snapshots)
+#       for i in $HOME/.local/share/be.shell/backup/*; do
+#         array[${#array[*]}]="${i##*/}"
+#       done
+#       ;;
+#     chosenSnapshot)
+#       for i in $HOME/.local/share/be.shell/backup/$2/*; do
+#         array[${#array[*]}]="$( basename "${i%.*}" )"
+#       done
+#       ;;
 esac
 
 lenght=$((${#array[@]} -1))
@@ -303,7 +303,7 @@ case $1 in
     -l | --list)
         echo -e "\n\e[32mAvailable themes:\n\e[0m\n$(getList remote)"
         echo -e "\n\e[32mCurrently installed themes:\n\e[0m\n$(getList local)\n"
-        echo -e "\n\e[32mBackup themes:\n\e[0m\n$(getList snapshots)\n"
+#         echo -e "\n\e[32mBackup themes:\n\e[0m\n$(getList snapshots)\n"
         ;;
     '' | -p | --preset)
         choice "$2"
