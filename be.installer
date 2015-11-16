@@ -29,6 +29,7 @@ declare -f usage
 declare -f choice
 declare -f backup
 declare -f confirm
+declare -f getList
 declare -f kdeColors
 declare -f extra
 declare -f scriptDir
@@ -50,38 +51,62 @@ echo -e "\n\e[0;31mReport issues to https://github.com/Hombremaledicto/be.shell\
     
 }
 
+getList(){
+
+if [[ -n "${array+x}" ]]; then
+    unset array
+fi
+
+case $1 in
+    local)
+      for i in $kdeDir/apps/be.shell/Config/*; do
+        array[${#array[*]}]="$( basename "${i%.*}" )"
+      done
+      ;;
+    remote)
+      for i in $scriptDir/Config/*; do
+        array[${#array[*]}]="$( basename "${i%.*}" )"
+      done
+      ;;
+    snapshots)
+      for i in $HOME/.local/share/be.shell/backup/*; do
+        array[${#array[*]}]="${i##*/}"
+      done
+      ;;
+    chosenSnapshot)
+      for i in $HOME/.local/share/be.shell/backup/$2/*; do
+        array[${#array[*]}]="$( basename "${i%.*}" )"
+      done
+      ;;
+esac
+
+lenght=$((${#array[@]} -1))
+
+for i in "${!array[@]}"; do
+   echo "$i)  ${array[$i]}"
+done
+  
+}
+
 choice(){
 
 #Chosen preset as argument, case sensitive:
 
-if [  -n "$1" ] && [ -f  "$scriptDir"/Config/"$1".conf ]; then
+if [[   -n "$1" && -f  "$scriptDir"/Config/"$1".conf  ]]; then
   clear; echo "Chosen preset: $1"
   opt="$1"
   chosenConf="$scriptDir/Config/$1.conf" 
   chosenTheme="$scriptDir/Themes/$1"
   return
-elif [  -n "$1" ] && [  ! -f  "$scriptDir"/Config/"$1".conf ]; then
+elif [[  -n "$1"  && ! -f  "$scriptDir"/Config/"$1".conf ]]; then
   echo -e "\n\e[94 $0: Preset '$1' does not exist\e[0m"; exit 1
 fi
 
 #Interactive mode, listing all presets available:
 
-local -a array
- 
-for i in $scriptDir/Config/*; do
-   array[${#array[*]}]="$( basename ${i%.*} )"
-done
-
-lenght=$((${#array[@]} -1))
-
 while true; do
   clear
-  echo -e "\n\e[32mAvailable themes:\n\e[0m"
- 
-  for i in "${!array[@]}"; do
-    echo "$i)  ${array[$i]}"
-  done
- 
+  echo -e "\n\e[32mAvailable themes:\n\e[0m\n$(getList remote)"
   echo -en "\nEnter a number from 0 to $lenght or q to exit: "
   read selection
 
@@ -91,10 +116,9 @@ while true; do
       opt=${array[10#$selection]}
       break
   elif [[ "$selection" == "q" ]]; then
-      echo "No theme selected, skipping"
-      echo -e "\n\e[94mNothing to do :(\e[0m"; exit 1
+      clear; exit 0
   else
-      clear;
+      clear
   fi
 done
  
@@ -276,9 +300,14 @@ case $1 in
     -b | --backup) 
         backup
         ;;
+    -l | --list)
+        echo -e "\n\e[32mAvailable themes:\n\e[0m\n$(getList remote)"
+        echo -e "\n\e[32mCurrently installed themes:\n\e[0m\n$(getList local)\n"
+        echo -e "\n\e[32mBackup themes:\n\e[0m\n$(getList snapshots)\n"
+        ;;
     '' | -p | --preset)
-        sleep 0.5; choice "$2"
-        sleep 0.5; installer
+        choice "$2"
+        installer
         scriptDir
         sleep 0.5; isRunning
         sleep 0.5; extra 
