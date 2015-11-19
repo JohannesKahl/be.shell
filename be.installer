@@ -29,6 +29,7 @@ declare -f usage
 declare -f choice
 declare -f backup
 declare -f confirm
+declare -f setList
 declare -f getList
 declare -f kdeColors
 declare -f extra
@@ -70,7 +71,7 @@ for i in $myDir/*; do
         array[${#array[*]}]="$( basename "${i%.*}" )"
 done
 
-export lenght="$((${#array[@]} -1))"
+lenght="$((${#array[@]} -1))"
   
 }
 
