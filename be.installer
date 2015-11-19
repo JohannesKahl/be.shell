@@ -51,7 +51,7 @@ echo -e "\n\e[0;31mReport issues to https://github.com/Hombremaledicto/be.shell\
     
 }
 
-getList(){
+setList(){
 
 if [[ -n "${array+x}" ]]; then
     unset array
@@ -59,33 +59,29 @@ fi
 
 case $1 in
     local)
-      for i in $kdeDir/apps/be.shell/Config/*; do
-        array[${#array[*]}]="$( basename "${i%.*}" )"
-      done
+      myDir="$kdeDir/apps/be.shell/Config"
       ;;
     remote)
-      for i in $scriptDir/Config/*; do
-        array[${#array[*]}]="$( basename "${i%.*}" )"
-      done
+      myDir="$scriptDir/Config"
       ;;
-#     snapshots)
-#       for i in $HOME/.local/share/be.shell/backup/*; do
-#         array[${#array[*]}]="${i##*/}"
-#       done
-#       ;;
-#     chosenSnapshot)
-#       for i in $HOME/.local/share/be.shell/backup/$2/*; do
-#         array[${#array[*]}]="$( basename "${i%.*}" )"
-#       done
-#       ;;
 esac
 
-lenght=$((${#array[@]} -1))
+for i in $myDir/*; do
+        array[${#array[*]}]="$( basename "${i%.*}" )"
+done
+
+export lenght="$((${#array[@]} -1))"
+  
+}
+
+getList() {
+
+setList "$1"
 
 for i in "${!array[@]}"; do
-   echo "$i)  ${array[$i]}"
+   printf "\e[033m%i\e[0m)  %s\n" "$i" "${array[$i]}"
 done
-  
+
 }
 
 choice(){
@@ -106,9 +102,10 @@ fi
 
 while true; do
   clear
-  echo -e "\n\e[32mAvailable themes:\n\e[0m\n$(getList remote)"
+  echo -e "\n\e[32mAvailable themes:\n\e[0m\n"
+  getList remote
   echo -en "\nEnter a number from 0 to $lenght or q to exit: "
-  read selection
+  read -r selection
 
 #Thanks to https://github.com/izabera for the following section
 
@@ -172,7 +169,9 @@ esac
 
 kdeColors(){ 
 
-#unfortunately bash can't handle this 
+#Setting global colorscheme (KDE4 only)
+#unfortunately bash can't handle this, kde4 pyhton bindings required.
+#TODO: find a solution for plasma5
 
 python - <<END
 try:
@@ -281,11 +280,11 @@ if [[  -z $(pidof "$pShell") ]]; then
       confirm "I will now reload be.shell. Continue? [y/N]:" && be.shell --restart > /dev/null 2>&1
     else
       echo " "
-      confirm "Starting be.shell. Continue? [y/N]:" && be.shell
+      confirm "Starting be.shell. Continue? [y/N]:" && be.shell > /dev/null 2>&1
     fi
 else
      echo " "
-     confirm "I will now stop Plasma and start be.shell. Continue? [y/N]:" && kquitapp "$pShell"; sleep 2; be.shell &> /dev/null
+     confirm "I will now stop Plasma and start be.shell. Continue? [y/N]:" && kquitapp "$pShell"; sleep 2; be.shell > /dev/null 2>&1
 fi
 
 }
@@ -301,9 +300,8 @@ case $1 in
         backup
         ;;
     -l | --list)
-        echo -e "\n\e[32mAvailable themes:\n\e[0m\n$(getList remote)"
-        echo -e "\n\e[32mCurrently installed themes:\n\e[0m\n$(getList local)\n"
-#         echo -e "\n\e[32mBackup themes:\n\e[0m\n$(getList snapshots)\n"
+        printf "\n\e[32m%s\e[0m\n\n%s\n\n" "Available themes:" "$(getList remote)"
+        printf "\n\e[32m%s\e[0m\n\n%s\n\n" "Installed themes:" "$(getList local)"
         ;;
     '' | -p | --preset)
         choice "$2"
@@ -323,7 +321,7 @@ case $1 in
         ;;
      *) 
         usage
-        echo -e "\n\e[31mUnknown option '$1'\e[0m"
+        printf  "\n\e[31m%s\e[0m\n" "Unknown option '$1'"
         exit 1
         ;;
 esac
