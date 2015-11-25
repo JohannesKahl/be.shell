@@ -39,7 +39,7 @@ Or, alternatively, you can skip the list of available presets and specify direct
 
     ./be.installer -b
     
-For get a list of all the commands:
+To get a list of all the commands:
 
     ./be.installer -h
     
