@@ -4,7 +4,7 @@
 #This script should not be executed as root:
 
 if [ "$(id -u)" == "0" ]; then
-  echo -e '\n\e[0;31mThis script must be executed as normal user!!!\nI will now exit.\e[0m' 
+  printf  '\n\e[0;31m%s\e[0m\n'  "This script must be executed as normal user!!!"
   exit 1
 fi
 
@@ -22,6 +22,13 @@ declare -r scriptDir="$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )"
 declare -r kdeDir="$(kde4-config --localprefix)share"
 declare -r themesDir="$kdeDir/apps/be.shell/Themes"
 declare -r configFile="$kdeDir/config/be.shell"
+declare -i controlFlow="0"
+
+#Best solution found for a lazy --noconfirm. Sowwy :(
+
+if [[ "$@" =~ "--noconfirm" ]]; then
+    controlFlow="$((controlFlow+1))"
+fi
 
 #Test functions
 
@@ -29,6 +36,7 @@ declare -f usage
 declare -f choice
 declare -f backup
 declare -f confirm
+declare -f checkUpdates
 declare -f setList
 declare -f getList
 declare -f kdeColors
@@ -41,18 +49,51 @@ declare -f main
 
 usage(){
 
-echo -e "\n\e[34mA script to manage BE::Shell themes and configs\n\e[0m"
-echo "Usage:"
-echo "                   No options: interactive mode"
-echo " -p, --preset      Install a preset, e.g. ./install -p Vertex"
-echo " -b, --backup      Backup current config and theme directory."
-echo " -h, --help        Shows this usage screen."
-echo " -r, --reload      Quit from plasma if active or restart be.shell."
-echo -e "\n\e[0;31mReport issues to https://github.com/Hombremaledicto/be.shell\e[0m"
+printf "\n\e[34m%s\n\e[0m" "A script to manage BE::Shell themes and configs"
+printf "\n%s\n" "Usage: $0 [ -arg value] [ --argument value ] ..."
+printf "\n%s\n" "Options:"
+printf "\t%s\n" " -b, --backup"
+printf "\t\t\t%s\n" "   Backup current config and theme directory using the same structure of the repository"
+# printf "\t%s\n" " -c, --check-updates"
+# printf "\t\t\t%s\n" "   Check if the local repository is up to date"
+printf "\t%s\n" " -h, --help"
+printf "\t\t\t%s\n" "   Show this usage screen."
+printf "\t%s\n" " -l, --list"
+printf "\t\t\t%s\n" "   List the presets available and those already installed"
+printf "\t%s\n"  " -p, --preset"
+printf "\t\t\t%s\n" "   Install a preset. Can take the preset name as argument, otherwise uses interactive mode"
+printf "\t%s\n" " -r, --reload"
+printf "\t\t\t%s\n" "   Quit from plasma if active or (re)start be.shell"
+printf "\n%s\n" "Special parameters:"
+printf "\n\t %s\n" "--noconfirm       Skip user prompt"
+printf "\n\e[31m%s\e[0m\n\n" "Report issues at https://github.com/Hombremaledicto/be.shell/issues"
     
 }
 
+#just a stub, need to rewrite this from scratch prolly:
+# checkUpdates() {
+# 
+# if [[ ! -d "$scriptDir/.git"  && "$PWD" != "$scriptDir" ]]; then
+#      return
+# fi
+# 
+# LOCAL=$(git rev-parse @)
+# REMOTE=$(git rev-parse @{u})
+# BASE=$(git merge-base @ @{u})
+# 
+# if [ $LOCAL = $REMOTE ]; then
+#     printf "%s\n" "Your local repository is up to date"
+# elif [ $LOCAL = $BASE ]; then
+#     confirm "there are updates available. Do you want to update your local repository?" && git pull
+# else
+#     return
+# fi
+# 
+# }
+
 setList(){
+
+#Checking if our array already exists
 
 if [[ -n "${array+x}" ]]; then
     unset array
@@ -66,6 +107,8 @@ case $1 in
       myDir="$scriptDir/Config"
       ;;
 esac
+
+#Populate the array with all the presets found
 
 for i in $myDir/*; do
         array[${#array[*]}]="$( basename "${i%.*}" )"
@@ -90,22 +133,24 @@ choice(){
 #Chosen preset as argument, case sensitive:
 
 if [[   -n "$1" && -f  "$scriptDir"/Config/"$1".conf  ]]; then
-  clear; echo "Chosen preset: $1"
+  clear; 
+  printf "%s\n" "Chosen preset: $1"
   opt="$1"
   chosenConf="$scriptDir/Config/$1.conf" 
   chosenTheme="$scriptDir/Themes/$1"
   return
 elif [[  -n "$1"  && ! -f  "$scriptDir"/Config/"$1".conf ]]; then
-  echo -e "\n\e[94 $0: Preset '$1' does not exist\e[0m"; exit 1
+  printf "\e[1;31m%s\e[0m\n"  "$0: Preset '$1' does not exist" 
+  exit 1
 fi
 
 #Interactive mode, listing all presets available:
 
 while true; do
   clear
-  echo -e "\n\e[32mAvailable themes:\n\e[0m\n"
+  printf "\n\e[32m%s\n\e[0m\n" "Available themes:"
   getList remote
-  echo -en "\nEnter a number from 0 to $lenght or q to exit: "
+  printf "\n%s" "Enter a number from 0 to $lenght or q to exit: "
   read -r selection
 
 #Thanks to https://github.com/izabera for the following section
@@ -114,7 +159,8 @@ while true; do
       opt=${array[10#$selection]}
       break
   elif [[ "$selection" == "q" ]]; then
-      clear; exit 0
+      clear
+      exit 0
   else
       clear
   fi
@@ -156,7 +202,13 @@ echo -e "\nFiles stored in\n$archive\n"
 
 confirm (){
 
-read -r -p "${1} " response
+#See? This sucks :P
+
+if [[ "$controlFlow" -gt 0 ]]; then
+    return
+fi
+
+read -n 1 -r -p "${1} " response
 case $response in
     [yY][eE][sS]|[yY]) 
        true
@@ -172,7 +224,7 @@ kdeColors(){
 
 #Setting global colorscheme (KDE4 only)
 #unfortunately bash can't handle this, kde4 pyhton bindings required.
-#TODO: find a solution for plasma5
+#TODO: find a working solution for plasma5
 
 python - <<END
 try:
@@ -209,7 +261,7 @@ local cScheme="${myColors##*/}"
 local konsoleVersion="$(konsole --version | awk 'NR == 2 {print $2}')"
 
 if [[ -n "$myColors" ]]; then
-  echo -e "\nSetting konsole colorscheme"
+  printf "\n%s" "Setting konsole colorscheme"
   if [[ "$konsoleVersion" == "Frameworks:" ]]; then
       cp "$myColors" "$HOME/.local/share/konsole"
       defProfile="$(kreadconfig5 --file konsolerc --group Desktop\ Entry --key DefaultProfile)"
@@ -231,7 +283,7 @@ endSchema="$colorsDir/$schemaName"
 if [[ -n "$kdeSchema" ]]; then
    echo -e "\nSetting KDE colorscheme"
    cp "$kdeSchema" "$colorsDir"
-   kdeColors || echo -e "\n$schemaDesc is available in kcmshell4 colors"
+   kdeColors || printf "%s\n" "$schemaDesc is available in kcmshell4 colors"
 fi
 
 }
@@ -256,7 +308,7 @@ if [[ ! -f "$configFile" ]]; then
 elif [[  -f "$configFile" ]]; then
      echo " "
      confirm "Do you want to backup the existing theme and config? y/N:" && backup
-     echo -e "\e[33mCopying the new config\e[0m"
+     echo -e "\n\e[33mCopying the new config\e[0m\n"
      cp "$chosenConf" "$configFile"
 fi
 
@@ -290,42 +342,53 @@ fi
 
 }
 
-
 main(){
 
-case $1 in
-    -h | --help) 
-        usage
-        ;;
-    -b | --backup) 
-        backup
-        ;;
-    -l | --list)
-        printf "\n\e[32m%s\e[0m\n\n%s\n\n" "Available themes:" "$(getList remote)"
-        printf "\n\e[32m%s\e[0m\n\n%s\n\n" "Installed themes:" "$(getList local)"
-        ;;
-    '' | -p | --preset)
-        choice "$2"
-        installer
-        scriptDir
-        sleep 0.5; isRunning
-        sleep 0.5; extra 
-        echo -e "\nSetting Wallpaper"
-        sleep 2; find "$chosenTheme" -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null
-        echo -e "\n\e[34mDone!\e[0m"
-        ;;
-    -r | --reload)
-        isRunning
-        ;;
-    -s | --scripts)
-        scriptDir
-        ;;
-     *) 
-        usage
-        printf  "\n\e[31m%s\e[0m\n" "Unknown option '$1'"
-        exit 1
-        ;;
-esac
+for myArgs in "$@"; do
+
+  case $myArgs in
+      -h | --help) 
+          usage
+          ;;
+      -b | --backup) 
+          backup
+          shift
+          ;;
+      -c | --check-updates)
+          checkUpdates
+          shift
+          ;;
+      -l | --list)
+          printf "\n\e[32m%s\e[0m\n\n%s\n\n" "Available themes:" "$(getList remote)"
+          printf "\n\e[32m%s\e[0m\n\n%s\n\n" "Installed themes:" "$(getList local)"
+          ;;
+      --noconfirm)
+#           do nothing
+         shift
+         ;;
+      -p | --preset)
+          choice "$2"; installer; 
+          scriptDir; isRunning; 
+          extra 
+          printf "\n%s\n" "Setting Wallpaper"
+          sleep 2; find "$chosenTheme" -iname "wall*" -exec be.shell --setWallpaper {} \; &> /dev/null 2>&1
+          exit 0
+          ;;
+      -r | --reload)
+          isRunning
+          shift
+          ;;
+      -s | --scripts)
+          scriptDir
+          shift
+          ;;
+       *) 
+          usage
+          printf  "\n\e[31m%s\e[0m\n" "Unknown option '$1'"
+          exit 1
+          ;;
+  esac
+done
 
 }
 
