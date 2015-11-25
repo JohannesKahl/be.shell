@@ -29,7 +29,7 @@ You can either install presets using the provided script or copying the files ma
 
 Simply type:
 
-    ./be.installer
+    ./be.installer -p
     
 Or, alternatively, you can skip the list of available presets and specify directly the one you want, passing its name after the -p argument - e.g. for be.shell.Vertex :
 
@@ -38,6 +38,10 @@ Or, alternatively, you can skip the list of available presets and specify direct
 *Note* By default the script will ask if you want to backup your current config and theme, this functionality can also be invoked with:
 
     ./be.installer -b
+    
+For get a list of all the commands:
+
+    ./be.installer -h
     
  **Manually**
  
