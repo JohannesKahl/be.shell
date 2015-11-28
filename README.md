@@ -18,16 +18,22 @@ This repository contains my configs and relative themes for [BE::Shell](http://s
 Installation
 ======
 
-This repository makes use of submodules, to clone it use:
+Before to proceed, install BE::Shell if you haven't done it yet (instructions on its [wiki](http://sourceforge.net/p/be-shell/wiki/Installation/). If you're on plasma5, you can find further informations [here](https://github.com/Bedevil/be.shell/wiki/BE::Shell-on-kf5)), then clone this repository:
 
     git clone --recursive https://github.com/Hombremaledicto/be.shell.git
+
+And enter into the source folder:    
+
     cd be.shell
     
 You can either install presets using the provided script or copying the files manually.
    
 **By script**
 
-Simply type:
+**NOTE** _The script shipped with this repository assumes you're on a KDE4 or KDE plasma5 installation and makes use of some KDE tools already preinstalled on most distributions (kreadconfig & kwriteconfig are mandatory).
+Optionally, if kde4 python bindings are installed, it will install & apply on the fly a kde4 colorscheme, if the preset provides one._
+
+To start the script in interactive mode, simply type:
 
     ./be.installer -p
     
@@ -110,7 +116,7 @@ Mac alike preset directly derived from Dynamo. Using a mix of Paper and Breeze i
 Some of the applets within the SideBar requires to install & configure [skutter](https://github.com/Bedevil/skutter).
 Recommended fonts: Helvetica Neue, Arimo, Nimbus Sans.
 
-*NOTICE!* This is still in beta: the CSS & config are still *extremely* dirty, and there are still a lot of details which need to be refined.     A complementary plasmashell theme and a decoration are under development.
+*NOTICE!* This is still in beta: the CSS & config are still *extremely* dirty, and there are still a lot of details which need to be refined.    
 
 
 ![Pandora preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Pandora.png "Pandora")
