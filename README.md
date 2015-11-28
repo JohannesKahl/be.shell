@@ -14,6 +14,7 @@ This repository contains my configs and relative themes for [BE::Shell](http://s
 
 - Due to the absolute positioning in BE::Shell themes may need adjustments within the css or the config file
 - Some configurations use external scripts as info providers [e.g. skutter], which need to be installed and configured separately in most of the cases
+- In the instructions below scripts and menus are installed under ~/.local, instead of using the default configuration directory for be.shell. This decision has been made to prevent issues with different kde4 configuration paths  
 
 Installation
 ======
