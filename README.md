@@ -18,7 +18,7 @@ This repository contains my configs and relative themes for [BE::Shell](http://s
 Installation
 ======
 
-Before to proceed, install BE::Shell if you haven't done it yet (instructions on its [wiki](http://sourceforge.net/p/be-shell/wiki/Installation/). If you're on plasma5, you can find further informations [here](https://github.com/Bedevil/be.shell/wiki/BE::Shell-on-kf5)), then clone this repository:
+Before to proceed, install BE::Shell if you haven't done it yet (instructions on its [wiki](http://sourceforge.net/p/be-shell/wiki/Installation/). As for KDE Plasma5, i also suggest to read [this](https://github.com/Bedevil/be.shell/wiki/BE::Shell-on-kf5) page), then clone this repository:
 
     git clone --recursive https://github.com/Hombremaledicto/be.shell.git
 
@@ -30,8 +30,8 @@ You can either install presets using the provided script or copying the files ma
    
 **By script**
 
-**NOTE** _The script shipped with this repository assumes you're on a KDE4 or KDE plasma5 installation and makes use of some KDE tools already preinstalled on most distributions (kreadconfig & kwriteconfig are mandatory).
-Optionally, if kde4 python bindings are installed, it will install & apply on the fly a kde4 colorscheme, if the preset provides one._
+**NOTE:** _The script shipped with this repository assumes you're on a KDE4 or Plasma5 session and makes use of some KDE tools already preinstalled on most distributions (kreadconfig & kwriteconfig are mandatory).
+Optionally, in case kde4 python bindings are installed, it will copy & apply on the fly a kde4 colorscheme, if the preset provides one._
 
 To start the script in interactive mode, simply type:
 
@@ -41,7 +41,7 @@ Or, alternatively, you can skip the list of available presets and specify direct
 
     ./be.installer -p Vertex
     
-*Note* By default the script will ask if you want to backup your current config and theme, this functionality can also be invoked with:
+**NOTE:** By default the script will ask if you want to backup your current config and theme, this functionality can also be invoked with:
 
     ./be.installer -b
     
