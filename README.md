@@ -16,6 +16,16 @@ This repository contains my configs and relative themes for [BE::Shell](http://s
 - Some configurations use external scripts as info providers [e.g. skutter], which need to be installed and configured separately in most of the cases
 - In the instructions below scripts and menus are installed under ~/.local, instead of using the default configuration directory for be.shell. This decision has been made to prevent issues with different kde4 configuration paths  
 
+**Issues**
+
+- GlobalMenu:
+ - Since many asked, in case the applications menubar is not exported in the globalmenu follow the instructions
+ [here](https://github.com/Bedevil/be.shell/wiki/Menubar-exportation)
+ - In case not even the default entries are shown but the applications *do not* have the menubar visible(after starting BE::Shell), it is most probably due to some value within the theme css (font, padding or margin) than can be easily fixed. Rightclick on the desktop → Themes → Edit Current. Check the values for GMenu.
+- Buttons/TaskBar:
+ - Blank icons in taskbar: This is due to the fact that sticky buttons are set for applications you most likely do not have installed. Simply edit the config (rightclick on the desktop → Config → Edit current) and remove their entry in the Buttons list under Type=TaskBar. Then save and reload the config.
+
+
 Installation
 ======
 
