@@ -14,20 +14,37 @@ This repository contains my configs and relative themes for [BE::Shell](http://s
 
 - Due to the absolute positioning in BE::Shell themes may need adjustments within the css or the config file
 - Some configurations use external scripts as info providers [e.g. skutter], which need to be installed and configured separately in most of the cases
+- In the instructions below scripts and menus are installed under ~/.local, instead of using the default configuration directory for be.shell. This decision has been made to prevent issues with different kde4 configuration paths  
+
+**Issues**
+
+- GlobalMenu:
+ - Since many asked, in case the applications menubar is not exported in the globalmenu follow the instructions
+ [here](https://github.com/Bedevil/be.shell/wiki/Menubar-exportation)
+ - In case not even the default entries are shown but the applications *do not* have the menubar visible(after starting BE::Shell), it is most probably due to some value within the theme css (font, padding or margin) than can be easily fixed. Rightclick on the desktop → Themes → Edit Current. Check the values for GMenu.
+- Buttons/TaskBar:
+ - Blank icons in taskbar: This is due to the fact that sticky buttons are set for applications you most likely do not have installed. Simply edit the config (rightclick on the desktop → Config → Edit current) and remove their entry in the Buttons list under Type=TaskBar. Then save and reload the config.
+
 
 Installation
 ======
 
-This repository makes use of submodules, to clone it use:
+Before to proceed, install BE::Shell if you haven't done it yet (instructions on its [wiki](http://sourceforge.net/p/be-shell/wiki/Installation/). As for KDE Plasma5, i also suggest to read [this](https://github.com/Bedevil/be.shell/wiki/BE::Shell-on-kf5) page), then clone this repository:
 
     git clone --recursive https://github.com/Hombremaledicto/be.shell.git
+
+And enter into the source folder:    
+
     cd be.shell
     
 You can either install presets using the provided script or copying the files manually.
    
 **By script**
 
-Simply type:
+**NOTE:** _The script shipped with this repository assumes you're on a KDE4 or Plasma5 session and makes use of some KDE tools already preinstalled on most distributions (kreadconfig & kwriteconfig are mandatory).
+Optionally, in case kde4 python bindings are installed, it will copy & apply on the fly a kde4 colorscheme, if the preset provides one._
+
+To start the script in interactive mode, simply type:
 
     ./be.installer -p
     
@@ -35,7 +52,7 @@ Or, alternatively, you can skip the list of available presets and specify direct
 
     ./be.installer -p Vertex
     
-*Note* By default the script will ask if you want to backup your current config and theme, this functionality can also be invoked with:
+**NOTE:** By default the script will ask if you want to backup your current config and theme, this functionality can also be invoked with:
 
     ./be.installer -b
     
@@ -110,7 +127,7 @@ Mac alike preset directly derived from Dynamo. Using a mix of Paper and Breeze i
 Some of the applets within the SideBar requires to install & configure [skutter](https://github.com/Bedevil/skutter).
 Recommended fonts: Helvetica Neue, Arimo, Nimbus Sans.
 
-*NOTICE!* This is still in beta: the CSS & config are still *extremely* dirty, and there are still a lot of details which need to be refined.     A complementary plasmashell theme and a decoration are under development.
+*NOTICE!* This is still in beta: the CSS & config are still *extremely* dirty, and there are still a lot of details which need to be refined.    
 
 
 ![Pandora preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Pandora.png "Pandora")
