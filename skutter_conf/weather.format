@@ -1,0 +1,54 @@
+# Placeholders:
+#
+# /usr/share/skutter  - global theme directory
+# /usr/share/skutter - system-wide defaults (/usr/share/shellfeed)
+# {0}      - city
+# {1}      - updated
+# {2}      - icon
+# {3}      - temp
+# {4}      - condition
+# {5}      - sunrise
+# {6}      - sunset
+# {7}      - humidity
+# {8}      - pressure
+# {9}      - forecast today
+# {10}     - forecast today condition
+# {11}     - forecast today icon
+# {12}     - forecast today low
+# {13}     - forecast today high
+# {14}     - tomorrow
+# {15}     - tomorrow condition
+# {16}     - tomorrow icon
+# {17}     - tomorrow low
+# {18}     - tomorrow high
+
+<table width="380" align="right" cellspacing="10">
+    <tr>
+        <td colspan="1" align="left" style="padding: 2 2 2 2;">
+            <img src=/usr/share/skutter/icons/{2}.png valign="middle"/>
+        </td>
+        <td colspan="3" style="vertical-align:middle;">
+            <span style="font-size:9pt;">Currently <font style="text-transform: lowercase;">{4}</font>.&nbsp;&nbsp;It's {3}°; the high today was forecast at {13}°, low at {12}°.</span><br>
+#            <span style="font-size:7pt;">{1}</span></td>
+#        <td align="left" style="vertical-align: middle;"><img src=/usr/share/skutter/icons/{2}.png width="64"/></td>
+#        <td align="left" style="vertical-align:middle;"><span style="font-size:36pt;font-weight:bold;">{3}°</span></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Sunrise: {5}<br>Sunset:  {6}<br>&nbsp;</td>
+        <td align="center"></td>
+        <td>Humidity: {7}%<br>Pressure: {8}<br>&nbsp;</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><span style="font-weight:bold;">Today:</span></td>
+        <td align="center" style="vertical-align: top; padding: 2 2 2 2;"><img src=/usr/share/skutter/icons/{11}.png/></td>
+       <td>{12}° ~ {13}°</td>
+   </tr>
+    <tr>
+        <td></td>
+        <td><span style="font-weight:bold;">Tomorrow:</span></td>
+        <td align="center" style="vertical-align: top; padding: 2 2 2 2;"><img src=/usr/share/skutter/icons/{16}.png/></td>
+        <td>{17}° ~ {18}°</td>
+    </tr>
+</table>

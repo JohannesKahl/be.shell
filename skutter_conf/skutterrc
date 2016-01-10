@@ -1,0 +1,59 @@
+[skutter]
+# 1 = run module otherwise don't
+start_mpris = 1
+start_calendar = 0
+start_weather = 1
+start_imap = 0
+start_rss = 0
+
+[weather]
+# https://weather.codes
+city_id = ITXX0006
+
+# Refresh period in seconds
+update_period = 620
+
+[calendar]
+# Refresh period in seconds
+update_period = 120
+
+[mpris]
+# Maximum length of fields
+length_title = 35
+length_artist = 31
+length_album = 31
+
+[rss]
+#RSS feed adresses
+feed_one = http://www.abc.net.au/news/feed/51120/rss.xml
+feed_two = http://www.phoronix.com/rss.php
+feed_three = http://www.linux.com/feeds/all-content
+#Display how many lines from each feed
+feed_one_lines = 4
+feed_two_lines = 4
+feed_three_lines = 4
+#Width till text wrap
+line_width = 46
+# Refresh period in seconds
+update_period = 1200
+
+[imap]
+#Display name for first account
+imap0_account = GMAIL
+#IMAP Server
+imap0_server = imap.gmail.com
+#IMAP Port
+imap0_port = 993
+#User mail address
+imap0_username = homer.simpson@gmail.com
+#Password
+imap0_password = 123456
+
+#Set to None to disable second account
+imap1_account = None
+imap1_server = 
+imap1_port = 
+imap1_username = 
+imap1_password =
+#Period in seconds to check mail
+update_period = 180
