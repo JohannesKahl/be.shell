@@ -1,0 +1,100 @@
+/*  Dock-a-like TaskBar */
+
+#DockBar { /* Containment Panel, transparent*/
+      background: transparent;
+     padding-bottom: -1px;
+}
+
+.BE--Tasks { /* The frame containing the task buttons */
+      min-height: 64px;
+      max-height: 64px;
+}
+
+.BE--Task, .BE--Trash, #workspace, #expose {
+      margin: -2 -2 -1 -2;
+}
+
+.BE--Task, #NoTask, #OneTask, #OneTask:checked, #ManyTasks, #ManyTasks:checked  {
+      padding: 2 0 10 0;
+}
+
+#dock { /* Child Panel contained in DockBar(this is visible and size is dynamic) */
+      margin-top: 0px;
+      padding: 1 8 0 8;
+      border-bottom: -1px;
+      border: 1px solid rgba(0,0,0,50%); /*90% */
+      border-bottom:0px;
+      background-repeat: repeat-xy;
+/*      background-color: rgba(40,37,36,80%);*/
+      background-color: rgba(22,30,32,90%);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+}
+
+.BE--Task, .BE--Trash {
+      margin: 0 0 0 0;
+      padding: 0 0 0 0;
+      max-height: 48px;
+      max-width: 48px;
+}
+
+#Time { /* Time Meter. Not used by default in this config. NOTICE: The only way to style meters is by ID */
+      color: rgba(255,255,255,250);
+      font-size: 11.0pt;
+      font-family: HelveticaNeue, Liberation Sans, Nimbus Sans, Arimo, Roboto;
+      font-weight: bold;
+      padding: 2 2 2 2;
+      margin: 0 2 3 6;
+      min-width: 48px;
+      max-width: 48px;
+}
+
+#expose {
+     padding: 4 5 7 5;
+     max-height: 48px;
+     max-width: 48px;
+}
+
+#workspace {
+      background-image: url("${base}/../assets/sep_ver.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+      background-clip: margin;
+      margin-left: 4px;
+      max-height: 48px;
+      max-width: 48px;
+      padding: 4 6 7 20;
+}
+
+.BE--Trash {
+     margin-bottom: 2px;
+     padding: -1 0 0 0;
+     min-width: 48px;
+     min-height: 48px;
+}
+
+#OneTask, #ManyTasks {
+      background-image: url("${base}/../assets/dot.png");
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      background-clip: margin;
+}
+
+#OneTask:checked, #ManyTasks:checked {
+      background-image: url("${base}/../assets/dot.png");
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      background-clip: margin;
+}
+
+#NoTask:pressed, #OneTask:pressed, #ManyTasks:pressed {
+      padding: -16 0 6 0;
+}
+
+#TaskTip { /* Tasks tooltip */
+     background: rgba(36,36,36,250);
+     color: rgba(253,253,253,255);
+     padding: 5 5 5 5;
+     font-size: 10pt;
+     font-family: HelveticaNeue, Liberation Sans, Nimbus Sans, Arimo, Roboto;
+}

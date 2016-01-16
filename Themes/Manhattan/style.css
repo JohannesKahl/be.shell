@@ -1,0 +1,202 @@
+
+#TopPanel {
+      background-color: rgba(25,28,32,70%);  /* rgba(49,55,54,100%); 85%  */
+      border-bottom : 0px inset rgba(37,37,37,0%); /* rgba(44,31,25,40%); */
+      padding: 0 10 0 10;
+      border-bottom: 0 outset transparent;
+}
+
+/*Buttons : The following matches *ALL* buttons in be.shell.
+ *We'll operate separate adjustments for each one of them later */
+QAbstractButton {
+      border-radius: 0px;
+      border: 0px;
+}
+
+/* Setting fonts for most of the applets */
+
+.BE--GMenu QMenuBar, .BE--Session, #infocenter, .BE--Task, .BE--Clock, #pager, #batCharge {
+      font-size: 10pt;
+      font-family: HelveticaNeue, Liberation Sans, Nimbus Sans, Arimo, Roboto; /* Chosen font & fallback alternatives */
+      font-weight: normal;
+      color: rgba(255,255,255,255);
+}
+
+.BE--Session, #infocenter, .BE--Clock, #pager, .BE--SysTray, .BE--Volume, .BE--MediaTray, #Time {
+      background: transparent;
+}
+
+.BE--Run QSizeGrip, *:menu-indicator {
+      image:none; /* this removes the resize arrow and the one for drop-down menus */
+}
+
+/* Various Applets &  fixes */
+
+.BE--GMenu QMenuBar {
+      padding: 1 0 4 0;
+      spacing: 10;
+      background-color: rgba(49,54,59,0%); /* Fix for some Qt Styles */
+     /* margin-bottom: 1px;*/ /* distance of the popup menu from the label */
+}
+
+/* Preventive measure to ensure globalmenu will not disappear for other users */
+
+.BE--Panel QMenuBar::item {
+      padding: 4 4 4 4;
+      margin: -1 0 -1 0;
+}
+
+/* Top Panel hovered applets */
+
+.BE--GMenu QMenuBar:item:selected, .BE--GMenu QMenuBar:item:hover, .BE--Clock:hover, #starter:hover, .BE--Session:hover, #search:hover, #search:checked, #control:hover, .BE--Battery:hover, .BE--Battery:checked, .BE--Device:hover, #infocenter:hover,   #klipper:hover, .BE--SysTray:hover, .BE--Volume:hover, #Yakuake:hover, #batCharge:hover {
+      background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1F5EEE, stop: 0.4 #225DEE, stop:1 #455FB5);  /*palette(highlight); /* #48B3F8 before */
+      opacity: 0.5;
+      background-image: url("${base}/assets/noise2.png");
+      background-repeat: repeat-x;
+      background-clip: border;
+      font-weight: bold;
+}
+
+/* Systray Area */
+
+.BE--SysTray {
+      margin:  0 0 0 0;
+      padding: 0 6 0 0;
+}
+
+.BE--Session {
+      margin: 0 0 0 0;
+      padding: 0 5 0 5;
+      /*width: 22px;*/
+}
+
+.BE--Volume, #klipper {
+      padding: 2 0 3 0;
+      margin: 0 4 0 4;
+      max-width:18px;
+      max-height: 18px;
+}
+
+#batCharge { /* a label displaying the battery charge percentage. Not used by default in this conf */
+      min-width: 38px;
+      padding: 1 0 0 2;
+      }
+
+#control {
+      padding: 2 5 2 5;
+      margin: 0 0 0 0;
+}
+
+#search {
+     padding: 0 3 0 3;
+     margin-right: 0px;
+}
+
+.BE--MediaTray { /* Containment widget */
+      margin: 0 4 0 4;
+      padding: -3 0 -3 0;
+}
+
+.BE--Device { /* Each device in .BE--MediaTray */
+      max-width: 18px;
+      max-height: 18px;
+      padding: 2 5 3 5;  /* 2 5 2 5; */
+}
+
+/* Battery widget: still to be fixed!! */
+
+/* color: the background and border of battery
+ * selection-background-color: background that fills the battery with charge stat */
+
+.BE--Battery {
+      margin: 0 0 0 0;
+/*      padding: 5 4 5 4;*/
+      padding: 5 0 5 0;
+      color: transparent;
+      selection-background-color: transparent;
+}
+
+.BE--Battery[charging="false"][charge="high"]  {
+      background-image: url("${base}/assets/bat-full.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+}
+
+.BE--Battery[charging="true"][charge="high"] {
+      background-image: url("${base}/assets/bat-full-charging.png");
+      background-repeat: no-repeat;
+      background-position: center;
+}
+
+.BE--Battery[charging="false"][charge="mid"] {
+      background-image: url("${base}/assets/bat-mid.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+}
+
+.BE--Battery[charging="true"][charge="mid"] {
+      background-image: url("${base}/assets/bat-mid-charging.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+}
+
+.BE--Battery[charging="false"][charge="low"] {
+      background-image: url("${base}/assets/bat-low.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+}
+
+.BE--Battery[charging="true"][charge="low"] {
+      background-image: url("${base}/assets/bat-low-charging.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+}
+
+/* Desktop icons */
+
+.BE--DeskIcon {
+     border-radius: 6px;
+     padding: 4 4 4 4;
+}
+
+.BE--DeskIcon QLabel {
+      background-repeat: repeat-x;
+      color:rgb(255,255,255);
+      font-size: 8pt;
+      font-family: HelveticaNeue, Liberation Sans, Nimbus Sans, Arimo, Roboto;
+      font-weight: bold;
+}
+
+/* Runner */
+
+#starter { /* Button calling BE::Run */
+      margin: 0px;
+      padding: 0 5 0 5;
+}
+
+.BE--Run  {
+      min-height: 610px;
+      min-width: 400px;
+}
+
+.BE--Run QLineEdit {
+      /*border-radius: 3px;
+      border: 0.5px inset rgb(77,77,77);
+      padding: 2 0 2 0;*/
+}
+
+.BE--Run QTreeView {
+      font-size: 8.5pt;
+      font-family: HelveticaNeue, Liberation Sans, Nimbus Sans, Arimo, Roboto;
+      color:rgba(253,253,253,90%); /* rgba(25,28,32,90%); if using a light colorscheme */
+}
+
+/* WmCtrl buttons */
+
+#close, #min, #max { /* windows control buttons. Not used by default in this conf */
+      color: #F2F2F4;
+      padding: 3 0 3 0;
+      margin: 3 -15 3 -15;
+      width: 16px;
+      height: 16px;
+}

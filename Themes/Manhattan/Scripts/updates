@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+# Recommended PollInterval = 600000 ← 10 minutes
+# Further infos to be displayed:
+  
+KERV="$( uname -r )"
+UPAVAIL="$( checkupdates )"
+#konsole -e sh -c "sudo pacman -Syu; echo Done. Press enter to exit; read''"
+
+# Vars for markup :
+
+STYLE="style=\"text-decoration: none; outline: none; font-size: 9pt; color: rgba(244,244,244,255); background-color: rgba(48,54,59,10%);\""
+LINKSTYLE="style=\"text-decoration: none; outline: none; font-size: 9pt; color: rgba(244,244,244,255); \""
+STYLE2="style=\"font-size: 8pt; color: rgba(244,244,244,255); background-color: rgba(48,54,59,10%);\""
+SEP="<tr><td align=\"left\" height=\"1\" colspan=\"6\"><img src=\"$THEMEDIR/assets/sep_hor.png\"/></td></tr>"
+
+# ACTION="<img src=\"$THEMEDIR/style.css.d/background-images/close.svg\"/>"
+
+if [[ "$UPR" -eq "1" ]]; then
+   Liter="Update"
+else
+   Liter="Updates"
+fi
+
+if [[ "$AUR" -eq "1" ]]; then
+   Litera="Update"
+else
+   Litera="Updates"
+fi
+
+if [[ "$UPR" -lt "10" && "$UPR" -gt "0" ]]; then
+   UPR=$(printf %02d ${UPR})
+   notify-send "be.shell" "$UPAVAIL" -a "There are $UPR updates available" 
+   UPRLABEL="<a $LINKSTYLE href=\"exec:konsole --hold -e sudo pacman -Syu\">Updates: </a>"
+elif [[ "$UPR" -ge "10"  ]]; then
+    UPRLABEL="<a $LINKSTYLE href=\"exec:konsole --hold -e sudo pacman -Syu\">Updates: </a>"
+elif [[ "$UPR" -eq "0" ]]; then
+   UPR="No"
+   UPRLABEL="<text $LINKSTYLE>Updates:</text>"
+fi
+
+if [[ ! -z ${AUR+x} ]]; then #check if $AUR is set, in case not, just output a blank space
+  if [[ "$AUR" -lt "10" && "$AUR" -gt "0" ]]; then
+     AUR=$(printf %02d ${AUR})
+     AURLABEL="<a $LINKSTYLE href=\"exec:konsole --hold -e yaourt -Sbu --aur\">AUR: </a>"
+   elif [[ "$AUR" -ge "10"  ]]; then
+      AURLABEL="<a $LINKSTYLE href=\"exec:konsole --hold -e yaourt -Sbu --aur\">AUR: </a>"
+   elif [[ "$AUR" -eq "00" ]]; then
+     AUR="No"
+     AURLABEL="<text $LINKSTYLE>AUR:</text>"
+   fi
+   AURLINE="<tr><td colspan=\"1\" rowspan=\"1\" $STYLE>$AURLABEL</td><td align=\"center\" colspan=\"3\" $STYLE></td><td colspan=\"1\" rowspan=\"1\"  align=\"right\" $STYLE2>$AUR $Litera</td><td align=\"right\" $STYLE></td></tr>"
+  else
+  AURLINE=""
+fi
+
+#Trying to get human readable HTML. Each line must end with a backslash.
+#Notice! The HTML sucks - yes, i'm AWARE of this, but whatever...
+#Empty cells - resp. 2nd and 4th of each row - are used for spacing and aligment, columns are 6 for the purpose.
+
+cat <<- _EOF_ 
+<table width="180" border="0" align="right" cellspacing="0" cellpadding="6" style="table-layout: fixed;">\
+  <tr>\
+     <td colspan="1" rowspan="1" $STYLE>$UPRLABEL</td>\
+     <td align="center" colspan="3" $STYLE></td>\
+     <td colspan="1" rowspan="1" align="right" $STYLE2>$UPR $Liter</td>\
+     <td align="right" $STYLE></td>\
+  </tr>\
+    $SEP\
+     $AURLINE\
+    $SEP\
+  <tr>\
+     <td colspan="1" rowspan="1" $STYLE>Installed: </td>\
+     <td align="center" colspan="3" $STYLE></td>\
+     <td colspan="1" rowspan="1" align="right" $STYLE2>$PACDB PKGs</td>\
+     <td align="right" $STYLE></td>\
+  </tr>\
+  $SEP\
+  <tr>\
+     <td colspan="1" rowspan="1" $STYLE>Kernel: </td>\
+     <td align="center" colspan="3" $STYLE></td>\
+     <td colspan="1" rowspan="1" align="right" $STYLE2>$KERV</td>\
+     <td align="right" $STYLE></td>\
+  </tr>\
+</table>
+_EOF_
+
