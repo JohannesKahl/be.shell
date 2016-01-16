@@ -135,4 +135,7 @@ Recommended fonts: Helvetica Neue, Arimo, Nimbus Sans.
 Manhattan
 ======
 
+An alternate version of Pandora, featuring transparency + blur.
+This preset *requires* DSP as default Qt style in order to work as expected (all the necessary configs are included under extra/dsp ).
+
 ![Manhattan preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/Manhattan/Pictures/Manhattan.png "Manhattan")
