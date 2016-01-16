@@ -131,3 +131,8 @@ Recommended fonts: Helvetica Neue, Arimo, Nimbus Sans.
 
 
 ![Pandora preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Pandora.png "Pandora")
+
+Manhattan
+======
+
+![Manhattan preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Manhattan.png "Manhattan")
