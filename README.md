@@ -135,4 +135,4 @@ Recommended fonts: Helvetica Neue, Arimo, Nimbus Sans.
 Manhattan
 ======
 
-![Manhattan preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Manhattan.png "Manhattan")
+![Manhattan preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/Manhattan/Pictures/Manhattan.png "Manhattan")
