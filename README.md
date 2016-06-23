@@ -1,7 +1,8 @@
 Description
 ======
 
-This repository contains my configs and relative themes for [BE::Shell](http://sourceforge.net/p/be-shell/code/ci/master/tree/).
+This repository contains my configs and relative themes for [BE::Shell](http://sourceforge.net/p/be-shell/code/ci/master/tree/). 
+Check the [gallery](https://github.com/Hombremaledicto/be.shell/wiki/Gallery) to see a preview of the presets available.
 
 **Reference**
 
@@ -97,36 +98,3 @@ While if you're on Plasma5, the command is:
 If you're already on BE::Shell, restart it in order to apply the new theme & config:
 
     be.shell --restart
-
-
-Vertex
-======
-
-Unity-Like dark theme using [BE--Tray icons](http://be-desk.deviantart.com/art/Be-Tray-Icons-16px-364645083) by LaGaDesk and [Moka Minimal](http://cbowman57.deviantart.com/art/Moka-Minimal-and-Faba-Minimal-Icon-Sets-482927307) by cbowman57.
-The suite is inspired by [Vertex GTK](http://horst3180.deviantart.com/art/Vertex-Theme-470663601).
-
-
-![Vertex preview](https://lh5.googleusercontent.com/-h83zA_HCRVQ/VGYMxGGvQOI/AAAAAAAAC7I/eNZRGMB8qW4/w1058-h595-no/schermata662.png "Vertex")
-
-Dynamo
-======
-
-A light theme miming the official Breeze artworks for KDE Plasma5. You can find the offial Breeze icon theme [here](https://github.com/NitruxSA/plasma-next-icons).
-Dynamo makes use of BE::Shell labels, either by polling a script, either as FiFos. Some of these scripts are included in this repository (check the Scripts folder for rss2html and be.kdeconnect), others are from [magpie240](https://github.com/magpie240) and require to be installed & configured from the relative repositories:
-
-- [shellfeed](https://github.com/magpie240/shellfeed)
-- [shelloid_mpris](https://github.com/magpie240/shelloid_mpris)
-
-![Dynamo preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Dynamo.png "Dynamo")
-
-Pandora
-======
-
-Mac alike preset directly derived from Dynamo. Using a mix of Paper and Breeze icon themes. 
-Some of the applets within the SideBar requires to install & configure [skutter](https://github.com/Bedevil/skutter).
-Recommended fonts: Helvetica Neue, Arimo, Nimbus Sans.
-
-*NOTICE!* This is still in beta: the CSS & config are still *extremely* dirty, and there are still a lot of details which need to be refined.    
-
-
-![Pandora preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Pandora.png "Pandora")
