@@ -1,26 +1,25 @@
 Description
 ======
 
-This repository contains my configs and relative themes for [BE::Shell](http://sourceforge.net/p/be-shell/code/ci/master/tree/), also hosted on the [BeDevil](https://github.com/Bedevil/be.shell) organization, alongside the ones from other users.  
+This repository contains my configs and relative themes for [BE::Shell](http://sourceforge.net/p/be-shell/code/ci/master/tree/).
 
 **Reference**
 
 - [BE::Shell official wiki](https://sourceforge.net/p/be-shell/wiki/browse_pages/)
 - [Qt Stylesheet documentation](http://qt-project.org/doc/qt-4.8/stylesheet-reference.html)
-- [BeDevil wiki](https://github.com/Bedevil/be.shell/wiki)
-
 
 **Important notes** 
 
 - Due to the absolute positioning in BE::Shell themes may need adjustments within the css or the config file
 - Some configurations use external scripts as info providers [e.g. skutter], which need to be installed and configured separately in most of the cases
-- In the instructions below scripts and menus are installed under ~/.local, instead of using the default configuration directory for be.shell. This decision has been made to prevent issues with different kde4 configuration paths  
+- In the instructions below scripts and menus are installed under ~/.local, instead of using the default configuration directory for be.shell. This decision has been made to prevent issues with different kde4 configuration paths
+- In all of my themes i used the [DSP](http://sourceforge.net/p/styleproject/code/ci/master/tree/) Qt style and KWin decoration. Usually a dsp preset is included within the subdir "extra" of the specific theme
 
 **Issues**
 
 - GlobalMenu:
  - Since many asked, in case the applications menubar is not exported in the globalmenu follow the instructions
- [here](https://github.com/Bedevil/be.shell/wiki/Menubar-exportation)
+ [here](https://github.com/Hombremaledicto/be.shell/wiki/Menubar-exportation)
  - In case not even the default entries are shown but the applications *do not* have the menubar visible(after starting BE::Shell), it is most probably due to some value within the theme css (font, padding or margin) than can be easily fixed. Rightclick on the desktop → Themes → Edit Current. Check the values for GMenu.
 - Buttons/TaskBar:
  - Blank icons in taskbar: This is due to the fact that sticky buttons are set for applications you most likely do not have installed. Simply edit the config (rightclick on the desktop → Config → Edit current) and remove their entry in the Buttons list under Type=TaskBar. Then save and reload the config.
@@ -29,7 +28,7 @@ This repository contains my configs and relative themes for [BE::Shell](http://s
 Installation
 ======
 
-Before to proceed, install BE::Shell if you haven't done it yet (instructions on its [wiki](http://sourceforge.net/p/be-shell/wiki/Installation/). As for KDE Plasma5, i also suggest to read [this](https://github.com/Bedevil/be.shell/wiki/BE::Shell-on-kf5) page), then clone this repository:
+Before to proceed, install BE::Shell if you haven't done it yet (instructions on its [wiki](http://sourceforge.net/p/be-shell/wiki/Installation/). As for KDE Plasma5, i also suggest to read [this](https://github.com/Hombremaledicto/be.shell/wiki/BE::Shell-on-KF5) page), then clone this repository:
 
     git clone --recursive https://github.com/Hombremaledicto/be.shell.git
 
@@ -131,11 +130,3 @@ Recommended fonts: Helvetica Neue, Arimo, Nimbus Sans.
 
 
 ![Pandora preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/master/Pictures/Pandora.png "Pandora")
-
-Manhattan
-======
-
-An alternate version of Pandora, featuring transparency + blur.
-This preset *requires* DSP as default Qt style in order to work as expected (all the necessary configs are included under extra/dsp ).
-
-![Manhattan preview](https://raw.githubusercontent.com/Hombremaledicto/be.shell/Manhattan/Pictures/Manhattan.png "Manhattan")
