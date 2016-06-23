@@ -1,6 +1,3 @@
 [submodule "skutter"]
 	path = skutter
-	url = git@github.com:Bedevil/skutter.git
-[submodule "lame"]
-	path = lame
-	url = git@github.com:Bedevil/lame.git
+	url = git@github.com:Hombremaledicto/skutter.git
