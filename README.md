@@ -2,7 +2,7 @@ Description
 ======
 
 This repository contains my configs and relative themes for [BE::Shell](http://sourceforge.net/p/be-shell/code/ci/master/tree/). 
-Check the [gallery](https://github.com/Hombremaledicto/be.shell/wiki/Gallery) to see a preview of the presets available.
+Check the [gallery](https://github.com/JohannesKahl/be.shell/wiki/Gallery) to see a preview of the presets available.
 
 **Reference**
 
@@ -29,9 +29,9 @@ Check the [gallery](https://github.com/Hombremaledicto/be.shell/wiki/Gallery) to
 Installation
 ======
 
-Before to proceed, install BE::Shell if you haven't done it yet (instructions on its [wiki](http://sourceforge.net/p/be-shell/wiki/Installation/). As for KDE Plasma5, i also suggest to read [this](https://github.com/Hombremaledicto/be.shell/wiki/BE::Shell-on-KF5) page), then clone this repository:
+Before to proceed, install BE::Shell if you haven't done it yet (instructions on its [wiki](http://sourceforge.net/p/be-shell/wiki/Installation/). As for KDE Plasma5, i also suggest to read [this](https://github.com/JohannesKahl//be.shell/wiki/BE::Shell-on-KF5) page), then clone this repository:
 
-    git clone --recursive https://github.com/Hombremaledicto/be.shell.git
+    git clone --recursive https://github.com/JohannesKahl/be.shell.git
 
 And enter into the source folder:    
 
