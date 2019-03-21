@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#Generic installation script for BE::Shell themes and configs by Hombremaledicto.
+#Generic installation script for BE::Shell themes and configs.
 #This script should not be executed as root:
 
 if [ "$(id -u)" == "0" ]; then
@@ -66,7 +66,7 @@ printf "\t%s\n" " -r, --reload"
 printf "\t\t\t%s\n" "   Quit from plasma if active or (re)start be.shell"
 printf "\n%s\n" "Special parameters:"
 printf "\n\t %s\n" "--noconfirm       Skip user prompt"
-printf "\n\e[31m%s\e[0m\n\n" "Report issues at https://github.com/Hombremaledicto/be.shell/issues"
+printf "\n\e[31m%s\e[0m\n\n" "Report issues at https://github.com/JohannesKahl/be.shell/issues"
     
 }
 
